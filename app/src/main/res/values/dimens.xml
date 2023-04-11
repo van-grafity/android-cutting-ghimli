@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="medium">22dp</dimen>
+    <dimen name="tiny">8dp</dimen>
+    <dimen name="bottom_sheet_corner_radius">16dp</dimen>
+    <dimen name="bottom_sheet_top_padding">8dp</dimen>
+    <dimen name="space_width">160dp</dimen>
+    <dimen name="space_height">100dp</dimen>
+</resources>

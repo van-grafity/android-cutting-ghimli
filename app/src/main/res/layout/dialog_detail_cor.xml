@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/demo_hold_item"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="280dp"
+        android:layout_marginHorizontal="14dp"
+        android:layout_marginBottom="16dp"
+        android:background="#F5F5F5"
+        android:elevation="8dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TableLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:paddingHorizontal="4dp">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="14dp"
+                        android:text="Fabric Roll"
+                        android:textAppearance="@style/TextAppearance.Light14"
+                        android:textColor="@android:color/tertiary_text_light" />
+
+                    <TextView
+                        android:id="@+id/tv_fabric_roll"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="content_specs_display"
+                        android:textAppearance="@style/TextAppearance.Light14"
+                        android:textColor="@android:color/tertiary_text_light" />
+                </TableRow>
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="6dp" />
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="14dp"
+                        android:text="Fabric Batch"
+                        android:textAppearance="@style/TextAppearance.Light14"
+                        android:textColor="@android:color/tertiary_text_light" />
+
+                    <TextView
+                        android:id="@+id/tv_fabric_batch"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="content_specs_display"
+                        android:textAppearance="@style/TextAppearance.Light14"
+                        android:textColor="@android:color/tertiary_text_light" />
+                </TableRow>
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="6dp" />
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="14dp"
+                        android:text="Color"
+                        android:textAppearance="@style/TextAppearance.Light14"
+                        android:textColor="@android:color/tertiary_text_light" />
+
+                    <TextView
+                        android:id="@+id/tv_color"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="content_specs_display"
+                        android:textAppearance="@style/TextAppearance.Light14"
+                        android:textColor="@android:color/tertiary_text_light" />
+                </TableRow>
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="6dp" />
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="14dp"
+                        android:text="Yardage"
+                        android:textAppearance="@style/TextAppearance.Light14"
+                        android:textColor="@android:color/tertiary_text_light" />
+
+                    <TextView
+                        android:id="@+id/tv_yardage"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="content_specs_display"
+                        android:textAppearance="@style/TextAppearance.Light14"
+                        android:textColor="@android:color/tertiary_text_light" />
+                </TableRow>
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="6dp" />
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="14dp"
+                        android:text="Weight"
+                        android:textAppearance="@style/TextAppearance.Light14"
+                        android:textColor="@android:color/tertiary_text_light" />
+
+                    <TextView
+                        android:id="@+id/tv_weight"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="content_specs_display"
+                        android:textAppearance="@style/TextAppearance.Light14"
+                        android:textColor="@android:color/tertiary_text_light" />
+                </TableRow>
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="6dp" />
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="14dp"
+                        android:text="Layer"
+                        android:textAppearance="@style/TextAppearance.Light14"
+                        android:textColor="@android:color/tertiary_text_light" />
+
+                    <TextView
+                        android:id="@+id/tv_layer"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="content_specs_display"
+                        android:textAppearance="@style/TextAppearance.Light14"
+                        android:textColor="@android:color/tertiary_text_light" />
+                </TableRow>
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="6dp" />
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="14dp"
+                        android:text="Joint"
+                        android:textAppearance="@style/TextAppearance.Light14"
+                        android:textColor="@android:color/tertiary_text_light" />
+
+                    <TextView
+                        android:id="@+id/tv_joint"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="content_specs_display"
+                        android:textAppearance="@style/TextAppearance.Light14"
+                        android:textColor="@android:color/tertiary_text_light" />
+                </TableRow>
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="6dp" />
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="14dp"
+                        android:text="Balance End"
+                        android:textAppearance="@style/TextAppearance.Light14"
+                        android:textColor="@android:color/tertiary_text_light" />
+
+                    <TextView
+                        android:id="@+id/tv_balanceEnd"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="content_specs_display"
+                        android:textAppearance="@style/TextAppearance.Light14"
+                        android:textColor="@android:color/tertiary_text_light" />
+                </TableRow>
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="6dp" />
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="14dp"
+                        android:text="Remark"
+                        android:textAppearance="@style/TextAppearance.Light14"
+                        android:textColor="@android:color/tertiary_text_light" />
+
+                    <TextView
+                        android:id="@+id/tv_remark"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="content_specs_display"
+                        android:textAppearance="@style/TextAppearance.Light14"
+                        android:textColor="@android:color/tertiary_text_light" />
+                </TableRow>
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="6dp" />
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="14dp"
+                        android:text="Operator"
+                        android:textAppearance="@style/TextAppearance.Light14"
+                        android:textColor="@android:color/tertiary_text_light" />
+
+                    <TextView
+                        android:id="@+id/tv_operator"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="content_specs_display"
+                        android:textAppearance="@style/TextAppearance.Light14"
+                        android:textColor="@android:color/tertiary_text_light" />
+                </TableRow>
+            </TableLayout>
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:gravity="center"
+        android:text="Close"
+        android:textAppearance="@style/TextAppearance.Regular18"
+        android:textColor="#FFFFFF" />
+</LinearLayout>

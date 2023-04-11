@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Ghim Li</string>
+
+    <string name="loading">Loading</string>
+    <string name="email_required">Email Required</string>
+    <string name="enter_a_valid_email_address">Enter a valid email address</string>
+    <string name="password_required">Password Required</string>
+    <string name="password__at_least_8_characters"><![CDATA[>Password should be at least 8 characters]]></string>
+    <string name="server_maintenance">Server Maintenance</string>
+    <string name="timeout_message">Request time out</string>
+    <string name="session_over">Session Over</string>
+
+    <string name="sorry">Mohon Maaf</string>
+    <string name="dialog_ok">Ok</string>
+    <string name="no_internet_connection">No connection internet</string>
+    <string name="connected">Connect</string>
+    <string name="not_connected">Not connected</string>
+</resources>
