@@ -243,7 +243,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     public void loadDataCuttingOrderRecord() {
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(HomeActivity.this, LinearLayoutManager.HORIZONTAL, false);
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(HomeActivity.this, 2, LinearLayoutManager.VERTICAL, false);
 
         mItemCuttingOrderRecord = new ArrayList<>();
         cuttingViewModel.getCuttingOrderLiveData(API.getToken(HomeActivity.this)).observe(HomeActivity.this, new Observer<APIResponse>() {
@@ -271,7 +271,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     public void loadDataDepartment() {
-        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(HomeActivity.this, 2, LinearLayoutManager.VERTICAL,false);
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(HomeActivity.this, 2, LinearLayoutManager.VERTICAL, false);
 
         mItemSearchEngine = new ArrayList<>();
         mItemSearchEngine.add(new Department("IT", "https://www.google.com/search?q=", R.drawable.ic_launcher_background));
