@@ -6,11 +6,11 @@ android {
     compileSdk 31
 
     defaultConfig {
-        applicationId "com.app.ivans.ghimli"
+        applicationId "com.app.ivansuhendra.ghimli"
         minSdk 19
         targetSdk 31
         versionCode 3
-        versionName "1.3"
+        versionName "1.4"
         multiDexEnabled true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
