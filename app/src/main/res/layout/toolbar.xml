@@ -79,7 +79,7 @@
             android:textColor="@android:color/black"
             android:textColorHint="#8E8E8E"
             android:textSize="14sp"
-            android:visibility="visible" />
+            android:visibility="gone" />
     </LinearLayout>
 
     <LinearLayout
