@@ -9,21 +9,21 @@ android {
         applicationId "com.app.ivansuhendra.ghimli"
         minSdk 19
         targetSdk 31
-        versionCode 3
-        versionName "1.4"
+        versionCode 4
+        versionName "1.5"
         multiDexEnabled true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
-        release {
-            minifyEnabled true
-            shrinkResources true
+        debug {
+            minifyEnabled false
+            shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             buildConfigField "String", "ROOT_URL", "\"http://202.169.63.45\""
         }
-        debug {
+        release {
             minifyEnabled false
             shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
