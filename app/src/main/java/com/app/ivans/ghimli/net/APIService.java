@@ -54,8 +54,9 @@ public interface APIService {
     @GET("cutting-record-remark")
     Call<APIResponse> getRemarks(@Header("Authorization") String auth);
 
-    @GET("laying-planning/{serial_number}")
-    Call<APIResponse> getLayingPlanningBySerialNumber(@Header("Authorization") String authorization, @Path("serial_number") String serialNumber);
+    @FormUrlEncoded
+    @POST("laying-planning-show")
+    Call<APIResponse> getLayingPlanningBySerialNumber(@Header("Authorization") String authorization, @Field("serial_number") String serialNumber);
 
     @GET("cutting-tickets/{id}")
     Call<APIResponse> getCuttingTicketDetail(@Header("Authorization") String authorization, @Path("id") int id);
