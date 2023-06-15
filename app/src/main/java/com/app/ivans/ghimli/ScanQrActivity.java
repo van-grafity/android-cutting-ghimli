@@ -110,6 +110,7 @@ public class ScanQrActivity extends AppCompatActivity implements OnNetworkListen
                             finish();
                         } else {
                             Toast.makeText(ScanQrActivity.this, "Data not found", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(ScanQrActivity.this, HomeActivity.class));
                         }
 
 //                        if (partStr.equals("CO")) {
