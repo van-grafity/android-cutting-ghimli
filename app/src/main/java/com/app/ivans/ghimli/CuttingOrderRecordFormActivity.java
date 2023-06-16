@@ -121,23 +121,39 @@ public class CuttingOrderRecordFormActivity extends BaseActivity implements Adap
                         Extension.dismissLoading();
                     }
                 });
-                colorName = apiResponse.getData().getLayingPlanningDetail().getLayingPlanning().getColor().getName();
-                yrd = apiResponse.getData().getLayingPlanningDetail().getMarkerYard();
-                inch = apiResponse.getData().getLayingPlanningDetail().getMarkerInch();
-                binding.etColor.setText(colorName);
-                binding.etColor.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Toast.makeText(CuttingOrderRecordFormActivity.this, "Color can't edit", Toast.LENGTH_SHORT).show();
-                    }
-                });
-                binding.etMarkerYard.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Toast.makeText(CuttingOrderRecordFormActivity.this, "Marker yard can't edit", Toast.LENGTH_SHORT).show();
-                    }
-                });
-                binding.etMarkerYard.setText(new DecimalFormat("##.##").format(Double.parseDouble(markerYard(yrd))));
+                if (apiResponse.getStatus() == 404) {
+                    Toast.makeText(CuttingOrderRecordFormActivity.this, "Data "+apiResponse.getMessage(), Toast.LENGTH_SHORT).show();
+//                    AlertDialog alertDialog = new AlertDialog.Builder(CuttingOrderRecordFormActivity.this).create();
+//                    alertDialog.setTitle(getString(R.string.sorry));
+//                    alertDialog.setMessage(apiResponse.getMessage());
+//                    alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.dialog_ok),
+//                            new DialogInterface.OnClickListener() {
+//                                public void onClick(DialogInterface dialog, int which) {
+//                                    dialog.dismiss();
+//                                }
+//                            });
+//                    alertDialog.show();
+//                    finish();
+
+                } else {
+                    colorName = apiResponse.getData().getLayingPlanningDetail().getLayingPlanning().getColor().getName();
+                    yrd = apiResponse.getData().getLayingPlanningDetail().getMarkerYard();
+                    inch = apiResponse.getData().getLayingPlanningDetail().getMarkerInch();
+                    binding.etColor.setText(colorName);
+                    binding.etColor.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Toast.makeText(CuttingOrderRecordFormActivity.this, "Color can't edit", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                    binding.etMarkerYard.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Toast.makeText(CuttingOrderRecordFormActivity.this, "Marker yard can't edit", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                    binding.etMarkerYard.setText(new DecimalFormat("##.##").format(Double.parseDouble(markerYard(yrd))));
+                }
             }
         });
 
