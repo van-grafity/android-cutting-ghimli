@@ -15,6 +15,16 @@ public class CuttingOrderRecord implements Parcelable {
     private ArrayList<CuttingOrderRecordDetail> cuttingOrderRecordDetail;
     @SerializedName("laying_planning_detail")
     private LayingPlanningDetail layingPlanningDetail;
+    @SerializedName("status_layer")
+    private StatusLayer statusLayer;
+
+    public StatusLayer getStatusLayer() {
+        return statusLayer;
+    }
+
+    public void setStatusLayer(StatusLayer statusLayer) {
+        this.statusLayer = statusLayer;
+    }
 
     public LayingPlanningDetail getLayingPlanningDetail() {
         return layingPlanningDetail;

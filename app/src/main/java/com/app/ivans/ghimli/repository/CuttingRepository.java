@@ -158,6 +158,22 @@ public class CuttingRepository {
         return mutableLiveData;
     }
 
+    public LiveData<APIResponse> postStatusCutResponse(String auth, String serialNumber, String status) {
+        final MutableLiveData<APIResponse> mutableLiveData = new MutableLiveData<>();
+        FAPI.service().postStatusCut(auth, serialNumber, status).enqueue(new APICallback<APIResponse>(mContext) {
+            @Override
+            protected void onSuccess(APIResponse apiResponse) {
+                mutableLiveData.setValue(apiResponse);
+            }
+
+            @Override
+            protected void onError(BadRequest error) {
+
+            }
+        });
+        return mutableLiveData;
+    }
+
     public LiveData<APIResponse> getRemarksResponse(String auth) {
         final MutableLiveData<APIResponse> mutableLiveData = new MutableLiveData<>();
         FAPI.service().getRemarks(auth).enqueue(new APICallback<APIResponse>(mContext) {

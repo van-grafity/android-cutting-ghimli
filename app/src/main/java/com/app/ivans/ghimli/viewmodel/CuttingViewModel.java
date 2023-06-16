@@ -51,6 +51,11 @@ public class CuttingViewModel extends ViewModel {
         return productResponseData;
     }
 
+    public LiveData<APIResponse> postStatusCutBySerialNumberLiveData(String auth, String serialNumber, String status) {
+        productResponseData = favoriteRepository.postStatusCutResponse(auth, serialNumber, status);
+        return productResponseData;
+    }
+
     public LiveData<APIResponse> getRemarksLiveData(String auth) {
         productResponseData = favoriteRepository.getRemarksResponse(auth);
         return productResponseData;
