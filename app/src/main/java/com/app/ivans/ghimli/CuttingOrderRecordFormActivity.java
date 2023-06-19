@@ -139,7 +139,7 @@ public class CuttingOrderRecordFormActivity extends BaseActivity implements Adap
 
                     alertDialogBuilder.setTitle(getString(R.string.app_name));
                     alertDialogBuilder
-                            .setMessage("Gelar selesai "+"("+apiResponse.getMessage()+") !"+"\nSudah selesai potong?")
+                            .setMessage("Gelar selesai dengan status "+apiResponse.getMessage()+"."+"\nApakah udah selesai potong?")
                             .setCancelable(true)
                             .setPositiveButton(R.string.done, new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
