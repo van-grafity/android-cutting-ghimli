@@ -30,7 +30,7 @@
             android:layout_width="54dp"
             android:layout_height="40dp"
             android:layout_gravity="center"
-            android:src="@drawable/uc_qr_code_scanner"
+            android:src="@drawable/ic_garment_app"
             android:visibility="gone" />
 
         <TextView
@@ -68,8 +68,10 @@
             android:id="@+id/txtSearch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginRight="24dp"
+            android:layout_marginEnd="24dp"
             android:layout_weight="1"
+            android:gravity="center|left"
+            android:paddingLeft="15px"
             android:background="@drawable/custom_rounded_button_gray"
             android:drawableStart="@drawable/ic_search"
             android:drawableLeft="@drawable/ic_search"

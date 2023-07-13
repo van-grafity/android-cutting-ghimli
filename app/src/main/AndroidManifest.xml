@@ -11,7 +11,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.READ_MEDIA_*"/>
+    <uses-permission android:name="android.permission.READ_MEDIA_*" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
@@ -24,10 +24,16 @@
         android:theme="@style/Theme.GhimLi"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".ResultActivity"
+            android:exported="false" />
+        <activity
             android:name=".CuttingTicketDetailActivity"
             android:exported="false" />
         <activity
             android:name=".CuttingOrderRecordDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SearchActivity"
             android:exported="false" />
         <activity
             android:name=".HomeActivity"

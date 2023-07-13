@@ -174,6 +174,41 @@ public class CuttingRepository {
         return mutableLiveData;
     }
 
+    public LiveData<APIResponse> searchCuttingOrderResponse(String auth, String serialNumber) {
+        final MutableLiveData<APIResponse> mutableLiveData = new MutableLiveData<>();
+        FAPI.service().searchCuttingOrder(auth, serialNumber).enqueue(new APICallback<APIResponse>(mContext) {
+            @Override
+            protected void onSuccess(APIResponse apiResponse) {
+                mutableLiveData.setValue(apiResponse);
+                ((Activity)mContext).runOnUiThread(new Runnable() {
+                    public void run() {
+                        Extension.dismissLoading();
+                    }
+                });
+            }
+
+            @Override
+            protected void onError(BadRequest error) {
+                ((Activity)mContext).runOnUiThread(new Runnable() {
+                    public void run() {
+                        Extension.dismissLoading();
+                    }
+                });
+                AlertDialog alertDialog = new AlertDialog.Builder(mContext).create();
+                alertDialog.setTitle(mContext.getString(R.string.sorry));
+                alertDialog.setMessage(error.errorDetails);
+                alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, mContext.getString(R.string.dialog_ok),
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+                alertDialog.show();
+            }
+        });
+        return mutableLiveData;
+    }
+
     public LiveData<APIResponse> getRemarksResponse(String auth) {
         final MutableLiveData<APIResponse> mutableLiveData = new MutableLiveData<>();
         FAPI.service().getRemarks(auth).enqueue(new APICallback<APIResponse>(mContext) {

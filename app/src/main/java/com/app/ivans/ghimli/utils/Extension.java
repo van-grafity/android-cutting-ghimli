@@ -38,6 +38,8 @@ public class Extension {
     public static final String PREF_TOKEN_KEY = "token";
     public static final String PREF_USER = "pref:user";
     public static final String PREF_USER_KEY = "user";
+    public static final String KEYWORD = "keyword";
+    public static final String HISTORY_DATA = "history_data";
 
     public static void showLoading(final Activity context) {
         try {

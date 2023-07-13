@@ -59,6 +59,10 @@ public interface APIService {
     Call<APIResponse> postStatusCut(@Header("Authorization") String auth, @Field("serial_number") String serialNumber, @Field("name") String status);
 
     @FormUrlEncoded
+    @POST("cutting-orders/search")
+    Call<APIResponse> searchCuttingOrder(@Header("Authorization") String auth, @Field("serial_number") String serialNumber);
+
+    @FormUrlEncoded
     @POST("laying-planning-show")
     Call<APIResponse> getLayingPlanningBySerialNumber(@Header("Authorization") String authorization, @Field("serial_number") String serialNumber);
 

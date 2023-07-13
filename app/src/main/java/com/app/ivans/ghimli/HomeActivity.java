@@ -76,8 +76,20 @@ public class HomeActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(false);
         }
 
-        toolbarBinding.tvTitleLarge.setVisibility(View.VISIBLE);
+        toolbarBinding.tvTitleLarge.setVisibility(View.GONE);
         toolbarBinding.tvTitleLarge.setText("Ghim Li Indonesia");
+        toolbarBinding.ivLogoStore.setVisibility(View.VISIBLE);
+        toolbarBinding.txtSearch.setVisibility(View.VISIBLE);
+
+        toolbarBinding.txtSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                 startActivity(new Intent(getActivity(), SearchActivity.class));
+                startActivity(new Intent(HomeActivity.this, SearchActivity.class));
+
+            }
+        });
+
 //        binding.swipeRefreshLayout.setColorSchemeColors(Color.BLUE, Color.YELLOW, Color.BLUE);
         binding.tvName.setText(API.currentUser(HomeActivity.this).getName());
 
