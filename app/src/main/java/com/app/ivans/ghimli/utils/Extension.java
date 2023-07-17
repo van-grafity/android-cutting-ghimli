@@ -41,6 +41,8 @@ public class Extension {
     public static final String KEYWORD = "keyword";
     public static final String HISTORY_DATA = "history_data";
 
+    public static final String CUTTING_ORDER_RECORD = "cutting_order_record";
+
     public static void showLoading(final Activity context) {
         try {
             dialog = new Dialog(context, R.style.darkPopupAnimation);

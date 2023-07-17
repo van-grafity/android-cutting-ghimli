@@ -59,6 +59,10 @@ public class CuttingOrderRecordAdapter extends RecyclerView.Adapter<CuttingOrder
         void OnClick(View view, int position, CuttingOrderRecord model);
     }
 
+    public void setItems(ArrayList<CuttingOrderRecord> cuttingOrderRecords) {
+        this.mItems = cuttingOrderRecords;
+    }
+
     public static class CuttingOrderRecordViewHolder extends RecyclerView.ViewHolder {
         TextView tvSerialNumber;
         RelativeLayout viewContentSn;

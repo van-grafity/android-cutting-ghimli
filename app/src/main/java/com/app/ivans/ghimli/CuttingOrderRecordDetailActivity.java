@@ -1,19 +1,7 @@
 package com.app.ivans.ghimli;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewbinding.ViewBinding;
-
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -25,18 +13,20 @@ import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.app.ivans.ghimli.adapter.CuttingOrderRecordAdapter;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewbinding.ViewBinding;
+
 import com.app.ivans.ghimli.adapter.FabricStickerAdapter;
 import com.app.ivans.ghimli.base.BaseActivity;
 import com.app.ivans.ghimli.databinding.ActivityCuttingOrderRecordDetailBinding;
-import com.app.ivans.ghimli.databinding.ActivityCuttingOrderRecordFormBinding;
 import com.app.ivans.ghimli.databinding.ToolbarBinding;
-import com.app.ivans.ghimli.model.APIResponse;
 import com.app.ivans.ghimli.model.CuttingOrderRecord;
 import com.app.ivans.ghimli.model.CuttingOrderRecordDetail;
-import com.app.ivans.ghimli.net.API;
 import com.app.ivans.ghimli.utils.Extension;
 import com.app.ivans.ghimli.viewmodel.CuttingViewModel;
 
@@ -73,7 +63,7 @@ public class CuttingOrderRecordDetailActivity extends BaseActivity {
         toolbarBinding.tvTitle.setVisibility(View.VISIBLE);
         mDialog = new Dialog(this);
         cuttingViewModel = new ViewModelProvider(CuttingOrderRecordDetailActivity.this).get(CuttingViewModel.class);
-        mCuttingOrderRecord = (CuttingOrderRecord) getIntent().getParcelableExtra("CUTTING");
+        mCuttingOrderRecord = (CuttingOrderRecord) getIntent().getParcelableExtra(Extension.CUTTING_ORDER_RECORD);
         toolbarBinding.tvTitle.setText(mCuttingOrderRecord.getSerialNumber());
         loadDataStickerFabric();
     }

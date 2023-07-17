@@ -271,7 +271,7 @@ public class HomeActivity extends AppCompatActivity {
                     @Override
                     public void OnClick(View view, int position, CuttingOrderRecord model) {
                         Intent intent = new Intent(HomeActivity.this, CuttingOrderRecordDetailActivity.class);
-                        intent.putExtra("CUTTING", model);
+                        intent.putExtra(Extension.CUTTING_ORDER_RECORD, model);
                         startActivity(intent);
                     }
                 });

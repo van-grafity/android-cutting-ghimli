@@ -116,16 +116,16 @@ public class SearchActivity extends BaseActivity {
                 // binding.wordList api searchCuttingOrderLiveData
                 mCuttingViewModel.searchCuttingOrderLiveData(FAPI.getToken(SearchActivity.this), list.get(i)).observe(SearchActivity.this, apiResponse -> {
                     if (apiResponse != null) {
-                        // if (apiResponse.getCode() == 200) {
-                        //     // binding.wordList api searchCuttingOrderLiveData
-                        //     Intent intent = new Intent(getApplicationContext(), ResultActivity.class);
-                        //     // Send KEYWORD to ResultActivity
-                        //     intent.putExtra(KEYWORD, list.get(i));
-                        //     startActivity(intent);
-                        // } else {
-                        //     Toast.makeText(SearchActivity.this, apiResponse.getMessage(), Toast.LENGTH_SHORT).show();
-                        // }
-                        Toast.makeText(SearchActivity.this, apiResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                         if (apiResponse.getStatus() == 200) {
+                             // binding.wordList api searchCuttingOrderLiveData
+                             Intent intent = new Intent(getApplicationContext(), ResultActivity.class);
+                             // Send KEYWORD to ResultActivity
+                             intent.putExtra(KEYWORD, list.get(i));
+                             startActivity(intent);
+                         } else {
+                             Toast.makeText(SearchActivity.this, apiResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                         }
+//                        Toast.makeText(SearchActivity.this, apiResponse.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -210,20 +210,6 @@ public class SearchActivity extends BaseActivity {
                 // Your piece of code on keyboard search click
                 Intent searchIntent = new Intent(SearchActivity.this, ResultActivity.class);
                 word = toolbarBinding.editQuery.getText().toString().trim();
-                mCuttingViewModel.searchCuttingOrderLiveData(FAPI.getToken(SearchActivity.this), word).observe(SearchActivity.this, apiResponse -> {
-                    if (apiResponse != null) {
-                        // if (apiResponse.getCode() == 200) {
-                        //     // binding.wordList api searchCuttingOrderLiveData
-                        //     Intent intent = new Intent(getApplicationContext(), ResultActivity.class);
-                        //     // Send KEYWORD to ResultActivity
-                        //     intent.putExtra(KEYWORD, list.get(i));
-                        //     startActivity(intent);
-                        // } else {
-                        //     Toast.makeText(SearchActivity.this, apiResponse.getMessage(), Toast.LENGTH_SHORT).show();
-                        // }
-                        Toast.makeText(SearchActivity.this, apiResponse.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
                 // Set Key with its specific key
                 setWord(getApplicationContext(), word, word);
                 searchIntent.putExtra(KEYWORD, word);
