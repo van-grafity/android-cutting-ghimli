@@ -118,7 +118,6 @@ public class CuttingOrderRecordFormActivity extends BaseActivity implements Adap
                     }
                 });
                 if (apiResponse.getData() == null) {
-//                    Toast.makeText(CuttingOrderRecordFormActivity.this, "Data "+apiResponse.getMessage(), Toast.LENGTH_SHORT).show();
                     AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(CuttingOrderRecordFormActivity.this);
 
                     alertDialogBuilder.setTitle(getString(R.string.app_name));
@@ -202,6 +201,59 @@ public class CuttingOrderRecordFormActivity extends BaseActivity implements Adap
                         }
                     });
                     binding.etMarkerYard.setText(new DecimalFormat("##.##").format(Double.parseDouble(markerYard(yrd))));
+                }
+            }
+        });
+
+        binding.etFabricRoll.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                // Tidak perlu melakukan apa-apa sebelum teks berubah
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                // Saat teks berubah, Anda bisa memuat data dari API berdasarkan teks yang baru
+                String searchText = charSequence.toString();
+                loadDataFromApi(searchText);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                // Tidak perlu melakukan apa-apa setelah teks berubah
+            }
+        });
+    }
+
+    private void loadDataFromApi(String searchText) {
+        cuttingViewModel.getLayingPlanningBySerialNumberLiveData(API.getToken(CuttingOrderRecordFormActivity.this), mSerialNumber).observe(CuttingOrderRecordFormActivity.this, new Observer<APIResponse>() {
+            @Override
+            public void onChanged(APIResponse apiResponse) {
+                for (int x = 0; x < apiResponse.getData().getLayingPlanningDetail().getCuttingOrderRecord().getCuttingOrderRecordDetail().size(); x++) {
+                    if (apiResponse.getData().getLayingPlanningDetail().getCuttingOrderRecord().getCuttingOrderRecordDetail().get(x).getFabricRoll().equals(searchText)) {
+                        runOnUiThread(new Runnable() {
+                            public void run() {
+                                Extension.showLoading(CuttingOrderRecordFormActivity.this);
+                            }
+                        });
+                        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(CuttingOrderRecordFormActivity.this);
+                        alertDialogBuilder.setTitle(getString(R.string.app_name));
+                        alertDialogBuilder
+                            .setMessage("Fabric roll sudah ada \nPastikan fabric roll tidak sama")
+                            .setCancelable(true)
+                            .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    binding.etFabricRoll.setText("");
+                                }
+                            });
+                        runOnUiThread(new Runnable() {
+                            public void run() {
+                                Extension.dismissLoading();
+                            }
+                        });
+                        AlertDialog alertDialog = alertDialogBuilder.create();
+                        alertDialog.show();
+                    }
                 }
             }
         });

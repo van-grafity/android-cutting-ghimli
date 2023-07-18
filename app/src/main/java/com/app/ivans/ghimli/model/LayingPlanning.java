@@ -5,6 +5,8 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+
 public class LayingPlanning implements Parcelable {
     private int id;
     @SerializedName("serial_number")
@@ -29,6 +31,9 @@ public class LayingPlanning implements Parcelable {
     private double fabricConsQty;
     @SerializedName("fabric_cons_desc")
     private String fabricConsDesc;
+
+//    @SerializedName("laying_planning_detail")
+//    private ArrayList<LayingPlanningDetail> layingPlanningDetails;
 
     public int getId() {
         return id;
