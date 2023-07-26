@@ -49,7 +49,7 @@ public class API {
 
         Retrofit retrofit = new Retrofit.Builder()
                 .client(okHttpClient)
-                .baseUrl(BuildConfig.ROOT_URL + "/cutting-ticket-app/public" + "/api/")
+                .baseUrl("http://192.168.5.47" + "/cutting-ticket-app/public" + "/api/")
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
         return retrofit.create(APIService.class);

@@ -133,7 +133,7 @@ public class CuttingOrderRecordFormActivity extends BaseActivity implements Adap
 
                     AlertDialog alertDialog = alertDialogBuilder.create();
                     alertDialog.show();
-                } else if (apiResponse.getData().getLayingPlanningDetail().getCuttingOrderRecord().getStatusLayer().getName().equals("completed") || apiResponse.getData().getLayingPlanningDetail().getCuttingOrderRecord().getStatusLayer().getName().equals("over layer")) {
+                } else if (apiResponse.getData().getCuttingOrderRecord().getStatusLayer().getName().equals("completed") || apiResponse.getData().getCuttingOrderRecord().getStatusLayer().getName().equals("over layer")) {
                     AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(CuttingOrderRecordFormActivity.this);
 
                     alertDialogBuilder.setTitle(getString(R.string.app_name));
@@ -181,9 +181,9 @@ public class CuttingOrderRecordFormActivity extends BaseActivity implements Adap
                     nameUser = API.currentUser(CuttingOrderRecordFormActivity.this).getName();
                     binding.etOperator.setText(nameUser);
 
-                    colorName = apiResponse.getData().getLayingPlanningDetail().getLayingPlanning().getColor().getName();
-                    yrd = apiResponse.getData().getLayingPlanningDetail().getMarkerYard();
-                    inch = apiResponse.getData().getLayingPlanningDetail().getMarkerInch();
+                    colorName = apiResponse.getData().getCuttingOrderRecord().getLayingPlanningDetail().getLayingPlanning().getColor().getName();
+                    yrd = apiResponse.getData().getCuttingOrderRecord().getLayingPlanningDetail().getMarkerYard();
+                    inch = apiResponse.getData().getCuttingOrderRecord().getLayingPlanningDetail().getMarkerInch();
                     binding.etColor.setText(colorName);
 
                     loadDataRemarks();
@@ -229,8 +229,8 @@ public class CuttingOrderRecordFormActivity extends BaseActivity implements Adap
         cuttingViewModel.getLayingPlanningBySerialNumberLiveData(API.getToken(CuttingOrderRecordFormActivity.this), mSerialNumber).observe(CuttingOrderRecordFormActivity.this, new Observer<APIResponse>() {
             @Override
             public void onChanged(APIResponse apiResponse) {
-                for (int x = 0; x < apiResponse.getData().getLayingPlanningDetail().getCuttingOrderRecord().getCuttingOrderRecordDetail().size(); x++) {
-                    if (apiResponse.getData().getLayingPlanningDetail().getCuttingOrderRecord().getCuttingOrderRecordDetail().get(x).getFabricRoll().equals(searchText)) {
+                for (int x = 0; x < apiResponse.getData().getCuttingOrderRecord().getCuttingOrderRecordDetail().size(); x++) {
+                    if (apiResponse.getData().getCuttingOrderRecord().getCuttingOrderRecordDetail().get(x).getFabricRoll().equals(searchText)) {
                         runOnUiThread(new Runnable() {
                             public void run() {
                                 Extension.showLoading(CuttingOrderRecordFormActivity.this);

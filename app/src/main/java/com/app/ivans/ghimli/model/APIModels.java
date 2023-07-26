@@ -16,6 +16,9 @@ public class APIModels {
     private ArrayList<Color> colors;
     @SerializedName("cutting_order_record")
     private ArrayList<CuttingOrderRecord> cuttingOrderRecords;
+
+    @SerializedName("cutting_order_record")
+    private CuttingOrderRecord cuttingOrderRecord;
     @SerializedName("cutting_order_record_detail")
     private ArrayList<CuttingOrderRecord> cuttingOrderRecordDetails;
     @SerializedName("laying_planning_detail")
@@ -24,6 +27,14 @@ public class APIModels {
     private ArrayList<CuttingRecordRemark> cuttingRecordRemarks;
     @SerializedName("cutting_ticket")
     private CuttingTicket cuttingTicket;
+
+    public CuttingOrderRecord getCuttingOrderRecord() {
+        return cuttingOrderRecord;
+    }
+
+    public void setCuttingOrderRecord(CuttingOrderRecord cuttingOrderRecord) {
+        this.cuttingOrderRecord = cuttingOrderRecord;
+    }
 
     public CuttingTicket getCuttingTicket() {
         return cuttingTicket;
