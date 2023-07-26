@@ -9,6 +9,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 
 import com.app.ivans.ghimli.BuildConfig;
 import com.app.ivans.ghimli.HomeActivity;
@@ -49,7 +50,7 @@ public class API {
 
         Retrofit retrofit = new Retrofit.Builder()
                 .client(okHttpClient)
-                .baseUrl("http://192.168.5.47" + "/cutting-ticket-app/public" + "/api/")
+                .baseUrl(BuildConfig.ROOT_URL + "/cutting-ticket-app/public" + "/api/")
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
         return retrofit.create(APIService.class);

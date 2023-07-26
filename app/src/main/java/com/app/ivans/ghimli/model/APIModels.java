@@ -17,7 +17,7 @@ public class APIModels {
     @SerializedName("cutting_order_record")
     private ArrayList<CuttingOrderRecord> cuttingOrderRecords;
 
-    @SerializedName("cutting_order_record")
+    @SerializedName("cutting_order_record_obj")
     private CuttingOrderRecord cuttingOrderRecord;
     @SerializedName("cutting_order_record_detail")
     private ArrayList<CuttingOrderRecord> cuttingOrderRecordDetails;
