@@ -27,6 +27,16 @@ public class APIModels {
     private ArrayList<CuttingRecordRemark> cuttingRecordRemarks;
     @SerializedName("cutting_ticket")
     private CuttingTicket cuttingTicket;
+    @SerializedName("current_page")
+    private int currentPage;
+    @SerializedName("last_page")
+    private int lastPage;
+    @SerializedName("prev_page_url")
+    private String prevPageUrl;
+    @SerializedName("next_page_url")
+    private String nextPageUrl;
+    @SerializedName("total")
+    private int totalPage;
 
     public CuttingOrderRecord getCuttingOrderRecord() {
         return cuttingOrderRecord;

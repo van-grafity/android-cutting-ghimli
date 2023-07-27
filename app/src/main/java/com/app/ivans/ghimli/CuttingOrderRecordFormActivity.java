@@ -24,6 +24,7 @@ import com.app.ivans.ghimli.base.BaseActivity;
 import com.app.ivans.ghimli.databinding.ActivityCuttingOrderRecordFormBinding;
 import com.app.ivans.ghimli.databinding.ToolbarBinding;
 import com.app.ivans.ghimli.model.APIResponse;
+import com.app.ivans.ghimli.model.CuttingOrderRecordDetail;
 import com.app.ivans.ghimli.model.CuttingRecordRemark;
 import com.app.ivans.ghimli.net.API;
 import com.app.ivans.ghimli.utils.Extension;
@@ -230,29 +231,37 @@ public class CuttingOrderRecordFormActivity extends BaseActivity implements Adap
             @Override
             public void onChanged(APIResponse apiResponse) {
                 for (int x = 0; x < apiResponse.getData().getCuttingOrderRecord().getCuttingOrderRecordDetail().size(); x++) {
-                    if (apiResponse.getData().getCuttingOrderRecord().getCuttingOrderRecordDetail().get(x).getFabricRoll().equals(searchText)) {
+                    CuttingOrderRecordDetail detail = apiResponse.getData().getCuttingOrderRecord().getCuttingOrderRecordDetail().get(x);
+
+                    // Memeriksa apakah fabric roll sama dengan searchText dan fabric batch juga sama
+                    if (detail.getFabricRoll().equals(searchText) && detail.getFabricBatch().equals(binding.etFabricBatch.getText().toString())) {
                         runOnUiThread(new Runnable() {
                             public void run() {
                                 Extension.showLoading(CuttingOrderRecordFormActivity.this);
                             }
                         });
+
                         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(CuttingOrderRecordFormActivity.this);
                         alertDialogBuilder.setTitle(getString(R.string.app_name));
                         alertDialogBuilder
-                            .setMessage("Fabric roll sudah ada \nPastikan fabric roll tidak sama")
-                            .setCancelable(true)
-                            .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                    binding.etFabricRoll.setText("");
-                                }
-                            });
+                                .setMessage("Fabric roll sudah ada dengan fabric batch yang sama.\nPastikan fabric roll tidak sama.")
+                                .setCancelable(true)
+                                .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        binding.etFabricRoll.setText("");
+                                    }
+                                });
+
                         runOnUiThread(new Runnable() {
                             public void run() {
                                 Extension.dismissLoading();
                             }
                         });
+
                         AlertDialog alertDialog = alertDialogBuilder.create();
                         alertDialog.show();
+
+                        break; // Tambahkan break untuk menghentikan iterasi setelah menemukan kesamaan
                     }
                 }
             }
