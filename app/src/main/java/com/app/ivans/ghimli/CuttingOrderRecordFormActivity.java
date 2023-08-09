@@ -124,7 +124,7 @@ public class CuttingOrderRecordFormActivity extends BaseActivity implements Adap
                     alertDialogBuilder.setTitle(getString(R.string.app_name));
                     alertDialogBuilder
                             .setMessage(apiResponse.getMessage())
-                            .setCancelable(true)
+                            .setCancelable(false)
                             .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
                                     startActivity(new Intent(CuttingOrderRecordFormActivity.this, ScanQrActivity.class));
@@ -133,6 +133,7 @@ public class CuttingOrderRecordFormActivity extends BaseActivity implements Adap
                             });
 
                     AlertDialog alertDialog = alertDialogBuilder.create();
+                    alertDialog.setCanceledOnTouchOutside(false);
                     alertDialog.show();
                 } else if (apiResponse.getData().getCuttingOrderRecord().getStatusLayer().getName().equals("completed") || apiResponse.getData().getCuttingOrderRecord().getStatusLayer().getName().equals("over layer")) {
                     AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(CuttingOrderRecordFormActivity.this);
