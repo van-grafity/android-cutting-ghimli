@@ -337,7 +337,24 @@ public class CuttingOrderRecordFormActivity extends BaseActivity implements Adap
                                 Extension.dismissLoading();
                             }
                         });
-                        if (apiResponse.getStatus() != 500) {
+
+                        if (apiResponse.getData() == null) {
+                            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(CuttingOrderRecordFormActivity.this);
+
+                            alertDialogBuilder.setTitle(getString(R.string.app_name));
+                            alertDialogBuilder
+                                    .setMessage(apiResponse.getMessage())
+                                    .setCancelable(false)
+                                    .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int id) {
+                                            dialog.dismiss();
+                                        }
+                                    });
+
+                            AlertDialog alertDialog = alertDialogBuilder.create();
+                            alertDialog.setCanceledOnTouchOutside(false);
+                            alertDialog.show();
+                        } else {
                             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(CuttingOrderRecordFormActivity.this);
 
                             alertDialogBuilder.setTitle(getString(R.string.app_name));
