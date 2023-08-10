@@ -58,7 +58,7 @@ public class HomeActivity extends AppCompatActivity {
     private ArrayList<Department> mItemSearchEngine;
     private ArrayList<CuttingOrderRecord> mItemCuttingOrderRecord;
     private CuttingViewModel cuttingViewModel;
-
+    private RecyclerView.LayoutManager layoutManager;
     ArrayList<Integer> mItems = new ArrayList<>();
 
     private LineDataSet totalsDataSet;
@@ -82,10 +82,13 @@ public class HomeActivity extends AppCompatActivity {
         mIsPortrait = getResources().getBoolean(R.bool.portrait_only);
 //        if(mIsPortrait){
 //            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+//            layoutManager = new GridLayoutManager(HomeActivity.this, 2, LinearLayoutManager.VERTICAL, false);
 //        }
 //        else{
 //            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
+//            layoutManager = new GridLayoutManager(HomeActivity.this, 3, LinearLayoutManager.VERTICAL, false);
 //        }
+        layoutManager = new GridLayoutManager(HomeActivity.this, 2, LinearLayoutManager.VERTICAL, false);
 
         toolbarBinding.tvTitleLarge.setVisibility(View.GONE);
         toolbarBinding.tvTitleLarge.setText("Ghim Li Indonesia");
@@ -266,8 +269,6 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     public void loadDataCuttingOrderRecord() {
-        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(HomeActivity.this, 2, LinearLayoutManager.VERTICAL, false);
-
         mItemCuttingOrderRecord = new ArrayList<>();
         runOnUiThread(new Runnable() {
             public void run() {

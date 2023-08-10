@@ -363,7 +363,6 @@ public class CuttingOrderRecordFormActivity extends BaseActivity implements Adap
                                     .setCancelable(true)
                                     .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int id) {
-                                            startActivity(new Intent());
                                             Intent intent = new Intent(CuttingOrderRecordFormActivity.this, HomeActivity.class);
                                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                                             startActivity(intent);

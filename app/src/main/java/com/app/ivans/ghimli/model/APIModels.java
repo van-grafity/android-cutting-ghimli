@@ -14,12 +14,11 @@ public class APIModels {
     private ArrayList<FGL> FGL;
     @SerializedName("colors")
     private ArrayList<Color> colors;
-    @SerializedName("cutting_order_record")
+    @SerializedName("cutting_order_records")
     private ArrayList<CuttingOrderRecord> cuttingOrderRecords;
-
-    @SerializedName("cutting_order_record_obj")
+    @SerializedName("cutting_order_record")
     private CuttingOrderRecord cuttingOrderRecord;
-    @SerializedName("cutting_order_record_detail")
+    @SerializedName("cutting_order_record_details")
     private ArrayList<CuttingOrderRecord> cuttingOrderRecordDetails;
     @SerializedName("laying_planning_detail")
     private LayingPlanningDetail layingPlanningDetail;
