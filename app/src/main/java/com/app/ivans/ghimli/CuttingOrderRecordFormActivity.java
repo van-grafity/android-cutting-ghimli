@@ -363,10 +363,59 @@ public class CuttingOrderRecordFormActivity extends BaseActivity implements Adap
                                     .setCancelable(true)
                                     .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int id) {
-                                            Intent intent = new Intent(CuttingOrderRecordFormActivity.this, HomeActivity.class);
-                                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                                            startActivity(intent);
-                                            finish();
+                                            if (apiResponse.getData().getCuttingOrderRecord().getStatusLayer().getName().equals("completed")){
+                                                // alert dialog scan ulang untuk status potong
+                                                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(CuttingOrderRecordFormActivity.this);
+
+                                                alertDialogBuilder.setTitle(getString(R.string.app_name));
+                                                alertDialogBuilder
+                                                        .setMessage("Layer sudah selesai dikerjakan, dengan status " + apiResponse.getData().getCuttingOrderRecord().getStatusLayer())
+                                                        .setCancelable(true)
+                                                        .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+                                                            public void onClick(DialogInterface dialog, int id) {
+                                                                Intent intent = new Intent(CuttingOrderRecordFormActivity.this, HomeActivity.class);
+                                                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                                                startActivity(intent);
+                                                                finish();
+                                                            }
+                                                        });
+
+                                                AlertDialog alertDialog = alertDialogBuilder.create();
+                                                alertDialog.show();
+                                            } else {
+                                                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(CuttingOrderRecordFormActivity.this);
+
+                                                alertDialogBuilder.setTitle(getString(R.string.app_name));
+                                                alertDialogBuilder
+                                                        .setMessage("Apakah anda ingin melanjutkan input data?")
+                                                        .setCancelable(true)
+                                                        .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+                                                            public void onClick(DialogInterface dialog, int id) {
+//                                                            binding.etFabricRoll.setText("");
+//                                                            binding.etFabricBatch.setText("");
+                                                                binding.etYardage.setText("");
+                                                                binding.etWeight.setText("");
+                                                                binding.etLayer.setText("");
+                                                                binding.etJoint.setText("");
+                                                                binding.etBalanceEnd.setText("");
+                                                                binding.etFabricRoll.requestFocus();
+                                                            }
+                                                        })
+                                                        .setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
+                                                            @Override
+                                                            public void onClick(DialogInterface dialogInterface, int i) {
+                                                                Intent intent = new Intent(CuttingOrderRecordFormActivity.this, HomeActivity.class);
+                                                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                                                startActivity(intent);
+                                                                finish();
+                                                            }
+                                                        });
+
+                                                AlertDialog alertDialog = alertDialogBuilder.create();
+                                                alertDialog.setCanceledOnTouchOutside(false);
+                                                alertDialog.show();
+                                            }
+
                                         }
                                     });
 
