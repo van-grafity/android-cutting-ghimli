@@ -289,7 +289,7 @@ public class HomeActivity extends AppCompatActivity {
                                 startActivity(intent);
                             }
                         });
-
+                        binding.rvCuttingOrderRecord.setHasFixedSize(true);
                         binding.rvCuttingOrderRecord.setLayoutManager(layoutManager);
                         binding.rvCuttingOrderRecord.setAdapter(cuttingOrderRecordAdapter);
                     }
