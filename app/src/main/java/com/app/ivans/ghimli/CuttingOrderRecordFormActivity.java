@@ -364,12 +364,10 @@ public class CuttingOrderRecordFormActivity extends BaseActivity implements Adap
                                     .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int id) {
                                             if (apiResponse.getData().getCuttingOrderRecord().getStatusLayer().getName().equals("completed")){
-                                                // alert dialog scan ulang untuk status potong
                                                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(CuttingOrderRecordFormActivity.this);
-
                                                 alertDialogBuilder.setTitle(getString(R.string.app_name));
                                                 alertDialogBuilder
-                                                        .setMessage("Layer sudah selesai dikerjakan, dengan status " + apiResponse.getData().getCuttingOrderRecord().getStatusLayer())
+                                                        .setMessage("Layer sudah selesai dikerjakan, dengan status " + apiResponse.getData().getCuttingOrderRecord().getStatusLayer().getName() + "\nScan ulang untuk mulai potong")
                                                         .setCancelable(true)
                                                         .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
                                                             public void onClick(DialogInterface dialog, int id) {
@@ -381,6 +379,7 @@ public class CuttingOrderRecordFormActivity extends BaseActivity implements Adap
                                                         });
 
                                                 AlertDialog alertDialog = alertDialogBuilder.create();
+                                                alertDialog.setCanceledOnTouchOutside(false);
                                                 alertDialog.show();
                                             } else {
                                                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(CuttingOrderRecordFormActivity.this);
