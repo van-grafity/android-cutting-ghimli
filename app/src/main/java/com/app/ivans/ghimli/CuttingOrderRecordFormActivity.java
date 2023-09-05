@@ -1,39 +1,55 @@
 package com.app.ivans.ghimli;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewbinding.ViewBinding;
 
 import com.app.ivans.ghimli.adapter.ColorAdapter;
+import com.app.ivans.ghimli.adapter.CommentAdapter;
 import com.app.ivans.ghimli.base.BaseActivity;
 import com.app.ivans.ghimli.databinding.ActivityCuttingOrderRecordFormBinding;
 import com.app.ivans.ghimli.databinding.ToolbarBinding;
 import com.app.ivans.ghimli.model.APIResponse;
+import com.app.ivans.ghimli.model.Comment;
 import com.app.ivans.ghimli.model.CuttingOrderRecordDetail;
 import com.app.ivans.ghimli.model.CuttingRecordRemark;
 import com.app.ivans.ghimli.net.API;
 import com.app.ivans.ghimli.utils.Extension;
 import com.app.ivans.ghimli.viewmodel.CuttingViewModel;
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
-public class CuttingOrderRecordFormActivity extends BaseActivity implements AdapterView.OnItemSelectedListener {
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
+public class CuttingOrderRecordFormActivity extends BaseActivity implements AdapterView.OnItemSelectedListener, CommentContentBottomSheetDialog.ItemClickListener {
     private static final String TAG = "CuttingLayingSheetFormActivity";
     private ActivityCuttingOrderRecordFormBinding binding;
     private CuttingViewModel cuttingViewModel;
@@ -43,6 +59,7 @@ public class CuttingOrderRecordFormActivity extends BaseActivity implements Adap
     private ArrayList<String> items;
     private double inch;
     private String nameUser;
+    CommentContentBottomSheetDialog commentContentBottomSheetDialog;
 
     private double yrd;
     private ArrayAdapter<String> remarks;
@@ -53,6 +70,7 @@ public class CuttingOrderRecordFormActivity extends BaseActivity implements Adap
     protected ViewBinding createViewBinding(LayoutInflater layoutInflater) {
         binding = ActivityCuttingOrderRecordFormBinding.inflate(layoutInflater);
         toolbarBinding = binding.toolbar;
+
         return binding;
     }
 
@@ -65,7 +83,6 @@ public class CuttingOrderRecordFormActivity extends BaseActivity implements Adap
             actionBar.setDisplayShowTitleEnabled(false);
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
-
         toolbarBinding.tvTitle.setVisibility(View.VISIBLE);
         toolbarBinding.tvTitle.setText("Cutting Order Record");
 
@@ -84,7 +101,7 @@ public class CuttingOrderRecordFormActivity extends BaseActivity implements Adap
                 });
             }
         }
-
+        commentContentBottomSheetDialog = CommentContentBottomSheetDialog.newInstance();
         cuttingViewModel = new ViewModelProvider(CuttingOrderRecordFormActivity.this).get(CuttingViewModel.class);
 
         binding.etOperator.setOnClickListener(new View.OnClickListener() {
@@ -102,6 +119,13 @@ public class CuttingOrderRecordFormActivity extends BaseActivity implements Adap
         binding.etYardage.addTextChangedListener(mTextWatcher);
 
         submit();
+
+        binding.ivComment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showComment();
+            }
+        });
     }
 
     private void getInitData() {
@@ -427,6 +451,12 @@ public class CuttingOrderRecordFormActivity extends BaseActivity implements Adap
         });
     }
 
+    void showComment() {
+        if (commentContentBottomSheetDialog.isAdded() == true) return;
+
+        commentContentBottomSheetDialog.show(getSupportFragmentManager(), "CommentPages");
+    }
+
     public TextWatcher mTextWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
@@ -534,5 +564,11 @@ public class CuttingOrderRecordFormActivity extends BaseActivity implements Adap
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
 
+    }
+
+
+    @Override
+    public void onItemClick(String item) {
+        Log.i("DetailPopularActivity", "onItemClick: " + item);
     }
 }
