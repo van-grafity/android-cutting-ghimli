@@ -16,9 +16,6 @@ import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
 public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentViewHolder> {
     private Context mContext;
     private ArrayList<Comment> mItems;
@@ -65,18 +62,18 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
     }
 
     public static class CommentViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.ivProfile)
         ImageView ivProfile;
-        @BindView(R.id.tvName)
         TextView tvName;
-        @BindView(R.id.tvCurrentTime)
         TextView tvCurrentTime;
-        @BindView(R.id.tvDesciption)
         TextView tvDesciption;
 
         public CommentViewHolder(@NonNull View itemView) {
             super(itemView);
-            ButterKnife.bind(this, itemView);
+            ivProfile = itemView.findViewById(R.id.ivProfile);
+            tvName = itemView.findViewById(R.id.tvName);
+            tvCurrentTime = itemView.findViewById(R.id.tvCurrentTime);
+            tvDesciption = itemView.findViewById(R.id.tvDesciption);
+
         }
     }
 }

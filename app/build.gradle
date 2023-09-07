@@ -22,14 +22,14 @@ android {
             shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
 //            buildConfigField "String", "ROOT_URL", "\"http://202.169.63.44\""
-            buildConfigField "String", "ROOT_URL", "\"http://192.168.88.13\""
+            buildConfigField "String", "ROOT_URL", "\"http://192.168.5.47\""
         }
         release {
             minifyEnabled false
             shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
 //            buildConfigField "String", "ROOT_URL", "\"http://202.169.63.44\""
-            buildConfigField "String", "ROOT_URL", "\"http://192.168.88.13\""
+            buildConfigField "String", "ROOT_URL", "\"http://192.168.5.47\""
         }
     }
     compileOptions {
@@ -84,8 +84,5 @@ dependencies {
 
     implementation 'com.karumi:dexter:5.0.0'
     implementation 'com.github.rosenpin:fading-text-view:3.0'
-
-    annotationProcessor 'com.jakewharton:butterknife-compiler:10.0.0'
-    implementation 'com.jakewharton:butterknife:10.0.0'
 
 }

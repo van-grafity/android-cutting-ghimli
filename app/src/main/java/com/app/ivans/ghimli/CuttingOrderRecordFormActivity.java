@@ -1,8 +1,6 @@
 package com.app.ivans.ghimli;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,42 +10,29 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewbinding.ViewBinding;
 
 import com.app.ivans.ghimli.adapter.ColorAdapter;
-import com.app.ivans.ghimli.adapter.CommentAdapter;
 import com.app.ivans.ghimli.base.BaseActivity;
 import com.app.ivans.ghimli.databinding.ActivityCuttingOrderRecordFormBinding;
 import com.app.ivans.ghimli.databinding.ToolbarBinding;
 import com.app.ivans.ghimli.model.APIResponse;
-import com.app.ivans.ghimli.model.Comment;
 import com.app.ivans.ghimli.model.CuttingOrderRecordDetail;
 import com.app.ivans.ghimli.model.CuttingRecordRemark;
 import com.app.ivans.ghimli.net.API;
 import com.app.ivans.ghimli.utils.Extension;
 import com.app.ivans.ghimli.viewmodel.CuttingViewModel;
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public class CuttingOrderRecordFormActivity extends BaseActivity implements AdapterView.OnItemSelectedListener, CommentContentBottomSheetDialog.ItemClickListener {
     private static final String TAG = "CuttingLayingSheetFormActivity";
@@ -164,7 +149,7 @@ public class CuttingOrderRecordFormActivity extends BaseActivity implements Adap
 
                     alertDialogBuilder.setTitle(getString(R.string.app_name));
                     alertDialogBuilder
-                            .setMessage("Gelar selesai dengan status "+apiResponse.getMessage()+"."+"\nApakah udah selesai potong?")
+                            .setMessage("Gelar selesai dengan status " + apiResponse.getMessage() + "." + "\nApakah udah selesai potong?")
                             .setCancelable(false)
                             .setPositiveButton(R.string.done, new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
@@ -184,7 +169,7 @@ public class CuttingOrderRecordFormActivity extends BaseActivity implements Adap
                             }).setNeutralButton(R.string.cancel, new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
                                     Intent intent = new Intent(CuttingOrderRecordFormActivity.this, ScanQrActivity.class);
-                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                                     startActivity(intent);
                                     finish();
                                 }
@@ -387,7 +372,7 @@ public class CuttingOrderRecordFormActivity extends BaseActivity implements Adap
                                     .setCancelable(true)
                                     .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int id) {
-                                            if (apiResponse.getData().getCuttingOrderRecord().getStatusLayer().getName().equals("completed")){
+                                            if (apiResponse.getData().getCuttingOrderRecord().getStatusLayer().getName().equals("completed")) {
                                                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(CuttingOrderRecordFormActivity.this);
                                                 alertDialogBuilder.setTitle(getString(R.string.app_name));
                                                 alertDialogBuilder
