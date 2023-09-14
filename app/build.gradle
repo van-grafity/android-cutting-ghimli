@@ -22,14 +22,14 @@ android {
             shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
 //            buildConfigField "String", "ROOT_URL", "\"http://202.169.63.44\""
-            buildConfigField "String", "ROOT_URL", "\"http://192.168.5.47\""
+            buildConfigField "String", "ROOT_URL", "\"http://192.168.45.32\""
         }
         release {
             minifyEnabled false
             shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
 //            buildConfigField "String", "ROOT_URL", "\"http://202.169.63.44\""
-            buildConfigField "String", "ROOT_URL", "\"http://192.168.5.47\""
+            buildConfigField "String", "ROOT_URL", "\"http://192.168.45.32\""
         }
     }
     compileOptions {

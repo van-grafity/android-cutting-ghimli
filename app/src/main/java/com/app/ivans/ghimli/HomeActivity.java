@@ -1,6 +1,7 @@
 package com.app.ivans.ghimli;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -16,8 +17,12 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.paging.DataSource;
+import androidx.paging.PageKeyedDataSource;
+import androidx.paging.PagedList;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -32,6 +37,10 @@ import com.app.ivans.ghimli.model.CuttingOrderRecord;
 import com.app.ivans.ghimli.model.Department;
 import com.app.ivans.ghimli.model.FGL;
 import com.app.ivans.ghimli.net.API;
+import com.app.ivans.ghimli.net.APICallback;
+import com.app.ivans.ghimli.net.BadRequest;
+import com.app.ivans.ghimli.net.CuttingOrderRecordDataSource;
+import com.app.ivans.ghimli.net.FAPI;
 import com.app.ivans.ghimli.utils.BannerImageLoader;
 import com.app.ivans.ghimli.utils.Extension;
 import com.app.ivans.ghimli.viewmodel.CuttingViewModel;
@@ -268,35 +277,140 @@ public class HomeActivity extends AppCompatActivity {
         return data;
     }
 
+//    public class CuttingOrderRecordDataSource extends PageKeyedDataSource<Integer, CuttingOrderRecord> {
+//        private static final int FIRST_PAGE = 1;
+//        public static final int PAGE_SIZE = 10;
+//        private Context mContext;
+//        private String mAuth;
+//
+//        public CuttingOrderRecordDataSource(Context context, String auth) {
+//            this.mContext = context;
+//            this.mAuth = auth;
+//
+//        }
+//
+//        @Override
+//        public void loadInitial(@NonNull LoadInitialParams<Integer> params, @NonNull final LoadInitialCallback<Integer, CuttingOrderRecord> callback) {
+//            FAPI.service().getCuttingOrder(mAuth, FIRST_PAGE).enqueue(new APICallback<APIResponse>(mContext) {
+//                @Override
+//                public void onSuccess(APIResponse apiResponse) {
+//                    if (apiResponse != null) {
+//                        callback.onResult(apiResponse.getData().getCuttingOrderRecords(), null, FIRST_PAGE + 1);
+//                    }
+//                }
+//
+//                @Override
+//                protected void onError(BadRequest error) {
+//                    Log.v("onFailure", "Failed to get Products");
+//                }
+//            });
+//        }
+//
+//        @Override
+//        public void loadBefore(@NonNull final LoadParams<Integer> params, @NonNull final LoadCallback<Integer, CuttingOrderRecord> callback) {
+//            FAPI.service().getCuttingOrder(mAuth, params.key).enqueue(new APICallback<APIResponse>(mContext) {
+//                @Override
+//                public void onSuccess(APIResponse apiResponse) {
+//                    if (apiResponse != null) {
+//                        Integer key = (params.key > 1) ? params.key - 1 : null;
+//                        callback.onResult(apiResponse.getData().getCuttingOrderRecords(), key);
+//                    }
+//                }
+//
+//                @Override
+//                protected void onError(BadRequest error) {
+//                    Log.v("onFailure", "Failed to get Products");
+//                }
+//            });
+//        }
+//
+//        @Override
+//        public void loadAfter(@NonNull final LoadParams<Integer> params, @NonNull final LoadCallback<Integer, CuttingOrderRecord> callback) {
+//            FAPI.service().getCuttingOrder(mAuth, params.key).enqueue(new APICallback<APIResponse>(mContext) {
+//                @Override
+//                public void onSuccess(APIResponse apiResponse) {
+//                    if (apiResponse != null) {
+//                        Integer key = (params.key < apiResponse.getData().getLastPage()) ? params.key + 1 : null;
+//                        callback.onResult(apiResponse.getData().getCuttingOrderRecords(), key);
+//                    }
+//                }
+//
+//                @Override
+//                protected void onError(BadRequest error) {
+//                    Log.v("onFailure", "Failed to get Products");
+//                }
+//            });
+//        }
+//    }
+
+//    public class CuttingOrderRecordDataSourceFactory extends DataSource.Factory {
+//
+//        // Creating the mutable live database
+//        private MutableLiveData<PageKeyedDataSource<Integer, CuttingOrderRecord>> productLiveDataSource = new MutableLiveData<>();
+//
+//        public static CuttingOrderRecordDataSource cuttingOrderRecordDataSource;
+//
+//        private Context mContext;
+//        private String mAuth;
+//
+//        public CuttingOrderRecordDataSourceFactory(Context context, String auth) {
+//            this.mContext = context;
+//            this.mAuth = auth;
+//
+//        }
+//
+//        @Override
+//        public DataSource<Integer, CuttingOrderRecord> create() {
+//            // Getting our Data source object
+//            cuttingOrderRecordDataSource = new CuttingOrderRecordDataSource(mContext, mAuth);
+//
+//            // Posting the Data source to get the values
+//            productLiveDataSource.postValue(cuttingOrderRecordDataSource);
+//
+//            // Returning the Data source
+//            return cuttingOrderRecordDataSource;
+//        }
+//
+//
+//        // Getter for Product live DataSource
+//        public MutableLiveData<PageKeyedDataSource<Integer, CuttingOrderRecord>> getMutableLiveData() {
+//            return productLiveDataSource;
+//        }
+//    }
+
+// public void loadCuttingOrder(String auth, Context context) {
+//     CuttingOrderRecordDataSourceFactory cuttingOrderRecordDataSourceFactory = new CuttingOrderRecordDataSourceFactory(context, auth);
+//     liveDataSource = cuttingOrderRecordDataSourceFactory.getMutableLiveData();
+
+//     PagedList.Config config =
+//             (new PagedList.Config.Builder())
+//                     .setEnablePlaceholders(false)
+//                     .setPageSize(CuttingOrderRecordDataSource.PAGE_SIZE)
+//                     .build();
+
+//     cuttingPagedList = (new LivePagedListBuilder(cuttingOrderRecordDataSourceFactory, config)).build();
+// }
+
+// public LiveData<PagedList<APIResponse>> getCuttingPagedList() {
+// return cuttingPagedList;
+// }
     public void loadDataCuttingOrderRecord() {
         mItemCuttingOrderRecord = new ArrayList<>();
         runOnUiThread(new Runnable() {
             public void run() {
-                cuttingViewModel.getCuttingOrderLiveData(API.getToken(HomeActivity.this)).observe(HomeActivity.this, new Observer<APIResponse>() {
+                cuttingViewModel.cuttingPagedList.observe(HomeActivity.this, new Observer<PagedList<APIResponse>>() {
                     @Override
-                    public void onChanged(APIResponse apiResponse) {
+                    public void onChanged(PagedList<APIResponse> apiResponses) {
                         runOnUiThread(new Runnable() {
                             public void run() {
                                 Extension.dismissLoading();
                             }
                         });
-                        mItemCuttingOrderRecord = (ArrayList<CuttingOrderRecord>) apiResponse.getData().getCuttingOrderRecords();
-                        CuttingOrderRecordAdapter cuttingOrderRecordAdapter = new CuttingOrderRecordAdapter(mItemCuttingOrderRecord, HomeActivity.this, new CuttingOrderRecordAdapter.OnItemClickListener() {
-                            @Override
-                            public void OnClick(View view, int position, CuttingOrderRecord model) {
-                                Intent intent = new Intent(HomeActivity.this, CuttingOrderRecordDetailActivity.class);
-                                intent.putExtra(Extension.CUTTING_ORDER_RECORD, model);
-                                startActivity(intent);
-                            }
-                        });
-                        binding.rvCuttingOrderRecord.setHasFixedSize(true);
-                        binding.rvCuttingOrderRecord.setLayoutManager(layoutManager);
-                        binding.rvCuttingOrderRecord.setAdapter(cuttingOrderRecordAdapter);
+                        Log.i(TAG, "onChanged: " + apiResponses.size());
                     }
                 });
             }
         });
-
     }
 
     public void loadDataDepartment() {

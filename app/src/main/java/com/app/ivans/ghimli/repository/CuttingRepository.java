@@ -85,30 +85,30 @@ public class CuttingRepository {
         return mutableLiveData;
     }
 
-    public LiveData<APIResponse> getCuttingOrderResponse(String auth) {
-        final MutableLiveData<APIResponse> mutableLiveData = new MutableLiveData<>();
-        FAPI.service().getCuttingOrder(auth).enqueue(new APICallback<APIResponse>(mContext) {
-            @Override
-            protected void onSuccess(APIResponse apiResponse) {
-                mutableLiveData.setValue(apiResponse);
-            }
-
-            @Override
-            protected void onError(BadRequest error) {
-                AlertDialog alertDialog = new AlertDialog.Builder(mContext).create();
-                alertDialog.setTitle(mContext.getString(R.string.sorry));
-                alertDialog.setMessage(error.errorDetails);
-                alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, mContext.getString(R.string.dialog_ok),
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        });
-                alertDialog.show();
-            }
-        });
-        return mutableLiveData;
-    }
+//    public LiveData<APIResponse> getCuttingOrderResponse(String auth) {
+//        final MutableLiveData<APIResponse> mutableLiveData = new MutableLiveData<>();
+//        FAPI.service().getCuttingOrder(auth).enqueue(new APICallback<APIResponse>(mContext) {
+//            @Override
+//            protected void onSuccess(APIResponse apiResponse) {
+//                mutableLiveData.setValue(apiResponse);
+//            }
+//
+//            @Override
+//            protected void onError(BadRequest error) {
+//                AlertDialog alertDialog = new AlertDialog.Builder(mContext).create();
+//                alertDialog.setTitle(mContext.getString(R.string.sorry));
+//                alertDialog.setMessage(error.errorDetails);
+//                alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, mContext.getString(R.string.dialog_ok),
+//                        new DialogInterface.OnClickListener() {
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                dialog.dismiss();
+//                            }
+//                        });
+//                alertDialog.show();
+//            }
+//        });
+//        return mutableLiveData;
+//    }
 
     public LiveData<APIResponse> getColorResponse(String auth) {
         final MutableLiveData<APIResponse> mutableLiveData = new MutableLiveData<>();
