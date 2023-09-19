@@ -337,7 +337,8 @@ public class CuttingOrderRecordFormActivity extends BaseActivity implements Adap
                         binding.etJoint.getText().toString(),
                         binding.etBalanceEnd.getText().toString(),
                         spItem,
-                        nameUser).observe(CuttingOrderRecordFormActivity.this, new Observer<APIResponse>() {
+                        nameUser,
+                        API.currentUser(CuttingOrderRecordFormActivity.this).getId()).observe(CuttingOrderRecordFormActivity.this, new Observer<APIResponse>() {
                     @Override
                     public void onChanged(APIResponse apiResponse) {
                         runOnUiThread(new Runnable() {

@@ -46,7 +46,8 @@ public interface APIService {
             @Field("joint") String joint,
             @Field("balance_end") String balanceEnd,
             @Field("remarks") String remarks,
-            @Field("operator") String operator);
+            @Field("operator") String operator,
+            @Field("user_id") int user_id);
 
     @GET("cutting-orders/{serial_number}")
     Call<APIResponse> getCuttingOrderBySerialNumber(@Header("Authorization") String authorization, @Path("serial_number") String serialNumber);

@@ -23,6 +23,7 @@ public class CuttingOrderRecordDetail implements Parcelable {
     private int balanceEnd;
     private String remarks;
     private String operator;
+    private User user;
 
     public CuttingOrderRecordDetail(int cuttingOrderRecordId, String fabricRoll, String fabricBatch, int colorId, Color color, double yardage, double weight, int layer, double joint, int balanceEnd, String remarks, String operator) {
         this.cuttingOrderRecordId = cuttingOrderRecordId;
@@ -133,6 +134,14 @@ public class CuttingOrderRecordDetail implements Parcelable {
 
     public void setOperator(String operator) {
         this.operator = operator;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override

@@ -25,9 +25,9 @@ public class CuttingRepository {
         this.mContext = context;
     }
 
-    public LiveData<APIResponse> createOptCuttingOrderResponse(String auth, String serialNumber, String fabricRoll, String fabricBatch, String color, double yardage, double weight, int layer, String joint, String balanceEnd, String remarks, String operator) {
+    public LiveData<APIResponse> createOptCuttingOrderResponse(String auth, String serialNumber, String fabricRoll, String fabricBatch, String color, double yardage, double weight, int layer, String joint, String balanceEnd, String remarks, String operator, int user_id) {
         final MutableLiveData<APIResponse> mutableLiveData = new MutableLiveData<>();
-        FAPI.service().createOptCuttingOrder(auth, serialNumber, fabricRoll, fabricBatch, color,yardage, weight, layer, joint, balanceEnd, remarks, operator).enqueue(new APICallback<APIResponse>(mContext) {
+        FAPI.service().createOptCuttingOrder(auth, serialNumber, fabricRoll, fabricBatch, color,yardage, weight, layer, joint, balanceEnd, remarks, operator, user_id).enqueue(new APICallback<APIResponse>(mContext) {
             @Override
             protected void onSuccess(APIResponse apiResponse) {
                 mutableLiveData.setValue(apiResponse);

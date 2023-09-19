@@ -21,8 +21,8 @@ public class CuttingViewModel extends ViewModel {
         favoriteRepository = new CuttingRepository(context);
     }
 
-    public LiveData<APIResponse> createOptCuttingOrderLiveData(String auth, String serialNumber, String fabricRoll, String fabricBatch, String color, double yardage, double weight, int layer, String joint, String balanceEnd, String remarks, String operator) {
-        productResponseData = favoriteRepository.createOptCuttingOrderResponse(auth, serialNumber, fabricRoll, fabricBatch, color, yardage, weight, layer, joint, balanceEnd, remarks, operator);
+    public LiveData<APIResponse> createOptCuttingOrderLiveData(String auth, String serialNumber, String fabricRoll, String fabricBatch, String color, double yardage, double weight, int layer, String joint, String balanceEnd, String remarks, String operator, int user_id) {
+        productResponseData = favoriteRepository.createOptCuttingOrderResponse(auth, serialNumber, fabricRoll, fabricBatch, color, yardage, weight, layer, joint, balanceEnd, remarks, operator, user_id);
         return productResponseData;
     }
 
