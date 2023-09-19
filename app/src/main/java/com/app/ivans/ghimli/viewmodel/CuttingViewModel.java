@@ -21,8 +21,8 @@ public class CuttingViewModel extends ViewModel {
         favoriteRepository = new CuttingRepository(context);
     }
 
-    public LiveData<APIResponse> createOptCuttingOrderLiveData(String auth, String serialNumber, String fabricRoll, String fabricBatch, String color, double yardage, double weight, int layer, String joint, String balanceEnd, String remarks, String operator) {
-        productResponseData = favoriteRepository.createOptCuttingOrderResponse(auth, serialNumber, fabricRoll, fabricBatch, color, yardage, weight, layer, joint, balanceEnd, remarks, operator);
+    public LiveData<APIResponse> createOptCuttingOrderLiveData(String auth, String serialNumber, String fabricRoll, String fabricBatch, String color, double yardage, double weight, int layer, String joint, String balanceEnd, String remarks, String operator, int user_id) {
+        productResponseData = favoriteRepository.createOptCuttingOrderResponse(auth, serialNumber, fabricRoll, fabricBatch, color, yardage, weight, layer, joint, balanceEnd, remarks, operator, user_id);
         return productResponseData;
     }
 
@@ -48,6 +48,16 @@ public class CuttingViewModel extends ViewModel {
 
     public LiveData<APIResponse> getLayingPlanningBySerialNumberLiveData(String auth, String serialNumber) {
         productResponseData = favoriteRepository.getLayingPlanningBySerialNumberResponse(auth, serialNumber);
+        return productResponseData;
+    }
+
+    public LiveData<APIResponse> postStatusCutBySerialNumberLiveData(String auth, String serialNumber, String status) {
+        productResponseData = favoriteRepository.postStatusCutResponse(auth, serialNumber, status);
+        return productResponseData;
+    }
+    
+    public LiveData<APIResponse> searchCuttingOrderLiveData(String auth, String serialNumber) {
+        productResponseData = favoriteRepository.searchCuttingOrderResponse(auth, serialNumber);
         return productResponseData;
     }
 

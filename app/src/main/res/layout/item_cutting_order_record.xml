@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center"
     android:orientation="vertical">
@@ -15,20 +15,31 @@
 
         <RelativeLayout
             android:id="@+id/viewContentSn"
-            android:layout_width="180dp"
+            android:padding="4dp"
+            android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:gravity="center"
-            android:orientation="vertical">
-
+            android:gravity="center">
+            <View
+                android:id="@+id/viewProgress"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:layout_alignParentEnd="true"
+                android:padding="8dp"
+                android:layout_alignParentBottom="true"/>
+                
             <TextView
                 android:id="@+id/tvSerialNumber"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:layout_centerInParent="true"
+                android:maxLines="3"
+                android:text="COR-63267-00-ACBXAZHSSPAN-S88-07-016"
+                android:textAppearance="@style/TextAppearance.Regular16"
                 android:textColor="@android:color/black"
-                android:textStyle="bold"
-                android:text="Serial Number"
-                android:textAppearance="@style/TextAppearance.Regular16" />
+                android:textStyle="bold" />
+
+
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 </LinearLayout>

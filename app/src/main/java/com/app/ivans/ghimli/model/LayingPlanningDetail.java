@@ -27,6 +27,16 @@ public class LayingPlanningDetail implements Parcelable {
     private int totalAllSize;
     @SerializedName("laying_planning")
     private LayingPlanning layingPlanning;
+    @SerializedName("cutting_order_record")
+    private CuttingOrderRecord cuttingOrderRecord;
+
+    public CuttingOrderRecord getCuttingOrderRecord() {
+        return cuttingOrderRecord;
+    }
+
+    public void setCuttingOrderRecord(CuttingOrderRecord cuttingOrderRecord) {
+        this.cuttingOrderRecord = cuttingOrderRecord;
+    }
 
     public double getMarkerYard() {
         return markerYard;

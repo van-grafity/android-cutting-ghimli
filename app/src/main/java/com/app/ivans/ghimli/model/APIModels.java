@@ -14,9 +14,11 @@ public class APIModels {
     private ArrayList<FGL> FGL;
     @SerializedName("colors")
     private ArrayList<Color> colors;
-    @SerializedName("cutting_order_record")
+    @SerializedName("cutting_order_records")
     private ArrayList<CuttingOrderRecord> cuttingOrderRecords;
-    @SerializedName("cutting_order_record_detail")
+    @SerializedName("cutting_order_record")
+    private CuttingOrderRecord cuttingOrderRecord;
+    @SerializedName("cutting_order_record_details")
     private ArrayList<CuttingOrderRecord> cuttingOrderRecordDetails;
     @SerializedName("laying_planning_detail")
     private LayingPlanningDetail layingPlanningDetail;
@@ -24,6 +26,24 @@ public class APIModels {
     private ArrayList<CuttingRecordRemark> cuttingRecordRemarks;
     @SerializedName("cutting_ticket")
     private CuttingTicket cuttingTicket;
+    @SerializedName("current_page")
+    private int currentPage;
+    @SerializedName("last_page")
+    private int lastPage;
+    @SerializedName("prev_page_url")
+    private String prevPageUrl;
+    @SerializedName("next_page_url")
+    private String nextPageUrl;
+    @SerializedName("total")
+    private int totalPage;
+
+    public CuttingOrderRecord getCuttingOrderRecord() {
+        return cuttingOrderRecord;
+    }
+
+    public void setCuttingOrderRecord(CuttingOrderRecord cuttingOrderRecord) {
+        this.cuttingOrderRecord = cuttingOrderRecord;
+    }
 
     public CuttingTicket getCuttingTicket() {
         return cuttingTicket;
@@ -111,5 +131,45 @@ public class APIModels {
 
     public void setUsers(ArrayList<User> users) {
         this.users = users;
+    }
+
+    public int getCurrentPage() {
+        return currentPage;
+    }
+
+    public void setCurrentPage(int currentPage) {
+        this.currentPage = currentPage;
+    }
+
+    public int getLastPage() {
+        return lastPage;
+    }
+
+    public void setLastPage(int lastPage) {
+        this.lastPage = lastPage;
+    }
+
+    public String getPrevPageUrl() {
+        return prevPageUrl;
+    }
+
+    public void setPrevPageUrl(String prevPageUrl) {
+        this.prevPageUrl = prevPageUrl;
+    }
+
+    public String getNextPageUrl() {
+        return nextPageUrl;
+    }
+
+    public void setNextPageUrl(String nextPageUrl) {
+        this.nextPageUrl = nextPageUrl;
+    }
+
+    public int getTotalPage() {
+        return totalPage;
+    }
+
+    public void setTotalPage(int totalPage) {
+        this.totalPage = totalPage;
     }
 }

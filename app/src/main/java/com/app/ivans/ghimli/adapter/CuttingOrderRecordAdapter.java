@@ -42,6 +42,13 @@ public class CuttingOrderRecordAdapter extends RecyclerView.Adapter<CuttingOrder
 //        Random rnd = new Random();
 //        int currentColor = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
 //        holder.viewContentSn.setBackgroundColor(currentColor);
+        if (model.getCuttingOrderRecordDetail().size() == 0) {
+            holder.viewProgress.setBackground(mContext.getResources().getDrawable(R.drawable.dot_not_yet_start));
+        } else if (model.getStatusLayer().getId() == 2) {
+            holder.viewProgress.setBackground(mContext.getResources().getDrawable(R.drawable.dot_complete));
+        } else {
+            holder.viewProgress.setBackground(mContext.getResources().getDrawable(R.drawable.dot_on_progress));
+        }
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -59,14 +66,20 @@ public class CuttingOrderRecordAdapter extends RecyclerView.Adapter<CuttingOrder
         void OnClick(View view, int position, CuttingOrderRecord model);
     }
 
+    public void setItems(ArrayList<CuttingOrderRecord> cuttingOrderRecords) {
+        this.mItems = cuttingOrderRecords;
+    }
+
     public static class CuttingOrderRecordViewHolder extends RecyclerView.ViewHolder {
         TextView tvSerialNumber;
         RelativeLayout viewContentSn;
+        View viewProgress;
 
         public CuttingOrderRecordViewHolder(@NonNull View itemView) {
             super(itemView);
             tvSerialNumber = itemView.findViewById(R.id.tvSerialNumber);
             viewContentSn = itemView.findViewById(R.id.viewContentSn);
+            viewProgress = itemView.findViewById(R.id.viewProgress);
         }
     }
 }

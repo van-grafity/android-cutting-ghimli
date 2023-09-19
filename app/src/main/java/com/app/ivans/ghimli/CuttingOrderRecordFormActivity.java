@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,6 +25,7 @@ import com.app.ivans.ghimli.base.BaseActivity;
 import com.app.ivans.ghimli.databinding.ActivityCuttingOrderRecordFormBinding;
 import com.app.ivans.ghimli.databinding.ToolbarBinding;
 import com.app.ivans.ghimli.model.APIResponse;
+import com.app.ivans.ghimli.model.CuttingOrderRecordDetail;
 import com.app.ivans.ghimli.model.CuttingRecordRemark;
 import com.app.ivans.ghimli.net.API;
 import com.app.ivans.ghimli.utils.Extension;
@@ -32,7 +34,7 @@ import com.app.ivans.ghimli.viewmodel.CuttingViewModel;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
-public class CuttingOrderRecordFormActivity extends BaseActivity implements AdapterView.OnItemSelectedListener {
+public class CuttingOrderRecordFormActivity extends BaseActivity implements AdapterView.OnItemSelectedListener, CommentContentBottomSheetDialog.ItemClickListener {
     private static final String TAG = "CuttingLayingSheetFormActivity";
     private ActivityCuttingOrderRecordFormBinding binding;
     private CuttingViewModel cuttingViewModel;
@@ -41,6 +43,8 @@ public class CuttingOrderRecordFormActivity extends BaseActivity implements Adap
     private ToolbarBinding toolbarBinding;
     private ArrayList<String> items;
     private double inch;
+    private String nameUser;
+    CommentContentBottomSheetDialog commentContentBottomSheetDialog;
 
     private double yrd;
     private ArrayAdapter<String> remarks;
@@ -51,6 +55,7 @@ public class CuttingOrderRecordFormActivity extends BaseActivity implements Adap
     protected ViewBinding createViewBinding(LayoutInflater layoutInflater) {
         binding = ActivityCuttingOrderRecordFormBinding.inflate(layoutInflater);
         toolbarBinding = binding.toolbar;
+
         return binding;
     }
 
@@ -63,9 +68,8 @@ public class CuttingOrderRecordFormActivity extends BaseActivity implements Adap
             actionBar.setDisplayShowTitleEnabled(false);
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
-
-        toolbarBinding.tvTitleLarge.setVisibility(View.VISIBLE);
-        toolbarBinding.tvTitle.setText("Cutting Order");
+        toolbarBinding.tvTitle.setVisibility(View.VISIBLE);
+        toolbarBinding.tvTitle.setText("Cutting Order Record");
 
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
@@ -82,11 +86,9 @@ public class CuttingOrderRecordFormActivity extends BaseActivity implements Adap
                 });
             }
         }
-
+        commentContentBottomSheetDialog = CommentContentBottomSheetDialog.newInstance();
         cuttingViewModel = new ViewModelProvider(CuttingOrderRecordFormActivity.this).get(CuttingViewModel.class);
 
-        String nameUser = API.currentUser(CuttingOrderRecordFormActivity.this).getName();
-        binding.etOperator.setText(nameUser);
         binding.etOperator.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -94,20 +96,24 @@ public class CuttingOrderRecordFormActivity extends BaseActivity implements Adap
             }
         });
 
-//        binding.swRemarks.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-//                if (b) {
-//                    binding.spRemarks.animate().alpha(1.0f);
-//                    binding.spRemarks.setVisibility(View.VISIBLE);
-//                    spItem = "-";
-//                } else {
-//                    binding.spRemarks.animate().alpha(0.0f);
-//                    binding.spRemarks.setVisibility(View.GONE);
-//                }
-//            }
-//        });
+        getInitData();
 
+        binding.spRemarks.setOnItemSelectedListener(this);
+
+        binding.etLayer.addTextChangedListener(mTextWatcher);
+        binding.etYardage.addTextChangedListener(mTextWatcher);
+
+        submit();
+
+        binding.ivComment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showComment();
+            }
+        });
+    }
+
+    private void getInitData() {
         runOnUiThread(new Runnable() {
             public void run() {
                 Extension.showLoading(CuttingOrderRecordFormActivity.this);
@@ -121,36 +127,158 @@ public class CuttingOrderRecordFormActivity extends BaseActivity implements Adap
                         Extension.dismissLoading();
                     }
                 });
-                colorName = apiResponse.getData().getLayingPlanningDetail().getLayingPlanning().getColor().getName();
-                yrd = apiResponse.getData().getLayingPlanningDetail().getMarkerYard();
-                inch = apiResponse.getData().getLayingPlanningDetail().getMarkerInch();
-                binding.etColor.setText(colorName);
-                binding.etColor.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Toast.makeText(CuttingOrderRecordFormActivity.this, "Color can't edit", Toast.LENGTH_SHORT).show();
-                    }
-                });
-                binding.etMarkerYard.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Toast.makeText(CuttingOrderRecordFormActivity.this, "Marker yard can't edit", Toast.LENGTH_SHORT).show();
-                    }
-                });
-                binding.etMarkerYard.setText(new DecimalFormat("##.##").format(Double.parseDouble(markerYard(yrd))));
+                if (apiResponse.getData() == null) {
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(CuttingOrderRecordFormActivity.this);
+
+                    alertDialogBuilder.setTitle(getString(R.string.app_name));
+                    alertDialogBuilder
+                            .setMessage(apiResponse.getMessage())
+                            .setCancelable(false)
+                            .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    startActivity(new Intent(CuttingOrderRecordFormActivity.this, ScanQrActivity.class));
+                                    finish();
+                                }
+                            });
+
+                    AlertDialog alertDialog = alertDialogBuilder.create();
+                    alertDialog.setCanceledOnTouchOutside(false);
+                    alertDialog.show();
+                } else if (apiResponse.getData().getCuttingOrderRecord().getStatusLayer().getName().equals("completed") || apiResponse.getData().getCuttingOrderRecord().getStatusLayer().getName().equals("over layer")) {
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(CuttingOrderRecordFormActivity.this);
+
+                    alertDialogBuilder.setTitle(getString(R.string.app_name));
+                    alertDialogBuilder
+                            .setMessage("Gelar selesai dengan status " + apiResponse.getMessage() + "." + "\nApakah udah selesai potong?")
+                            .setCancelable(false)
+                            .setPositiveButton(R.string.done, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    runOnUiThread(new Runnable() {
+                                        public void run() {
+                                            Extension.showLoading(CuttingOrderRecordFormActivity.this);
+                                        }
+                                    });
+                                    cuttingViewModel.postStatusCutBySerialNumberLiveData(API.getToken(CuttingOrderRecordFormActivity.this), mSerialNumber, "sudah").observe(CuttingOrderRecordFormActivity.this, new Observer<APIResponse>() {
+                                        @Override
+                                        public void onChanged(APIResponse apiResponse) {
+                                            Toast.makeText(CuttingOrderRecordFormActivity.this, apiResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+                                    finish();
+                                }
+                            }).setNeutralButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    Intent intent = new Intent(CuttingOrderRecordFormActivity.this, ScanQrActivity.class);
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                    startActivity(intent);
+                                    finish();
+                                }
+                            })
+                            .setNegativeButton(R.string.not_yet_cut, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    cuttingViewModel.postStatusCutBySerialNumberLiveData(API.getToken(CuttingOrderRecordFormActivity.this), mSerialNumber, "belum").observe(CuttingOrderRecordFormActivity.this, new Observer<APIResponse>() {
+                                        @Override
+                                        public void onChanged(APIResponse apiResponse) {
+                                            Toast.makeText(CuttingOrderRecordFormActivity.this, apiResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+                                    finish();
+                                }
+                            });
+
+                    AlertDialog alertDialog = alertDialogBuilder.create();
+                    alertDialog.show();
+                } else {
+                    nameUser = API.currentUser(CuttingOrderRecordFormActivity.this).getName();
+                    binding.etOperator.setText(nameUser);
+
+                    colorName = apiResponse.getData().getCuttingOrderRecord().getLayingPlanningDetail().getLayingPlanning().getColor().getName();
+                    yrd = apiResponse.getData().getCuttingOrderRecord().getLayingPlanningDetail().getMarkerYard();
+                    inch = apiResponse.getData().getCuttingOrderRecord().getLayingPlanningDetail().getMarkerInch();
+                    binding.etColor.setText(colorName);
+
+                    loadDataRemarks();
+
+                    binding.etColor.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Toast.makeText(CuttingOrderRecordFormActivity.this, "Color can't edit", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                    binding.etMarkerYard.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Toast.makeText(CuttingOrderRecordFormActivity.this, "Marker yard can't edit", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                    binding.etMarkerYard.setText(new DecimalFormat("##.##").format(Double.parseDouble(markerYard(yrd))));
+                }
             }
         });
 
-        loadDataRemarks();
-        binding.spRemarks.setOnItemSelectedListener(this);
+        binding.etFabricRoll.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                // Tidak perlu melakukan apa-apa sebelum teks berubah
+            }
 
-        binding.etLayer.addTextChangedListener(mTextWatcher);
-        binding.etYardage.addTextChangedListener(mTextWatcher);
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                // Saat teks berubah, Anda bisa memuat data dari API berdasarkan teks yang baru
+                String searchText = charSequence.toString();
+                loadDataFromApi(searchText);
+            }
 
-        submit(nameUser);
+            @Override
+            public void afterTextChanged(Editable editable) {
+                // Tidak perlu melakukan apa-apa setelah teks berubah
+            }
+        });
     }
 
-    private void submit(String nameUser) {
+    private void loadDataFromApi(String searchText) {
+        cuttingViewModel.getLayingPlanningBySerialNumberLiveData(API.getToken(CuttingOrderRecordFormActivity.this), mSerialNumber).observe(CuttingOrderRecordFormActivity.this, new Observer<APIResponse>() {
+            @Override
+            public void onChanged(APIResponse apiResponse) {
+                for (int x = 0; x < apiResponse.getData().getCuttingOrderRecord().getCuttingOrderRecordDetail().size(); x++) {
+                    CuttingOrderRecordDetail detail = apiResponse.getData().getCuttingOrderRecord().getCuttingOrderRecordDetail().get(x);
+
+                    // Memeriksa apakah fabric roll sama dengan searchText dan fabric batch juga sama
+                    if (detail.getFabricRoll().equals(searchText) && detail.getFabricBatch().equals(binding.etFabricBatch.getText().toString())) {
+                        runOnUiThread(new Runnable() {
+                            public void run() {
+                                Extension.showLoading(CuttingOrderRecordFormActivity.this);
+                            }
+                        });
+
+                        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(CuttingOrderRecordFormActivity.this);
+                        alertDialogBuilder.setTitle(getString(R.string.app_name));
+                        alertDialogBuilder
+                                .setMessage("Fabric roll sudah ada dengan fabric batch yang sama.\nPastikan fabric roll tidak sama.")
+                                .setCancelable(true)
+                                .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        binding.etFabricRoll.setText("");
+                                    }
+                                });
+
+                        runOnUiThread(new Runnable() {
+                            public void run() {
+                                Extension.dismissLoading();
+                            }
+                        });
+
+                        AlertDialog alertDialog = alertDialogBuilder.create();
+                        alertDialog.show();
+
+                        break; // Tambahkan break untuk menghentikan iterasi setelah menemukan kesamaan
+                    }
+                }
+            }
+        });
+    }
+
+    private void submit() {
         binding.btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -209,7 +337,8 @@ public class CuttingOrderRecordFormActivity extends BaseActivity implements Adap
                         binding.etJoint.getText().toString(),
                         binding.etBalanceEnd.getText().toString(),
                         spItem,
-                        nameUser).observe(CuttingOrderRecordFormActivity.this, new Observer<APIResponse>() {
+                        nameUser,
+                        API.currentUser(CuttingOrderRecordFormActivity.this).getId()).observe(CuttingOrderRecordFormActivity.this, new Observer<APIResponse>() {
                     @Override
                     public void onChanged(APIResponse apiResponse) {
                         runOnUiThread(new Runnable() {
@@ -218,7 +347,24 @@ public class CuttingOrderRecordFormActivity extends BaseActivity implements Adap
                                 Extension.dismissLoading();
                             }
                         });
-                        if (apiResponse.getStatus() != 500) {
+
+                        if (apiResponse.getData() == null) {
+                            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(CuttingOrderRecordFormActivity.this);
+
+                            alertDialogBuilder.setTitle(getString(R.string.app_name));
+                            alertDialogBuilder
+                                    .setMessage(apiResponse.getMessage())
+                                    .setCancelable(false)
+                                    .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int id) {
+                                            dialog.dismiss();
+                                        }
+                                    });
+
+                            AlertDialog alertDialog = alertDialogBuilder.create();
+                            alertDialog.setCanceledOnTouchOutside(false);
+                            alertDialog.show();
+                        } else {
                             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(CuttingOrderRecordFormActivity.this);
 
                             alertDialogBuilder.setTitle(getString(R.string.app_name));
@@ -227,8 +373,58 @@ public class CuttingOrderRecordFormActivity extends BaseActivity implements Adap
                                     .setCancelable(true)
                                     .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int id) {
-                                            startActivity(new Intent(CuttingOrderRecordFormActivity.this, HomeActivity.class));
-                                            finish();
+                                            if (apiResponse.getData().getCuttingOrderRecord().getStatusLayer().getName().equals("completed")) {
+                                                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(CuttingOrderRecordFormActivity.this);
+                                                alertDialogBuilder.setTitle(getString(R.string.app_name));
+                                                alertDialogBuilder
+                                                        .setMessage("Layer sudah selesai dikerjakan, dengan status " + apiResponse.getData().getCuttingOrderRecord().getStatusLayer().getName() + "\nScan ulang untuk mulai potong")
+                                                        .setCancelable(true)
+                                                        .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+                                                            public void onClick(DialogInterface dialog, int id) {
+                                                                Intent intent = new Intent(CuttingOrderRecordFormActivity.this, HomeActivity.class);
+                                                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                                                startActivity(intent);
+                                                                finish();
+                                                            }
+                                                        });
+
+                                                AlertDialog alertDialog = alertDialogBuilder.create();
+                                                alertDialog.setCanceledOnTouchOutside(false);
+                                                alertDialog.show();
+                                            } else {
+                                                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(CuttingOrderRecordFormActivity.this);
+
+                                                alertDialogBuilder.setTitle(getString(R.string.app_name));
+                                                alertDialogBuilder
+                                                        .setMessage("Apakah anda ingin melanjutkan input data?")
+                                                        .setCancelable(true)
+                                                        .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+                                                            public void onClick(DialogInterface dialog, int id) {
+//                                                            binding.etFabricRoll.setText("");
+//                                                            binding.etFabricBatch.setText("");
+                                                                binding.etYardage.setText("");
+                                                                binding.etWeight.setText("");
+                                                                binding.etLayer.setText("");
+                                                                binding.etJoint.setText("");
+                                                                binding.etBalanceEnd.setText("");
+                                                                binding.etFabricRoll.requestFocus();
+                                                            }
+                                                        })
+                                                        .setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
+                                                            @Override
+                                                            public void onClick(DialogInterface dialogInterface, int i) {
+                                                                Intent intent = new Intent(CuttingOrderRecordFormActivity.this, HomeActivity.class);
+                                                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                                                startActivity(intent);
+                                                                finish();
+                                                            }
+                                                        });
+
+                                                AlertDialog alertDialog = alertDialogBuilder.create();
+                                                alertDialog.setCanceledOnTouchOutside(false);
+                                                alertDialog.show();
+                                            }
+
                                         }
                                     });
 
@@ -239,6 +435,12 @@ public class CuttingOrderRecordFormActivity extends BaseActivity implements Adap
                 });
             }
         });
+    }
+
+    void showComment() {
+        if (commentContentBottomSheetDialog.isAdded() == true) return;
+
+        commentContentBottomSheetDialog.show(getSupportFragmentManager(), "CommentPages");
     }
 
     public TextWatcher mTextWatcher = new TextWatcher() {
@@ -348,5 +550,11 @@ public class CuttingOrderRecordFormActivity extends BaseActivity implements Adap
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
 
+    }
+
+
+    @Override
+    public void onItemClick(String item) {
+        Log.i("DetailPopularActivity", "onItemClick: " + item);
     }
 }

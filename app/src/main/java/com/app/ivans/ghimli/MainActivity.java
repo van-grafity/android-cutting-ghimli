@@ -4,9 +4,11 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.WindowManager;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -18,6 +20,7 @@ import br.com.kots.mob.complex.preferences.ComplexPreferences;
 import io.github.inflationx.viewpump.ViewPumpContextWrapper;
 
 public class MainActivity extends AppCompatActivity {
+    private boolean mIsPortrait;
     private ActivityMainBinding binding;
     private User mUser;
 
@@ -26,6 +29,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(LayoutInflater.from(MainActivity.this));
         setContentView(binding.getRoot());
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+//        mIsPortrait = getResources().getBoolean(R.bool.portrait_only);
+//        if(mIsPortrait){
+//            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+//        }
+//        else{
+//            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
+//        }
 
         ComplexPreferences complexPreferences = ComplexPreferences.getComplexPreferences(this, Extension.PREF_USER, MODE_PRIVATE);
         mUser = complexPreferences.getObject(Extension.PREF_USER_KEY, User.class);

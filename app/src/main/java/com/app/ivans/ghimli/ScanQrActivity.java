@@ -68,49 +68,23 @@ public class ScanQrActivity extends AppCompatActivity implements OnNetworkListen
 
                         if (partStr.equals("CO")) {
 //                            Toast.makeText(CuttingLayingSheetScanQrActivity.this, message, Toast.LENGTH_SHORT).show();
-                            runOnUiThread(new Runnable() {
-                                public void run() {
-                                    Extension.showLoading(ScanQrActivity.this);
-                                }
-                            });
-                            cuttingViewModel.getLayingPlanningBySerialNumberLiveData(API.getToken(ScanQrActivity.this), message).observe(ScanQrActivity.this, new Observer<APIResponse>() {
-                                @Override
-                                public void onChanged(APIResponse apiResponse) {
-                                    runOnUiThread(new Runnable() {
-                                        public void run() {
-                                            Extension.dismissLoading();
-                                        }
-                                    });
-                                    if (apiResponse.getStatus() == 404) {
-
-                                        AlertDialog alertDialog = new AlertDialog.Builder(ScanQrActivity.this).create();
-                                        alertDialog.setTitle(getString(R.string.sorry));
-                                        alertDialog.setMessage(apiResponse.getMessage());
-                                        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.dialog_ok),
-                                                new DialogInterface.OnClickListener() {
-                                                    public void onClick(DialogInterface dialog, int which) {
-                                                        dialog.dismiss();
-                                                    }
-                                                });
-                                        alertDialog.show();
-                                        finish();
-
-                                    }
-                                    Intent intent = new Intent(ScanQrActivity.this, CuttingOrderRecordFormActivity.class);
-                                    intent.putExtra("serialNumber", message);
-                                    startActivity(intent);
-                                    finish();
-                                }
-                            });
+                            Intent intent = new Intent(ScanQrActivity.this, CuttingOrderRecordFormActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                            intent.putExtra("serialNumber", message);
+                            startActivity(intent);
+                            finish();
                         } else if (partStr.equals("CT")) {
 //                            Toast.makeText(CuttingLayingSheetScanQrActivity.this, message, Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(ScanQrActivity.this, CuttingTicketDetailActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);
                             intent.putExtra("serialNumber", message);
                             startActivity(intent);
                             finish();
                         } else {
                             Toast.makeText(ScanQrActivity.this, "Data not found", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(ScanQrActivity.this, HomeActivity.class));
+                            Intent intent = new Intent(ScanQrActivity.this, HomeActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                            startActivity(intent);
                         }
 
 //                        if (partStr.equals("CO")) {

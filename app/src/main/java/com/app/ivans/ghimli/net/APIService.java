@@ -29,6 +29,7 @@ public interface APIService {
 
     @GET("cutting-orders")
     Call<APIResponse> getCuttingOrder(@Header("Authorization") String authorization);
+//    Call<APIResponse> getCuttingOrder(@Header("Authorization") String authorization, @Path("page") int page);
 
     @POST("cutting-orders") Call<APIResponse> createOptCuttingOrderObj(@Header("Authorization") String authorization, @Body CuttingOrderRecordDetail cuttingOrderRecordDetail);
 
@@ -46,13 +47,22 @@ public interface APIService {
             @Field("joint") String joint,
             @Field("balance_end") String balanceEnd,
             @Field("remarks") String remarks,
-            @Field("operator") String operator);
+            @Field("operator") String operator,
+            @Field("user_id") int user_id);
 
     @GET("cutting-orders/{serial_number}")
     Call<APIResponse> getCuttingOrderBySerialNumber(@Header("Authorization") String authorization, @Path("serial_number") String serialNumber);
 
     @GET("cutting-record-remark")
     Call<APIResponse> getRemarks(@Header("Authorization") String auth);
+
+    @FormUrlEncoded
+    @POST("cutting-orders/status-cut")
+    Call<APIResponse> postStatusCut(@Header("Authorization") String auth, @Field("serial_number") String serialNumber, @Field("name") String status);
+
+    @FormUrlEncoded
+    @POST("cutting-orders/search")
+    Call<APIResponse> searchCuttingOrder(@Header("Authorization") String auth, @Field("serial_number") String serialNumber);
 
     @FormUrlEncoded
     @POST("laying-planning-show")
