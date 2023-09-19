@@ -29,6 +29,7 @@ public interface APIService {
 
     @GET("cutting-orders")
     Call<APIResponse> getCuttingOrder(@Header("Authorization") String authorization);
+//    Call<APIResponse> getCuttingOrder(@Header("Authorization") String authorization, @Path("page") int page);
 
     @POST("cutting-orders") Call<APIResponse> createOptCuttingOrderObj(@Header("Authorization") String authorization, @Body CuttingOrderRecordDetail cuttingOrderRecordDetail);
 
