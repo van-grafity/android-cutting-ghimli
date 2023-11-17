@@ -4,6 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -15,16 +18,24 @@ import com.app.ivans.ghimli.base.BaseActivity;
 import com.app.ivans.ghimli.databinding.ActivityCuttingTicketDetailBinding;
 import com.app.ivans.ghimli.databinding.ToolbarBinding;
 import com.app.ivans.ghimli.model.APIResponse;
+import com.app.ivans.ghimli.model.BundleStatus;
+import com.app.ivans.ghimli.model.CuttingRecordRemark;
 import com.app.ivans.ghimli.net.API;
 import com.app.ivans.ghimli.utils.Extension;
 import com.app.ivans.ghimli.viewmodel.CuttingViewModel;
 
-public class CuttingTicketDetailActivity extends BaseActivity {
+import java.util.ArrayList;
+
+public class CuttingTicketDetailActivity extends BaseActivity implements AdapterView.OnItemSelectedListener{
     private ActivityCuttingTicketDetailBinding binding;
     private ToolbarBinding toolbarBinding;
     private CuttingViewModel cuttingViewModel;
     private String mSerialNumber;
     private String partStr;
+    private ArrayList<String> items;
+    private ArrayAdapter<String> statues;
+
+    private String stat;
 
     @NonNull
     @Override
@@ -61,12 +72,13 @@ public class CuttingTicketDetailActivity extends BaseActivity {
         partStr = mSerialNumber.substring(mSerialNumber.length() - 2);
 
         cuttingViewModel = new ViewModelProvider(CuttingTicketDetailActivity.this).get(CuttingViewModel.class);
+        binding.spStatus.setOnItemSelectedListener(this);
         runOnUiThread(new Runnable() {
             public void run() {
                 Extension.showLoading(CuttingTicketDetailActivity.this);
             }
         });
-        cuttingViewModel.getCuttingTicketDetailLiveData(API.getToken(CuttingTicketDetailActivity.this), Integer.parseInt(partStr)).observe(CuttingTicketDetailActivity.this, new Observer<APIResponse>() {
+        cuttingViewModel.getCuttingTicketDetailLiveData(API.getToken(CuttingTicketDetailActivity.this), mSerialNumber).observe(CuttingTicketDetailActivity.this, new Observer<APIResponse>() {
             @Override
             public void onChanged(APIResponse apiResponse) {
                 runOnUiThread(new Runnable() {
@@ -74,9 +86,11 @@ public class CuttingTicketDetailActivity extends BaseActivity {
                         Extension.dismissLoading();
                     }
                 });
+
                 binding.etSize.setText(apiResponse.getData().getCuttingTicket().getSize().getSize());
                 binding.etNoLayingSheet.setText(apiResponse.getData().getCuttingTicket().getCuttingOrderRecord().getLayingPlanningDetail().getNoLayingSheet());
                 binding.etTableNumber.setText(String.valueOf(apiResponse.getData().getCuttingTicket().getCuttingOrderRecord().getLayingPlanningDetail().getTableNumber()));
+                binding.etSerialNumber.setText(String.valueOf(apiResponse.getData().getCuttingTicket().getSerialNumber()));
                 binding.etGlNumber.setText(apiResponse.getData().getCuttingTicket().getCuttingOrderRecord().getLayingPlanningDetail().getLayingPlanning().getGl().getGlNo());
                 binding.etBuyer.setText(apiResponse.getData().getCuttingTicket().getCuttingOrderRecord().getLayingPlanningDetail().getLayingPlanning().getBuyer().getName());
                 binding.etStyle.setText(apiResponse.getData().getCuttingTicket().getCuttingOrderRecord().getLayingPlanningDetail().getLayingPlanning().getStyle().getStyle());
@@ -89,6 +103,8 @@ public class CuttingTicketDetailActivity extends BaseActivity {
             }
         });
 
+        loadDataBundleStatus();
+
         binding.btnBackToHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -96,5 +112,55 @@ public class CuttingTicketDetailActivity extends BaseActivity {
                 finish();
             }
         });
+
+        binding.btnTransfer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(CuttingTicketDetailActivity.this, ""+stat, Toast.LENGTH_SHORT).show();
+                cuttingViewModel.bundleTransferLiveData(API.getToken(CuttingTicketDetailActivity.this), binding.etSerialNumber.getText().toString(), stat, "-").observe(CuttingTicketDetailActivity.this, new Observer<APIResponse>() {
+                    @Override
+                    public void onChanged(APIResponse apiResponse) {
+                        Toast.makeText(CuttingTicketDetailActivity.this, apiResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                        finish();
+                    }
+                });
+            }
+        });
+    }
+
+    private void loadDataBundleStatus() {
+        items = new ArrayList<>();
+        BundleStatus status = new BundleStatus();
+        status.setId(55);
+        status.setStatus("-");
+        status.setDescription("-");
+        items.add(status.getStatus());
+
+        cuttingViewModel.getBundleStatusLiveData(API.getToken(CuttingTicketDetailActivity.this)).observe(CuttingTicketDetailActivity.this, new Observer<APIResponse>() {
+            @Override
+            public void onChanged(APIResponse apiResponse) {
+//                Toast.makeText(CuttingTicketDetailActivity.this, apiResponse.getData().getBundleStatus().get(1).getStatus(), Toast.LENGTH_SHORT).show();
+                for (int x = 0; x < apiResponse.getData().getBundleStatus().size(); x++) {
+                    items.add(apiResponse.getData().getBundleStatus().get(x).getStatus());
+
+                }
+
+                statues = new ArrayAdapter<String>(CuttingTicketDetailActivity.this, android.R.layout.simple_spinner_item, items);
+                statues.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                binding.spStatus.setAdapter(statues);
+
+                binding.spStatus.setSelection(0);
+            }
+        });
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        stat = parent.getSelectedItem().toString();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
     }
 }

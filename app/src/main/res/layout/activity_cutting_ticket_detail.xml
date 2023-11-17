@@ -25,29 +25,30 @@
                 android:layout_marginHorizontal="14dp"
                 android:orientation="vertical">
 
-<!--                <Space-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="14dp" />-->
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="14dp" />
 
-<!--                <TextView-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:text="Ticket Number"-->
-<!--                    android:textAppearance="@style/TextAppearance.Bold14" />-->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Serial Number"
+                    android:textAppearance="@style/TextAppearance.Bold14" />
 
-<!--                <Space-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="4dp" />-->
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="4dp" />
 
-<!--                <TextView-->
-<!--                    android:id="@+id/etTicketNumber"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="46dp"-->
-<!--                    android:background="@drawable/background_input"-->
-<!--                    android:enabled="false"-->
-<!--                    android:inputType="text"-->
-<!--                    android:maxLines="1"-->
-<!--                    android:paddingStart="8dp" />-->
+                <TextView
+                    android:id="@+id/etSerialNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="46dp"
+                    android:gravity="center|left"
+                    android:background="@drawable/background_input"
+                    android:enabled="false"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:paddingStart="8dp" />
 
                 <Space
                     android:layout_width="match_parent"
@@ -352,6 +353,35 @@
                 <Space
                     android:layout_width="match_parent"
                     android:layout_height="14dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Transfer"
+                    android:textAppearance="@style/TextAppearance.Bold14" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="4dp"
+                    android:visibility="visible" />
+
+                <Spinner
+                    android:id="@+id/sp_status"
+                    android:layout_width="match_parent"
+                    android:layout_height="46dp"
+                    android:background="@null"
+                    android:hint="Status"
+                    android:visibility="visible" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="14dp" />
+
+                <Button
+                    android:id="@+id/btnTransfer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Submit Transfer" />
 
                 <Button
                     android:id="@+id/btnBackToHome"

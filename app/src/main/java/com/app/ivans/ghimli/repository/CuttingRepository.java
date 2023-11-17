@@ -225,9 +225,41 @@ public class CuttingRepository {
         return mutableLiveData;
     }
 
-    public LiveData<APIResponse> getCuttingTicketDetailResponse(String auth, int id) {
+    public LiveData<APIResponse> getCuttingTicketDetailResponse(String auth, String serialNumber) {
         final MutableLiveData<APIResponse> mutableLiveData = new MutableLiveData<>();
-        FAPI.service().getCuttingTicketDetail(auth, id).enqueue(new APICallback<APIResponse>(mContext) {
+        FAPI.service().getCuttingTicketDetail(auth, serialNumber).enqueue(new APICallback<APIResponse>(mContext) {
+            @Override
+            protected void onSuccess(APIResponse apiResponse) {
+                mutableLiveData.setValue(apiResponse);
+            }
+
+            @Override
+            protected void onError(BadRequest error) {
+
+            }
+        });
+        return mutableLiveData;
+    }
+
+    public LiveData<APIResponse> getBundleStatusResponse(String auth) {
+        final MutableLiveData<APIResponse> mutableLiveData = new MutableLiveData<>();
+        FAPI.service().getBundleStatus(auth).enqueue(new APICallback<APIResponse>(mContext) {
+            @Override
+            protected void onSuccess(APIResponse apiResponse) {
+                mutableLiveData.setValue(apiResponse);
+            }
+
+            @Override
+            protected void onError(BadRequest error) {
+
+            }
+        });
+        return mutableLiveData;
+    }
+
+    public LiveData<APIResponse> bundleTransferResponse(String auth, String serialNumber, String status, String remark) {
+        final MutableLiveData<APIResponse> mutableLiveData = new MutableLiveData<>();
+        FAPI.service().bundleTransfer(auth, serialNumber, status, remark).enqueue(new APICallback<APIResponse>(mContext) {
             @Override
             protected void onSuccess(APIResponse apiResponse) {
                 mutableLiveData.setValue(apiResponse);

@@ -26,6 +26,9 @@ public class APIModels {
     private ArrayList<CuttingRecordRemark> cuttingRecordRemarks;
     @SerializedName("cutting_ticket")
     private CuttingTicket cuttingTicket;
+
+    @SerializedName("bundle_status")
+    private ArrayList<BundleStatus> bundleStatus;
     @SerializedName("current_page")
     private int currentPage;
     @SerializedName("last_page")
@@ -75,6 +78,10 @@ public class APIModels {
 
     public void setCuttingRecordRemarks(ArrayList<CuttingRecordRemark> cuttingRecordRemarks) {
         this.cuttingRecordRemarks = cuttingRecordRemarks;
+    }
+
+    public ArrayList<BundleStatus> getBundleStatus() {
+        return bundleStatus;
     }
 
     public LayingPlanningDetail getLayingPlanningDetail() {

@@ -66,8 +66,18 @@ public class CuttingViewModel extends ViewModel {
         return productResponseData;
     }
 
-    public LiveData<APIResponse> getCuttingTicketDetailLiveData(String auth, int id) {
-        productResponseData = favoriteRepository.getCuttingTicketDetailResponse(auth, id);
+    public LiveData<APIResponse> getBundleStatusLiveData(String auth) {
+        productResponseData = favoriteRepository.getBundleStatusResponse(auth);
+        return productResponseData;
+    }
+
+    public LiveData<APIResponse> getCuttingTicketDetailLiveData(String auth, String serialNumber) {
+        productResponseData = favoriteRepository.getCuttingTicketDetailResponse(auth, serialNumber);
+        return productResponseData;
+    }
+
+    public LiveData<APIResponse> bundleTransferLiveData(String auth, String serialNumber, String status, String remark) {
+        productResponseData = favoriteRepository.bundleTransferResponse(auth, serialNumber, status, remark);
         return productResponseData;
     }
 }

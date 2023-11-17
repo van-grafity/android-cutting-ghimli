@@ -10,6 +10,7 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 public interface APIService {
@@ -68,7 +69,15 @@ public interface APIService {
     @POST("laying-planning-show")
     Call<APIResponse> getLayingPlanningBySerialNumber(@Header("Authorization") String authorization, @Field("serial_number") String serialNumber);
 
-    @GET("cutting-tickets/{id}")
-    Call<APIResponse> getCuttingTicketDetail(@Header("Authorization") String authorization, @Path("id") int id);
+    @FormUrlEncoded
+    @PUT("cutting-tickets")
+    Call<APIResponse> getCuttingTicketDetail(@Header("Authorization") String authorization, @Field("serial_number") String serialNumber);
+
+    @FormUrlEncoded
+    @POST("bundle-cuts")
+    Call<APIResponse> bundleTransfer(@Header("Authorization") String authorization, @Field("serial_number") String serialNumber, @Field("status") String status, @Field("remarks") String remark);
+
+    @GET("bundle-status")
+    Call<APIResponse> getBundleStatus(@Header("Authorization") String authorization);
 
 }

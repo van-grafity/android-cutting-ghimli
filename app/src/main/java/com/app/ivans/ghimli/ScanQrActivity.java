@@ -74,7 +74,7 @@ public class ScanQrActivity extends AppCompatActivity implements OnNetworkListen
                             startActivity(intent);
                             finish();
                         } else if (partStr.equals("CT")) {
-//                            Toast.makeText(CuttingLayingSheetScanQrActivity.this, message, Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(ScanQrActivity.this, message, Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(ScanQrActivity.this, CuttingTicketDetailActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);
                             intent.putExtra("serialNumber", message);
