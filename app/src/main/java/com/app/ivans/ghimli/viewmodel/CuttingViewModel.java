@@ -32,7 +32,7 @@ public class CuttingViewModel extends ViewModel {
     }
 
     public LiveData<APIResponse> getCuttingOrderLiveData(String auth) {
-        productResponseData = favoriteRepository.getCuttingOrderResponse(auth);
+//        productResponseData = favoriteRepository.getCuttingOrderResponse(auth);
         return productResponseData;
     }
 

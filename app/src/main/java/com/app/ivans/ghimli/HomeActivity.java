@@ -18,11 +18,13 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.paging.PagedList;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.app.ivans.ghimli.adapter.CuttingAdapter;
 import com.app.ivans.ghimli.adapter.CuttingOrderRecordAdapter;
 import com.app.ivans.ghimli.adapter.DepartmentAdapter;
 import com.app.ivans.ghimli.databinding.ActivityHomeBinding;
@@ -34,6 +36,7 @@ import com.app.ivans.ghimli.model.FGL;
 import com.app.ivans.ghimli.net.API;
 import com.app.ivans.ghimli.utils.BannerImageLoader;
 import com.app.ivans.ghimli.utils.Extension;
+import com.app.ivans.ghimli.viewmodel.CuttingOrderViewModel;
 import com.app.ivans.ghimli.viewmodel.CuttingViewModel;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
@@ -58,13 +61,14 @@ public class HomeActivity extends AppCompatActivity {
     private ArrayList<Department> mItemSearchEngine;
     private ArrayList<CuttingOrderRecord> mItemCuttingOrderRecord;
     private CuttingViewModel cuttingViewModel;
-    private RecyclerView.LayoutManager layoutManager;
+    private CuttingOrderViewModel cuttingOrderViewModel;
     ArrayList<Integer> mItems = new ArrayList<>();
 
     private LineDataSet totalsDataSet;
     private ArrayList totals;
     private ArrayList<String> dates;
     private boolean mIsPortrait;
+    CuttingAdapter cuttingAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,8 +92,17 @@ public class HomeActivity extends AppCompatActivity {
 //            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
 //            layoutManager = new GridLayoutManager(HomeActivity.this, 3, LinearLayoutManager.VERTICAL, false);
 //        }
-        layoutManager = new GridLayoutManager(HomeActivity.this, 2, LinearLayoutManager.VERTICAL, false);
-
+        binding.rvCuttingOrderRecord.setHasFixedSize(true);
+        binding.rvCuttingOrderRecord.setLayoutManager(new GridLayoutManager(HomeActivity.this, 2, LinearLayoutManager.VERTICAL, false));
+//        layoutManager = new GridLayoutManager(HomeActivity.this, 2, LinearLayoutManager.VERTICAL, false);
+        cuttingAdapter = new CuttingAdapter(HomeActivity.this, new CuttingAdapter.itemAdapterOnClickHandler() {
+            @Override
+            public void onClick(CuttingOrderRecord cuttingOrder, View view, int position) {
+                Intent intent = new Intent(HomeActivity.this, CuttingOrderRecordDetailActivity.class);
+                intent.putExtra(Extension.CUTTING_ORDER_RECORD, cuttingOrder);
+                startActivity(intent);
+            }
+        });
         toolbarBinding.tvTitleLarge.setVisibility(View.GONE);
         toolbarBinding.tvTitleLarge.setText("Ghim Li Indonesia");
         toolbarBinding.ivLogoStore.setVisibility(View.VISIBLE);
@@ -108,6 +121,7 @@ public class HomeActivity extends AppCompatActivity {
         binding.tvName.setText(API.currentUser(HomeActivity.this).getName());
 
         cuttingViewModel = new ViewModelProvider(HomeActivity.this).get(CuttingViewModel.class);
+        cuttingOrderViewModel = new ViewModelProvider(HomeActivity.this).get(CuttingOrderViewModel.class);
         runOnUiThread(new Runnable() {
             public void run() {
                 Extension.showLoading(HomeActivity.this);
@@ -272,28 +286,23 @@ public class HomeActivity extends AppCompatActivity {
         mItemCuttingOrderRecord = new ArrayList<>();
         runOnUiThread(new Runnable() {
             public void run() {
-                cuttingViewModel.getCuttingOrderLiveData(API.getToken(HomeActivity.this)).observe(HomeActivity.this, new Observer<APIResponse>() {
-                    @Override
-                    public void onChanged(APIResponse apiResponse) {
-                        runOnUiThread(new Runnable() {
-                            public void run() {
-                                Extension.dismissLoading();
-                            }
-                        });
-                        mItemCuttingOrderRecord = (ArrayList<CuttingOrderRecord>) apiResponse.getData().getCuttingOrderRecords();
-                        CuttingOrderRecordAdapter cuttingOrderRecordAdapter = new CuttingOrderRecordAdapter(mItemCuttingOrderRecord, HomeActivity.this, new CuttingOrderRecordAdapter.OnItemClickListener() {
-                            @Override
-                            public void OnClick(View view, int position, CuttingOrderRecord model) {
-                                Intent intent = new Intent(HomeActivity.this, CuttingOrderRecordDetailActivity.class);
-                                intent.putExtra(Extension.CUTTING_ORDER_RECORD, model);
-                                startActivity(intent);
-                            }
-                        });
-                        binding.rvCuttingOrderRecord.setHasFixedSize(true);
-                        binding.rvCuttingOrderRecord.setLayoutManager(layoutManager);
-                        binding.rvCuttingOrderRecord.setAdapter(cuttingOrderRecordAdapter);
+
+            }
+        });
+//        cuttingOrderViewModel.init(HomeActivity.this, API.getToken(HomeActivity.this), "");
+        cuttingOrderViewModel.getCuttingOrderPagedList().observe(HomeActivity.this, new Observer<PagedList<CuttingOrderRecord>>() {
+            @Override
+            public void onChanged(PagedList<CuttingOrderRecord> cuttingOrderRecords) {
+                runOnUiThread(new Runnable() {
+                    public void run() {
+                        Extension.dismissLoading();
                     }
                 });
+                Log.i("HomeActivityxx", ""+cuttingOrderRecords.size());
+
+                cuttingAdapter.submitList(cuttingOrderRecords);
+
+                binding.rvCuttingOrderRecord.setAdapter(cuttingAdapter);
             }
         });
 

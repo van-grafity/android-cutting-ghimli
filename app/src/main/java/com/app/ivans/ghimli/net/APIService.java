@@ -12,6 +12,7 @@ import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface APIService {
     @GET("users")
@@ -29,8 +30,7 @@ public interface APIService {
     Call<APIResponse> getColor(@Header("Authorization") String authorization);
 
     @GET("cutting-orders")
-    Call<APIResponse> getCuttingOrder(@Header("Authorization") String authorization);
-//    Call<APIResponse> getCuttingOrder(@Header("Authorization") String authorization, @Path("page") int page);
+    Call<APIResponse> getCuttingOrder(@Header("Authorization") String authorization, @Query("limit") int limit, @Query("page") int page, @Query("s") String search);
 
     @POST("cutting-orders") Call<APIResponse> createOptCuttingOrderObj(@Header("Authorization") String authorization, @Body CuttingOrderRecordDetail cuttingOrderRecordDetail);
 
