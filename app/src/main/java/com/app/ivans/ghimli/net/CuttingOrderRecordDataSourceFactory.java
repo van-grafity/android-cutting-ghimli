@@ -13,14 +13,18 @@ public class CuttingOrderRecordDataSourceFactory extends DataSource.Factory {
     private MutableLiveData<PageKeyedDataSource<Integer, CuttingOrderRecord>>cuttingOrderLiveDataSource = new MutableLiveData<>();
     
     private Context context;
+    private String authorization;
+    private String search;
 
-    public CuttingOrderRecordDataSourceFactory(Context context) {
+    public CuttingOrderRecordDataSourceFactory(Context context, String authorization, String search) {
         this.context = context;
+        this.authorization = authorization;
+        this.search = search;
     }
-
+    
     @Override
     public DataSource<Integer, CuttingOrderRecord> create() {
-        CuttingOrderRecordDataSource cuttingOrderRecordDataSource = new CuttingOrderRecordDataSource(context, "Bearer 2881|npL6oVdwsu99ffWgaelfffWpJ0S0T3CNEj4Ln9kkb35cdbae", "OPBODY-S752-01-001");
+        CuttingOrderRecordDataSource cuttingOrderRecordDataSource = new CuttingOrderRecordDataSource(context, authorization, search);
         cuttingOrderLiveDataSource.postValue(cuttingOrderRecordDataSource);
         return cuttingOrderRecordDataSource;
     }

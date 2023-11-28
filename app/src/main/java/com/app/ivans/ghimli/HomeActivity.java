@@ -83,6 +83,7 @@ public class HomeActivity extends AppCompatActivity {
         }
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
         mIsPortrait = getResources().getBoolean(R.bool.portrait_only);
 //        if(mIsPortrait){
 //            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
@@ -92,17 +93,8 @@ public class HomeActivity extends AppCompatActivity {
 //            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
 //            layoutManager = new GridLayoutManager(HomeActivity.this, 3, LinearLayoutManager.VERTICAL, false);
 //        }
-        binding.rvCuttingOrderRecord.setHasFixedSize(true);
-        binding.rvCuttingOrderRecord.setLayoutManager(new GridLayoutManager(HomeActivity.this, 2, LinearLayoutManager.VERTICAL, false));
-//        layoutManager = new GridLayoutManager(HomeActivity.this, 2, LinearLayoutManager.VERTICAL, false);
-        cuttingAdapter = new CuttingAdapter(HomeActivity.this, new CuttingAdapter.itemAdapterOnClickHandler() {
-            @Override
-            public void onClick(CuttingOrderRecord cuttingOrder, View view, int position) {
-                Intent intent = new Intent(HomeActivity.this, CuttingOrderRecordDetailActivity.class);
-                intent.putExtra(Extension.CUTTING_ORDER_RECORD, cuttingOrder);
-                startActivity(intent);
-            }
-        });
+//        binding.rvCuttingOrderRecord.setHasFixedSize(true);
+
         toolbarBinding.tvTitleLarge.setVisibility(View.GONE);
         toolbarBinding.tvTitleLarge.setText("Ghim Li Indonesia");
         toolbarBinding.ivLogoStore.setVisibility(View.VISIBLE);
@@ -122,6 +114,10 @@ public class HomeActivity extends AppCompatActivity {
 
         cuttingViewModel = new ViewModelProvider(HomeActivity.this).get(CuttingViewModel.class);
         cuttingOrderViewModel = new ViewModelProvider(HomeActivity.this).get(CuttingOrderViewModel.class);
+
+        binding.rvCuttingOrderRecord.setLayoutManager(new GridLayoutManager(HomeActivity.this, 2, LinearLayoutManager.VERTICAL, false));
+//        layoutManager = new GridLayoutManager(HomeActivity.this, 2, LinearLayoutManager.VERTICAL, false);
+
         runOnUiThread(new Runnable() {
             public void run() {
                 Extension.showLoading(HomeActivity.this);
@@ -283,13 +279,16 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     public void loadDataCuttingOrderRecord() {
-        mItemCuttingOrderRecord = new ArrayList<>();
-        runOnUiThread(new Runnable() {
-            public void run() {
-
+        cuttingAdapter = new CuttingAdapter(HomeActivity.this, new CuttingAdapter.itemAdapterOnClickHandler() {
+            @Override
+            public void onClick(CuttingOrderRecord cuttingOrder, View view, int position) {
+                Intent intent = new Intent(HomeActivity.this, CuttingOrderRecordDetailActivity.class);
+                intent.putExtra(Extension.CUTTING_ORDER_RECORD, cuttingOrder);
+                startActivity(intent);
             }
         });
-//        cuttingOrderViewModel.init(HomeActivity.this, API.getToken(HomeActivity.this), "");
+
+        cuttingOrderViewModel.init(HomeActivity.this, API.getToken(HomeActivity.this), "");
         cuttingOrderViewModel.getCuttingOrderPagedList().observe(HomeActivity.this, new Observer<PagedList<CuttingOrderRecord>>() {
             @Override
             public void onChanged(PagedList<CuttingOrderRecord> cuttingOrderRecords) {
@@ -298,11 +297,9 @@ public class HomeActivity extends AppCompatActivity {
                         Extension.dismissLoading();
                     }
                 });
-                Log.i("HomeActivityxx", ""+cuttingOrderRecords.size());
-
                 cuttingAdapter.submitList(cuttingOrderRecords);
-
                 binding.rvCuttingOrderRecord.setAdapter(cuttingAdapter);
+
             }
         });
 

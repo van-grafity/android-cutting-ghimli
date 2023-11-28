@@ -40,7 +40,7 @@ public class CuttingAdapter extends PagedListAdapter<CuttingOrderRecord, Cutting
     @Override
     public void onBindViewHolder(CuttingViewHolder holder, int position) {
         CuttingOrderRecord model = getItem(position);
-        Toast.makeText(mContext, model.getSerialNumber(),Toast.LENGTH_SHORT).show();
+//        Toast.makeText(mContext, model.getSerialNumber(),Toast.LENGTH_SHORT).show();
         holder.tvSerialNumber.setText(model.getSerialNumber());
 //        Random rnd = new Random();
 //        int currentColor = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));

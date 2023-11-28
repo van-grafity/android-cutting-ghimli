@@ -16,8 +16,7 @@ import retrofit2.Response;
 
 public class CuttingOrderRecordDataSource extends PageKeyedDataSource<Integer, CuttingOrderRecord> {
     private static final int FIRST_PAGE = 1;
-    public static final int PAGE_SIZE = 10;
-    // @Header("Authorization") String authorization, @Query("limit") int limit, @Query("page") int page, @Query("s") String search
+    public static final int PAGE_SIZE = 20;
     private Context context;
     private String search;
     private String authorization;
@@ -64,7 +63,7 @@ public class CuttingOrderRecordDataSource extends PageKeyedDataSource<Integer, C
         FAPI.service().getCuttingOrder(authorization, PAGE_SIZE, params.key, search).enqueue(new APICallback<APIResponse>(context) {
             @Override
             protected void onSuccess(APIResponse apiResponse) {
-                Integer key = (params.key < apiResponse.getData().getCuttingOrderRecords().size()) ? params.key + 1 : null;
+                Integer key = apiResponse.getData().getCuttingOrderRecords().size() > 0 ? params.key + 1 : null;
                 callback.onResult(apiResponse.getData().getCuttingOrderRecords(), key);
             }
 

@@ -18,25 +18,26 @@ public class CuttingOrderViewModel extends ViewModel {
     private LiveData<PagedList<CuttingOrderRecord>> cuttingOrderPagedList;
     LiveData<PageKeyedDataSource<Integer, CuttingOrderRecord>> liveDataSource;
     private CuttingOrderRecordDataSourceFactory cuttingOrderRecordDataSourceFactory;
-
-    public CuttingOrderViewModel() {
-        Context context = new Activity();
-        cuttingOrderRecordDataSourceFactory = new CuttingOrderRecordDataSourceFactory(context);
-    }
-
-//    public void init(Context context, String authorization, String search) {
-//
-//    }
-
-    public LiveData<PagedList<CuttingOrderRecord>> getCuttingOrderPagedList() {
+    
+    public void init(Context context, String authorization, String search) {
+        cuttingOrderRecordDataSourceFactory = new CuttingOrderRecordDataSourceFactory(context, authorization, search);
         liveDataSource = cuttingOrderRecordDataSourceFactory.getCuttingOrderLiveDataSource();
-
         PagedList.Config config = (new PagedList.Config.Builder())
                 .setEnablePlaceholders(false)
                 .setPageSize(CuttingOrderRecordDataSource.PAGE_SIZE)
                 .build();
-
         cuttingOrderPagedList = (new LivePagedListBuilder(cuttingOrderRecordDataSourceFactory, config)).build();
+    }
+
+    public LiveData<PagedList<CuttingOrderRecord>> getCuttingOrderPagedList() {
         return cuttingOrderPagedList;
     }
+
+    public void refresh() {
+        cuttingOrderRecordDataSourceFactory.getCuttingOrderLiveDataSource().getValue().invalidate();
+    }
 }
+
+//    public void init(Context context, String authorization, String search) {
+
+//    }
