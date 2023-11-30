@@ -6,7 +6,10 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.graphics.DashPathEffect;
+import android.net.TrafficStats;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -69,6 +72,11 @@ public class HomeActivity extends AppCompatActivity {
     private ArrayList<String> dates;
     private boolean mIsPortrait;
     CuttingAdapter cuttingAdapter;
+
+    private Handler handler;
+
+    private long lastTotalRxBytes = 0;
+    private long lastTotalTxBytes = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -99,6 +107,11 @@ public class HomeActivity extends AppCompatActivity {
         toolbarBinding.tvTitleLarge.setText("Ghim Li Indonesia");
         toolbarBinding.ivLogoStore.setVisibility(View.VISIBLE);
         toolbarBinding.txtSearch.setVisibility(View.VISIBLE);
+
+        handler = new Handler(Looper.getMainLooper());
+
+        // Start the speed monitoring task
+        startSpeedMonitoring();
 
         toolbarBinding.txtSearch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -180,6 +193,43 @@ public class HomeActivity extends AppCompatActivity {
                 API.logOut(HomeActivity.this);
             }
         });
+    }
+
+    private void startSpeedMonitoring() {
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                updateSpeed();
+                handler.postDelayed(this, 1000); // Update speed every 1 second
+            }
+        }, 1000); // Start the task after 1 second
+    }
+
+    private void updateSpeed() {
+        long totalRxBytes = TrafficStats.getTotalRxBytes();
+        long totalTxBytes = TrafficStats.getTotalTxBytes();
+
+        long downSpeed = totalRxBytes - lastTotalRxBytes;
+        long upSpeed = totalTxBytes - lastTotalTxBytes;
+
+        lastTotalRxBytes = totalRxBytes;
+        lastTotalTxBytes = totalTxBytes;
+
+        String downSpeedStr = formatSpeed(downSpeed);
+        String upSpeedStr = formatSpeed(upSpeed);
+        toolbarBinding.txtSearch.setText("Up :"+ upSpeedStr +" "+"Down :"+downSpeedStr);
+        Log.i(TAG, "Down Speed: "+downSpeedStr);
+        Log.i(TAG, "Up Speed: "+upSpeedStr);
+    }
+
+    private String formatSpeed(long speedBytes) {
+        if (speedBytes < 1024) {
+            return speedBytes + " B/s";
+        } else if (speedBytes < 1024 * 1024) {
+            return String.format("%.2f", speedBytes / 1024.0) + " KB/s";
+        } else {
+            return String.format("%.2f", speedBytes / (1024.0 * 1024.0)) + " MB/s";
+        }
     }
 
     void banner() {
