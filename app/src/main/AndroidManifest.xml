@@ -24,6 +24,9 @@
         android:theme="@style/Theme.GhimLi"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".MenuActivity"
+            android:exported="false" />
+        <activity
             android:name=".ResultActivity"
             android:exported="false" />
         <activity

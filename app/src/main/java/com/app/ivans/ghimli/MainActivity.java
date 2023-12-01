@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
             finish();
             return;
         } else {
-            startActivity(new Intent(getBaseContext(), HomeActivity.class));
+            startActivity(new Intent(getBaseContext(), MenuActivity.class));
             finish();
         }
     }
