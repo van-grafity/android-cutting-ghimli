@@ -22,4 +22,24 @@
     <string name="navigation_drawer_close">Navigation Drawer Close</string>
     <string name="want_to_exit">Apakah yakin ingin keluar dari aplikasi ?</string>
     <string name="ok">Ya</string>
+    <string name="nav_home">Home</string>
+    <string name="nav_layer">Layer</string>
+    <string name="nav_cutter">Cutter</string>
+    <string name="nav_cut_piece_stock">Cut Piece Stock</string>
+    <string name="nav_logout">Keluar</string>
+    <string name="want_to_logout">Apakah yakin ingin keluar dari aplikasi ?</string>
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
 </resources>
