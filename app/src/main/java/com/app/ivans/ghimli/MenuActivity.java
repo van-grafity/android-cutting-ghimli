@@ -70,6 +70,16 @@ public class MenuActivity extends BaseActivity implements NavigationView.OnNavig
             }
         };
         toggle.setDrawerIndicatorEnabled(true);
+        toggle.setToolbarNavigationClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(drawer.isDrawerOpen(GravityCompat.START)){
+                    drawer.closeDrawer(GravityCompat.START);
+                }else {
+                    drawer.openDrawer(GravityCompat.START);
+                }
+            }
+        });
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
