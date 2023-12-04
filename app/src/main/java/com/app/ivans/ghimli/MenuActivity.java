@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -50,11 +51,28 @@ public class MenuActivity extends BaseActivity implements NavigationView.OnNavig
         setSupportActionBar(toolbar);
 //        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         DrawerLayout drawer = binding.drawerLayout;
+        final ActionBar actionBar = getSupportActionBar();
 
+        if (actionBar != null) {
+
+            actionBar.setDisplayShowTitleEnabled(true);
+            actionBar.setHomeButtonEnabled(true);
+//            actionBar.setDefaultDisplayHomeAsUpEnabled(true);
+        }
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
+            public void onDrawerClosed(View view) {
+                supportInvalidateOptionsMenu();
+            }
+
+            public void onDrawerOpened(View drawerView) {
+                supportInvalidateOptionsMenu();
+            }
+        };
+        toggle.setDrawerIndicatorEnabled(true);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+
         binding.navView.setNavigationItemSelectedListener(this);
 
         View headerContainer = binding.navView.getHeaderView(0);
@@ -91,23 +109,17 @@ public class MenuActivity extends BaseActivity implements NavigationView.OnNavig
 
         if (id == R.id.nav_home) {
             Fragment fragment = HomeFragment.newInstance();
-            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.replace(R.id.frame_container, fragment);
-            ft.commit();
+            replaceFragment(fragment);
             currentFragment = fragment;
             menuItem.setChecked(true);
         } else if (id == R.id.nav_layer) {
             Fragment fragment = LayerFragment.newInstance();
-            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.replace(R.id.frame_container, fragment);
-            ft.commit();
+            replaceFragment(fragment);
             currentFragment = fragment;
             menuItem.setChecked(true);
         } else if (id == R.id.nav_cutter) {
             Fragment fragment = CutterFragment.newInstance();
-            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.replace(R.id.frame_container, fragment);
-            ft.commit();
+            replaceFragment(fragment);
             currentFragment = fragment;
             menuItem.setChecked(true);
 
@@ -142,6 +154,12 @@ public class MenuActivity extends BaseActivity implements NavigationView.OnNavig
         return true;
     }
 
+    public void replaceFragment(Fragment fragment) {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.frame_container, fragment);
+        transaction.addToBackStack(null); // Optional: Add to back stack
+        transaction.commit();
+    }
 
     @Override
     public void onBackPressed() {

@@ -28,8 +28,9 @@
 
                 <RelativeLayout
                     android:id="@+id/btn_layer"
+                    android:background="@android:color/holo_orange_light"
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_height="110dp"
                     android:gravity="center"
                     android:padding="4dp">
 
@@ -58,8 +59,9 @@
 
                 <RelativeLayout
                     android:id="@+id/btn_cutter"
+                    android:background="@android:color/holo_orange_light"
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_height="110dp"
                     android:gravity="center"
                     android:padding="4dp">
 
@@ -89,7 +91,8 @@
                 <RelativeLayout
                     android:id="@+id/btn_cut_piece_stock"
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_height="110dp"
+                    android:background="@android:color/holo_orange_light"
                     android:gravity="center"
                     android:padding="4dp">
 
