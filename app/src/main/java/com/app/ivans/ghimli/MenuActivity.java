@@ -111,7 +111,7 @@ public class MenuActivity extends BaseActivity implements NavigationView.OnNavig
             currentFragment = fragment;
             menuItem.setChecked(true);
 
-        } else if (id == R.id.nav_cutter) {
+        } else if (id == R.id.nav_cut_piece_stock) {
             Fragment fragment = CutPieceStockFragment.newInstance();
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.frame_container, fragment);
