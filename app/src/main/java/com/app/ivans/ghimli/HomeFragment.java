@@ -36,32 +36,9 @@ public class HomeFragment extends Fragment {
         btn_cutter = view.findViewById(R.id.btn_cutter);
         btn_cut_piece_stock = view.findViewById(R.id.btn_cut_piece_stock);
 
-        btn_layer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.frame_container, new LayerFragment());
-                fragmentTransaction.commit();
-            }
-        });
-
-        btn_cutter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.frame_container, new CutterFragment());
-                fragmentTransaction.commit();
-            }
-        });
-
-        btn_cut_piece_stock.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.frame_container, new CutPieceStockFragment());
-                fragmentTransaction.commit();
-            }
-        });
+        showLayerDrawerFragment();
+        showCutterDrawerFragment();
+        showCutPieceStockDrawerFragment();
 
         return view;
     }
@@ -72,4 +49,41 @@ public class HomeFragment extends Fragment {
         mViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
         // TODO: Use the ViewModel
     }
+
+    private void showLayerDrawerFragment() {
+        btn_layer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                LayerFragment layerFragment = new LayerFragment();
+                ft.replace(R.id.frame_container, layerFragment);
+                ft.commit();
+            }
+        });
+    }
+
+    private void showCutterDrawerFragment() {
+        btn_cutter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                CutterFragment cutterFragment = new CutterFragment();
+                ft.replace(R.id.frame_container, cutterFragment);
+                ft.commit();
+            }
+        });
+    }
+
+    private void showCutPieceStockDrawerFragment() {
+        btn_cut_piece_stock.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                CutPieceStockFragment cutPieceStockFragment = new CutPieceStockFragment();
+                ft.replace(R.id.frame_container, cutPieceStockFragment);
+                ft.commit();
+            }
+        });
+    }
+
 }
