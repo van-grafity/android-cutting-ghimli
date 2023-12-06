@@ -4,9 +4,12 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Vibrator;
 import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
@@ -431,6 +434,24 @@ public class Extension {
             }
         } catch (Exception ex) {
             Log.e("ERROR", "LOAD IMAGE: " + ex);
+        }
+    }
+
+    public static void vibrate(Context context) {
+        // Get instance of Vibrator from current Context and Vibrate for 400
+        // milliseconds
+        ((Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE))
+                .vibrate(100);
+    }
+
+    public static String getVersion(Context context) {
+        try {
+            PackageInfo pInfo = context.getPackageManager().getPackageInfo(
+                    context.getPackageName(), PackageManager.GET_META_DATA);
+            return String.valueOf(pInfo.versionCode) + " " + pInfo.versionName;
+
+        } catch (PackageManager.NameNotFoundException e) {
+            return "1.0.1";
         }
     }
 }

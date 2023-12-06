@@ -1,14 +1,20 @@
 package com.app.ivans.ghimli.net;
 
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.paging.PageKeyedDataSource;
 
+import com.app.ivans.ghimli.R;
 import com.app.ivans.ghimli.model.APIResponse;
 import com.app.ivans.ghimli.model.CuttingOrderRecord;
+import com.app.ivans.ghimli.utils.Extension;
+import com.app.ivans.ghimli.utils.InternetUtil;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -32,7 +38,25 @@ public class CuttingOrderRecordDataSource extends PageKeyedDataSource<Integer, C
         FAPI.service().getCuttingOrder(authorization, params.requestedLoadSize, FIRST_PAGE, search).enqueue(new APICallback<APIResponse>(context) {
             @Override
             protected void onSuccess(APIResponse apiResponse) {
-                callback.onResult(apiResponse.getData().getCuttingOrderRecords(), null, FIRST_PAGE + 1);
+                if (InternetUtil.isInternetOn()){
+                    callback.onResult(apiResponse.getData().getCuttingOrderRecords(), null, FIRST_PAGE + 1);
+                } else {
+                    ((Activity)context).runOnUiThread(new Runnable() {
+                        public void run() {
+                            Extension.dismissLoading();
+                        }
+                    });
+                    AlertDialog alertDialog = new AlertDialog.Builder(context).create();
+                    alertDialog.setTitle(context.getString(R.string.sorry));
+                    alertDialog.setMessage("Periksa Jaringan Internet.");
+                    alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, context.getString(R.string.dialog_ok),
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            });
+                    alertDialog.show();
+                }
             }
 
             @Override

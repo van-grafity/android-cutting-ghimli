@@ -1,6 +1,7 @@
 package com.app.ivans.ghimli.utils;
 
-import static com.app.ivans.ghimli.utils.InternetUtils.isNetworkConnected;
+
+import static com.app.ivans.ghimli.base.BaseActivity.isNetworkConnected;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

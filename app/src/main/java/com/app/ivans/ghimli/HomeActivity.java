@@ -131,11 +131,6 @@ public class HomeActivity extends AppCompatActivity {
         binding.rvCuttingOrderRecord.setLayoutManager(new GridLayoutManager(HomeActivity.this, 2, LinearLayoutManager.VERTICAL, false));
 //        layoutManager = new GridLayoutManager(HomeActivity.this, 2, LinearLayoutManager.VERTICAL, false);
 
-        runOnUiThread(new Runnable() {
-            public void run() {
-                Extension.showLoading(HomeActivity.this);
-            }
-        });
         loadDataDepartment();
         loadDataCuttingOrderRecord();
         binding.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -392,26 +387,8 @@ public class HomeActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(HomeActivity.this);
-
-        alertDialogBuilder.setTitle(getString(R.string.app_name));
-        alertDialogBuilder
-                .setMessage("Apakah Anda yakin ingin keluar dari Aplikasi?")
-                .setCancelable(true)
-                .setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        //do nothing
-                    }
-                })
-                .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        finish();
-                    }
-                });
-
-        AlertDialog alertDialog = alertDialogBuilder.create();
-        alertDialog.show();
+        handler.removeCallbacksAndMessages(null);
+        finish();
     }
 
     //    ROP UserBankAccountActivity.class

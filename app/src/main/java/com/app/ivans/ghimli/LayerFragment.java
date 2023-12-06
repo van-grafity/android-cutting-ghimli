@@ -2,6 +2,7 @@ package com.app.ivans.ghimli;
 
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -23,6 +24,7 @@ public class LayerFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+        getActivity().startActivity(new Intent(getActivity(), HomeActivity.class));
         return inflater.inflate(R.layout.fragment_layer, container, false);
     }
 

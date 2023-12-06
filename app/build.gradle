@@ -75,6 +75,7 @@ dependencies {
     implementation 'com.github.ybq:Android-SpinKit:1.4.0'
     implementation 'com.flaviofaria:kenburnsview:1.0.7'
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+    implementation 'com.flaviofaria:kenburnsview:1.0.7'
 
     implementation 'com.ogaclejapan.smarttablayout:library:1.6.1@aar'
     implementation 'com.ogaclejapan.smarttablayout:utils-v4:1.6.1@aar'

@@ -1,5 +1,6 @@
 package com.app.ivans.ghimli;
 
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -14,13 +15,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
+
+import com.app.ivans.ghimli.utils.Extension;
 
 public class HomeFragment extends Fragment {
 
     private HomeViewModel mViewModel;
-    private RelativeLayout btn_layer, btn_cutter, btn_cut_piece_stock;
+    private CardView btn_layer, btn_cutter, btn_cut_piece_stock, btn_about;
 
     public static HomeFragment newInstance() {
         return new HomeFragment();
@@ -35,11 +39,35 @@ public class HomeFragment extends Fragment {
         btn_layer = view.findViewById(R.id.btn_layer);
         btn_cutter = view.findViewById(R.id.btn_cutter);
         btn_cut_piece_stock = view.findViewById(R.id.btn_cut_piece_stock);
+        btn_about = view.findViewById(R.id.btn_about);
 
-        showLayerDrawerFragment();
-        showCutterDrawerFragment();
-        showCutPieceStockDrawerFragment();
+        btn_layer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showLayerDrawerFragment();
+            }
+        });
 
+        btn_cutter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showCutterDrawerFragment();
+            }
+        });
+
+        btn_cut_piece_stock.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showCutPieceStockDrawerFragment();
+            }
+        });
+
+        btn_about.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showAboutDrawerFragment();
+            }
+        });
         return view;
     }
 
@@ -54,10 +82,17 @@ public class HomeFragment extends Fragment {
         btn_layer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-                LayerFragment layerFragment = new LayerFragment();
-                ft.replace(R.id.frame_container, layerFragment);
-                ft.commit();
+//                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+//                LayerFragment layerFragment = new LayerFragment();
+//                ft.replace(R.id.frame_container, layerFragment);
+//                ft.commit();
+                getActivity().runOnUiThread(new Runnable() {
+                    public void run() {
+                        Extension.showLoading(getActivity());
+                    }
+                });
+                startActivity(new Intent(getActivity(), HomeActivity.class));
+                Extension.dismissLoading();
             }
         });
     }
@@ -84,6 +119,13 @@ public class HomeFragment extends Fragment {
                 ft.commit();
             }
         });
+    }
+
+    private void showAboutDrawerFragment() {
+        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+        AboutFragment aboutFragment = new AboutFragment();
+        ft.replace(R.id.frame_container, aboutFragment);
+        ft.commit();
     }
 
 }

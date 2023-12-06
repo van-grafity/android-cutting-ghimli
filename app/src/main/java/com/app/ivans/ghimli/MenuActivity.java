@@ -129,12 +129,13 @@ public class MenuActivity extends BaseActivity implements NavigationView.OnNavig
             currentFragment = homeFragment;
             menuItem.setChecked(true);
         } else if (id == R.id.nav_layer) {
-            getSupportActionBar().setTitle("Layer");
-            Fragment layerFragment = LayerFragment.newInstance();
-            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.replace(R.id.frame_container, layerFragment);
-            ft.commit();
-            currentFragment = layerFragment;
+//            getSupportActionBar().setTitle("Layer");
+//            Fragment layerFragment = LayerFragment.newInstance();
+//            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+//            ft.replace(R.id.frame_container, layerFragment);
+//            ft.commit();
+//            currentFragment = layerFragment;
+            startActivity(new Intent(MenuActivity.this, HomeActivity.class));
             menuItem.setChecked(true);
         } else if (id == R.id.nav_cutter) {
             getSupportActionBar().setTitle("Cutter");
@@ -151,6 +152,14 @@ public class MenuActivity extends BaseActivity implements NavigationView.OnNavig
             ft.replace(R.id.frame_container, cutPieceStockFragment);
             ft.commit();
             currentFragment = cutPieceStockFragment;
+            menuItem.setChecked(true);
+        } else if (id == R.id.nav_about) {
+            getSupportActionBar().setTitle("Tentang");
+            Fragment aboutFragment = AboutFragment.newInstance();
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.frame_container, aboutFragment);
+            ft.commit();
+            currentFragment = aboutFragment;
             menuItem.setChecked(true);
         } else if (id == R.id.nav_logout) {
             AlertDialog alertDialog = new AlertDialog.Builder(this)
