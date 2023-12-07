@@ -82,17 +82,10 @@ public class HomeFragment extends Fragment {
         btn_layer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-//                LayerFragment layerFragment = new LayerFragment();
-//                ft.replace(R.id.frame_container, layerFragment);
-//                ft.commit();
-                getActivity().runOnUiThread(new Runnable() {
-                    public void run() {
-                        Extension.showLoading(getActivity());
-                    }
-                });
-                startActivity(new Intent(getActivity(), HomeActivity.class));
-                Extension.dismissLoading();
+                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                LayerFragment layerFragment = new LayerFragment();
+                ft.replace(R.id.frame_container, layerFragment);
+                ft.commit();
             }
         });
     }

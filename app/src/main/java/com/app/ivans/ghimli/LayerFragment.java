@@ -24,8 +24,8 @@ public class LayerFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        getActivity().startActivity(new Intent(getActivity(), HomeActivity.class));
-        return inflater.inflate(R.layout.fragment_layer, container, false);
+        View view = inflater.inflate(R.layout.fragment_layer, container, false);
+        return view;
     }
 
     @Override

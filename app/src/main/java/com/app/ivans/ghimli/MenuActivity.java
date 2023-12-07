@@ -129,13 +129,13 @@ public class MenuActivity extends BaseActivity implements NavigationView.OnNavig
             currentFragment = homeFragment;
             menuItem.setChecked(true);
         } else if (id == R.id.nav_layer) {
-//            getSupportActionBar().setTitle("Layer");
-//            Fragment layerFragment = LayerFragment.newInstance();
-//            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-//            ft.replace(R.id.frame_container, layerFragment);
-//            ft.commit();
-//            currentFragment = layerFragment;
-            startActivity(new Intent(MenuActivity.this, HomeActivity.class));
+            getSupportActionBar().setTitle("Layer");
+            Fragment layerFragment = LayerFragment.newInstance();
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.frame_container, layerFragment);
+            ft.commit();
+            currentFragment = layerFragment;
+//            startActivity(new Intent(MenuActivity.this, HomeActivity.class));
             menuItem.setChecked(true);
         } else if (id == R.id.nav_cutter) {
             getSupportActionBar().setTitle("Cutter");
