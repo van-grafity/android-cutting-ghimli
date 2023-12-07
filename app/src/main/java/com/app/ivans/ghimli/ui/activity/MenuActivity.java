@@ -1,4 +1,4 @@
-package com.app.ivans.ghimli;
+package com.app.ivans.ghimli.ui.activity;
 
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -12,22 +12,26 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.viewbinding.ViewBinding;
 
-import com.app.ivans.ghimli.base.BaseActivity;
 import com.app.ivans.ghimli.databinding.ActivityMenuBinding;
+import com.app.ivans.ghimli.ui.fragment.AboutFragment;
+import com.app.ivans.ghimli.ui.fragment.HomeFragmentInterface;
+import com.app.ivans.ghimli.R;
+import com.app.ivans.ghimli.base.BaseActivity;
 import com.app.ivans.ghimli.net.API;
+import com.app.ivans.ghimli.ui.fragment.CutPieceStockFragment;
+import com.app.ivans.ghimli.ui.fragment.CutterFragment;
+import com.app.ivans.ghimli.ui.fragment.HomeFragment;
+import com.app.ivans.ghimli.ui.fragment.LayerFragment;
 import com.google.android.material.navigation.NavigationView;
 
 import de.hdodenhof.circleimageview.BuildConfig;

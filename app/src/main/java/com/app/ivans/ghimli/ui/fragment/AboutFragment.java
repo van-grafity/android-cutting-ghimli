@@ -1,4 +1,4 @@
-package com.app.ivans.ghimli;
+package com.app.ivans.ghimli.ui.fragment;
 
 import androidx.lifecycle.ViewModelProvider;
 
@@ -14,6 +14,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.app.ivans.ghimli.R;
+import com.app.ivans.ghimli.ui.viewmodel.AboutViewModel;
 import com.app.ivans.ghimli.utils.Extension;
 
 public class AboutFragment extends Fragment {

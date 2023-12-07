@@ -1,4 +1,4 @@
-package com.app.ivans.ghimli;
+package com.app.ivans.ghimli.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,10 +19,9 @@ import com.app.ivans.ghimli.databinding.ActivityCuttingTicketDetailBinding;
 import com.app.ivans.ghimli.databinding.ToolbarBinding;
 import com.app.ivans.ghimli.model.APIResponse;
 import com.app.ivans.ghimli.model.BundleStatus;
-import com.app.ivans.ghimli.model.CuttingRecordRemark;
 import com.app.ivans.ghimli.net.API;
 import com.app.ivans.ghimli.utils.Extension;
-import com.app.ivans.ghimli.viewmodel.CuttingViewModel;
+import com.app.ivans.ghimli.ui.viewmodel.CuttingViewModel;
 
 import java.util.ArrayList;
 

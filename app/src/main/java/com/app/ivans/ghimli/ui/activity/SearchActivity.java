@@ -1,4 +1,4 @@
-package com.app.ivans.ghimli;
+package com.app.ivans.ghimli.ui.activity;
 
 import static com.app.ivans.ghimli.utils.Extension.HISTORY_DATA;
 import static com.app.ivans.ghimli.utils.Extension.KEYWORD;
@@ -26,13 +26,13 @@ import androidx.appcompat.app.ActionBar;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewbinding.ViewBinding;
 
+import com.app.ivans.ghimli.R;
 import com.app.ivans.ghimli.adapter.WordAdapter;
 import com.app.ivans.ghimli.base.BaseActivity;
-import com.app.ivans.ghimli.databinding.ActivityCuttingOrderRecordDetailBinding;
 import com.app.ivans.ghimli.databinding.ActivitySearchBinding;
 import com.app.ivans.ghimli.databinding.ToolbarBinding;
 import com.app.ivans.ghimli.net.FAPI;
-import com.app.ivans.ghimli.viewmodel.CuttingViewModel;
+import com.app.ivans.ghimli.ui.viewmodel.CuttingViewModel;
 
 import java.util.ArrayList;
 import java.util.List;

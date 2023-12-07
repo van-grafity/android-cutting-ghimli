@@ -1,7 +1,5 @@
-package com.app.ivans.ghimli;
+package com.app.ivans.ghimli.ui.activity;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
@@ -17,16 +15,13 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.app.ivans.ghimli.R;
 import com.app.ivans.ghimli.databinding.ActivityScanQrBinding;
-import com.app.ivans.ghimli.model.APIResponse;
-import com.app.ivans.ghimli.net.API;
-import com.app.ivans.ghimli.utils.Extension;
 import com.app.ivans.ghimli.utils.NetworkChangeReceiver;
 import com.app.ivans.ghimli.utils.OnNetworkListener;
-import com.app.ivans.ghimli.viewmodel.CuttingViewModel;
+import com.app.ivans.ghimli.ui.viewmodel.CuttingViewModel;
 import com.budiyev.android.codescanner.CodeScanner;
 import com.budiyev.android.codescanner.CodeScannerView;
 import com.budiyev.android.codescanner.DecodeCallback;

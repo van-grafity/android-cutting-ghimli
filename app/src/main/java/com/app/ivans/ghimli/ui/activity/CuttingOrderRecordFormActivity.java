@@ -1,4 +1,4 @@
-package com.app.ivans.ghimli;
+package com.app.ivans.ghimli.ui.activity;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -20,16 +20,18 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewbinding.ViewBinding;
 
-import com.app.ivans.ghimli.adapter.ColorAdapter;
-import com.app.ivans.ghimli.base.BaseActivity;
 import com.app.ivans.ghimli.databinding.ActivityCuttingOrderRecordFormBinding;
 import com.app.ivans.ghimli.databinding.ToolbarBinding;
+import com.app.ivans.ghimli.ui.custom.CommentContentBottomSheetDialog;
+import com.app.ivans.ghimli.R;
+import com.app.ivans.ghimli.adapter.ColorAdapter;
+import com.app.ivans.ghimli.base.BaseActivity;
 import com.app.ivans.ghimli.model.APIResponse;
 import com.app.ivans.ghimli.model.CuttingOrderRecordDetail;
 import com.app.ivans.ghimli.model.CuttingRecordRemark;
 import com.app.ivans.ghimli.net.API;
 import com.app.ivans.ghimli.utils.Extension;
-import com.app.ivans.ghimli.viewmodel.CuttingViewModel;
+import com.app.ivans.ghimli.ui.viewmodel.CuttingViewModel;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;

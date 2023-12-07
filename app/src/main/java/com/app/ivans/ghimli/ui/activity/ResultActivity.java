@@ -1,10 +1,8 @@
-package com.app.ivans.ghimli;
+package com.app.ivans.ghimli.ui.activity;
 
 import static com.app.ivans.ghimli.utils.Extension.KEYWORD;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -13,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -22,16 +19,12 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.viewbinding.ViewBinding;
 
 import com.app.ivans.ghimli.adapter.CuttingAdapter;
-import com.app.ivans.ghimli.adapter.CuttingOrderRecordAdapter;
 import com.app.ivans.ghimli.base.BaseActivity;
 import com.app.ivans.ghimli.databinding.ActivityResultBinding;
 import com.app.ivans.ghimli.databinding.ToolbarBinding;
 import com.app.ivans.ghimli.model.CuttingOrderRecord;
 import com.app.ivans.ghimli.net.API;
-import com.app.ivans.ghimli.net.FAPI;
-import com.app.ivans.ghimli.utils.Extension;
-import com.app.ivans.ghimli.viewmodel.CuttingOrderViewModel;
-import com.app.ivans.ghimli.viewmodel.CuttingViewModel;
+import com.app.ivans.ghimli.ui.viewmodel.CuttingOrderViewModel;
 
 import java.util.ArrayList;
 

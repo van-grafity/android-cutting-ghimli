@@ -1,4 +1,4 @@
-package com.app.ivans.ghimli;
+package com.app.ivans.ghimli.ui.custom;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.app.ivans.ghimli.R;
 import com.app.ivans.ghimli.adapter.CommentAdapter;
 import com.app.ivans.ghimli.model.Comment;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;

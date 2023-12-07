@@ -1,9 +1,8 @@
-package com.app.ivans.ghimli;
+package com.app.ivans.ghimli.ui.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,11 +10,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Toast;
 
+import com.app.ivans.ghimli.R;
 import com.app.ivans.ghimli.databinding.ActivityLoginBinding;
 import com.app.ivans.ghimli.net.API;
 import com.app.ivans.ghimli.utils.Extension;
 import com.app.ivans.ghimli.utils.Validation;
-import com.app.ivans.ghimli.viewmodel.UserViewModel;
+import com.app.ivans.ghimli.ui.viewmodel.UserViewModel;
 
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";

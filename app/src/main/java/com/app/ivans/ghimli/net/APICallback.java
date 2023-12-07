@@ -13,7 +13,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.widget.TextView;
 
-import com.app.ivans.ghimli.LoginActivity;
+import com.app.ivans.ghimli.ui.activity.LoginActivity;
 import com.app.ivans.ghimli.R;
 
 import java.io.IOException;

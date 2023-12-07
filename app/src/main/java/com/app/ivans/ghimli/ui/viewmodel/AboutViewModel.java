@@ -1,4 +1,4 @@
-package com.app.ivans.ghimli;
+package com.app.ivans.ghimli.ui.viewmodel;
 
 import androidx.lifecycle.ViewModel;
 

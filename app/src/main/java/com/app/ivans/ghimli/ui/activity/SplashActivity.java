@@ -1,4 +1,4 @@
-package com.app.ivans.ghimli;
+package com.app.ivans.ghimli.ui.activity;
 
 import android.Manifest;
 import android.content.Context;
@@ -13,6 +13,8 @@ import android.view.animation.AnimationUtils;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.app.ivans.ghimli.MainActivity;
+import com.app.ivans.ghimli.R;
 import com.app.ivans.ghimli.databinding.ActivitySplashBinding;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;

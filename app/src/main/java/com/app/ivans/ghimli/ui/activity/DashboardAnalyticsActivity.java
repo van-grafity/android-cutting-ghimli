@@ -1,4 +1,4 @@
-package com.app.ivans.ghimli;
+package com.app.ivans.ghimli.ui.activity;
 
 import android.graphics.Color;
 import android.graphics.DashPathEffect;
@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.app.ivans.ghimli.R;
 import com.app.ivans.ghimli.databinding.ActivityDashboardAnalyticsBinding;
 import com.app.ivans.ghimli.model.APIResponse;
 import com.app.ivans.ghimli.model.FGL;

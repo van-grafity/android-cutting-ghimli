@@ -1,4 +1,4 @@
-package com.app.ivans.ghimli;
+package com.app.ivans.ghimli.ui.fragment;
 
 import androidx.lifecycle.ViewModelProvider;
 
@@ -12,7 +12,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.app.ivans.ghimli.viewmodel.LayerViewModel;
+import com.app.ivans.ghimli.R;
+import com.app.ivans.ghimli.ui.viewmodel.LayerViewModel;
 
 public class LayerFragment extends Fragment {
 

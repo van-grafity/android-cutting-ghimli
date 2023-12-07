@@ -1,9 +1,6 @@
-package com.app.ivans.ghimli;
+package com.app.ivans.ghimli.ui.activity;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.graphics.DashPathEffect;
 import android.net.TrafficStats;
@@ -27,8 +24,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.app.ivans.ghimli.R;
 import com.app.ivans.ghimli.adapter.CuttingAdapter;
-import com.app.ivans.ghimli.adapter.CuttingOrderRecordAdapter;
 import com.app.ivans.ghimli.adapter.DepartmentAdapter;
 import com.app.ivans.ghimli.databinding.ActivityHomeBinding;
 import com.app.ivans.ghimli.databinding.ToolbarBinding;
@@ -39,8 +36,8 @@ import com.app.ivans.ghimli.model.FGL;
 import com.app.ivans.ghimli.net.API;
 import com.app.ivans.ghimli.utils.BannerImageLoader;
 import com.app.ivans.ghimli.utils.Extension;
-import com.app.ivans.ghimli.viewmodel.CuttingOrderViewModel;
-import com.app.ivans.ghimli.viewmodel.CuttingViewModel;
+import com.app.ivans.ghimli.ui.viewmodel.CuttingOrderViewModel;
+import com.app.ivans.ghimli.ui.viewmodel.CuttingViewModel;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;

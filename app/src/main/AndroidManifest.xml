@@ -24,45 +24,45 @@
         android:theme="@style/Theme.GhimLi"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".MenuActivity"
+            android:name=".ui.activity.MenuActivity"
             android:exported="false" />
         <activity
-            android:name=".ResultActivity"
+            android:name=".ui.activity.ResultActivity"
             android:exported="false" />
         <activity
-            android:name=".CuttingTicketDetailActivity"
+            android:name=".ui.activity.CuttingTicketDetailActivity"
             android:exported="false" />
         <activity
-            android:name=".CuttingOrderRecordDetailActivity"
+            android:name=".ui.activity.CuttingOrderRecordDetailActivity"
             android:exported="false" />
         <activity
-            android:name=".SearchActivity"
+            android:name=".ui.activity.SearchActivity"
             android:exported="false" />
         <activity
-            android:name=".HomeActivity"
+            android:name=".ui.activity.HomeActivity"
             android:exported="false"
             android:theme="@style/Theme.GhimLi.NoActionBar" />
         <activity
-            android:name=".DashboardAnalyticsActivity"
+            android:name=".ui.activity.DashboardAnalyticsActivity"
             android:exported="false" />
         <activity
-            android:name=".CuttingOrderRecordFormActivity"
+            android:name=".ui.activity.CuttingOrderRecordFormActivity"
             android:exported="false" />
         <activity
-            android:name=".ScanQrActivity"
+            android:name=".ui.activity.ScanQrActivity"
             android:exported="false" />
         <activity
-            android:name=".SignUpActivity"
+            android:name=".ui.activity.SignUpActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".ui.activity.LoginActivity"
             android:exported="false"
             android:theme="@style/Theme.GhimLi.Fullscreen" />
         <activity
             android:name=".MainActivity"
             android:exported="true" />
         <activity
-            android:name=".SplashActivity"
+            android:name=".ui.activity.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

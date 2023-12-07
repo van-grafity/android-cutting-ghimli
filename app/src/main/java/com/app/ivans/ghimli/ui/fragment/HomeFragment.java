@@ -1,4 +1,4 @@
-package com.app.ivans.ghimli;
+package com.app.ivans.ghimli.ui.fragment;
 
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.FragmentTransaction;
@@ -14,7 +14,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.app.ivans.ghimli.viewmodel.HomeViewModel;
+import com.app.ivans.ghimli.R;
+import com.app.ivans.ghimli.ui.viewmodel.HomeViewModel;
 
 public class HomeFragment extends Fragment {
 

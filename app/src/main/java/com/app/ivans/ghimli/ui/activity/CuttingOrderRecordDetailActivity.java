@@ -1,4 +1,4 @@
-package com.app.ivans.ghimli;
+package com.app.ivans.ghimli.ui.activity;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewbinding.ViewBinding;
 
+import com.app.ivans.ghimli.R;
 import com.app.ivans.ghimli.adapter.FabricStickerAdapter;
 import com.app.ivans.ghimli.base.BaseActivity;
 import com.app.ivans.ghimli.databinding.ActivityCuttingOrderRecordDetailBinding;
@@ -28,7 +29,7 @@ import com.app.ivans.ghimli.databinding.ToolbarBinding;
 import com.app.ivans.ghimli.model.CuttingOrderRecord;
 import com.app.ivans.ghimli.model.CuttingOrderRecordDetail;
 import com.app.ivans.ghimli.utils.Extension;
-import com.app.ivans.ghimli.viewmodel.CuttingViewModel;
+import com.app.ivans.ghimli.ui.viewmodel.CuttingViewModel;
 
 import java.util.ArrayList;
 

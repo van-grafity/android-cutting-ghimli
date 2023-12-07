@@ -5,10 +5,9 @@ import static android.content.Context.MODE_PRIVATE;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 
 import com.app.ivans.ghimli.BuildConfig;
-import com.app.ivans.ghimli.LoginActivity;
+import com.app.ivans.ghimli.ui.activity.LoginActivity;
 import com.app.ivans.ghimli.model.User;
 import com.app.ivans.ghimli.utils.DateDeserializer;
 import com.app.ivans.ghimli.utils.Extension;
@@ -18,7 +17,6 @@ import com.google.gson.GsonBuilder;
 import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.util.Date;
-import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 import br.com.kots.mob.complex.preferences.ComplexPreferences;

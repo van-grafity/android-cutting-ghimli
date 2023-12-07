@@ -6,7 +6,7 @@
     android:background="@android:color/holo_purple"
     android:layout_centerInParent="true"
     android:gravity="center"
-    tools:context=".SplashActivity">
+    tools:context=".ui.activity.SplashActivity">
 
     <ImageView
         android:id="@+id/ivSplash"
