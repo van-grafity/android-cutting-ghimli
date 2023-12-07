@@ -12,6 +12,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.app.ivans.ghimli.viewmodel.CutterViewModel;
+
 public class CutterFragment extends Fragment {
 
     private CutterViewModel mViewModel;

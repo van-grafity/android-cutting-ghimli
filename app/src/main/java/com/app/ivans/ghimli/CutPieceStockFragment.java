@@ -12,6 +12,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.app.ivans.ghimli.viewmodel.CutPieceStockViewModel;
+
 public class CutPieceStockFragment extends Fragment {
 
     private CutPieceStockViewModel mViewModel;
