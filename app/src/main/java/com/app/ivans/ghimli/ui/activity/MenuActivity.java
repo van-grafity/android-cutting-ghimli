@@ -100,14 +100,19 @@ public class MenuActivity extends BaseActivity implements NavigationView.OnNavig
             currentFragment = fragment;
             binding.navView.setCheckedItem(R.id.nav_home);
         }
-
-
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
-        return super.onCreateOptionsMenu(menu);
+        MenuItem searchItem = menu.findItem(R.id.action_search);
+        searchItem.setVisible(false);
+//        if (currentFragment instanceof HomeFragment) {
+//            searchItem.setVisible(true);
+//        } else {
+//
+//        }
+        return true;
     }
 
     @Override
