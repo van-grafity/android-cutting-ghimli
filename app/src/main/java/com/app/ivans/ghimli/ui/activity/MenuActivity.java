@@ -23,6 +23,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.viewbinding.ViewBinding;
 
 import com.app.ivans.ghimli.databinding.ActivityMenuBinding;
+import com.app.ivans.ghimli.ui.CheckedFragment;
 import com.app.ivans.ghimli.ui.fragment.AboutFragment;
 import com.app.ivans.ghimli.ui.fragment.HomeFragmentInterface;
 import com.app.ivans.ghimli.R;
@@ -37,7 +38,7 @@ import com.google.android.material.navigation.NavigationView;
 import de.hdodenhof.circleimageview.BuildConfig;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class MenuActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MenuActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener, CheckedFragment {
     private static final String TAG = "MenuActivity";
     private ActivityMenuBinding binding;
     private CircleImageView circleImageView;
@@ -224,6 +225,11 @@ public class MenuActivity extends BaseActivity implements NavigationView.OnNavig
     public void onConfigurationChanged(@NonNull Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         toggle.onConfigurationChanged(newConfig);
+    }
+
+    @Override
+    public void setCheckedItem(int position) {
+        binding.navView.getMenu().getItem(position).setChecked(true);
     }
 
     private void closeApplication() {

@@ -15,7 +15,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.app.ivans.ghimli.R;
+import com.app.ivans.ghimli.ui.activity.MenuActivity;
 import com.app.ivans.ghimli.ui.viewmodel.HomeViewModel;
+import com.google.android.material.navigation.NavigationView;
 
 public class HomeFragment extends Fragment {
 
@@ -78,10 +80,8 @@ public class HomeFragment extends Fragment {
         btn_layer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-                LayerFragment layerFragment = new LayerFragment();
-                ft.replace(R.id.frame_container, layerFragment);
-                ft.commit();
+                getFragmentManager().beginTransaction().replace(R.id.frame_container, new LayerFragment()).commit();
+                ((MenuActivity)getActivity()).setCheckedItem(1);
             }
         });
     }
@@ -90,10 +90,8 @@ public class HomeFragment extends Fragment {
         btn_cutter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-                CutterFragment cutterFragment = new CutterFragment();
-                ft.replace(R.id.frame_container, cutterFragment);
-                ft.commit();
+                getFragmentManager().beginTransaction().replace(R.id.frame_container, new CutterFragment()).commit();
+                ((MenuActivity)getActivity()).setCheckedItem(2);
             }
         });
     }
@@ -102,19 +100,15 @@ public class HomeFragment extends Fragment {
         btn_cut_piece_stock.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-                CutPieceStockFragment cutPieceStockFragment = new CutPieceStockFragment();
-                ft.replace(R.id.frame_container, cutPieceStockFragment);
-                ft.commit();
+                getFragmentManager().beginTransaction().replace(R.id.frame_container, new CutPieceStockFragment()).commit();
+                ((MenuActivity)getActivity()).setCheckedItem(3);
             }
         });
     }
 
     private void showAboutDrawerFragment() {
-        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-        AboutFragment aboutFragment = new AboutFragment();
-        ft.replace(R.id.frame_container, aboutFragment);
-        ft.commit();
+        getFragmentManager().beginTransaction().replace(R.id.frame_container, new AboutFragment()).commit();
+        ((MenuActivity)getActivity()).setCheckedItem(4);
     }
 
 }
