@@ -111,7 +111,7 @@ public class CuttingTicketDetailActivity extends BaseActivity implements Adapter
                 finish();
             }
         });
-        binding.btnSwitch.setClickable(false);
+        binding.btnSwitch.setClickable(true);
         binding.btnSwitch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
