@@ -74,8 +74,8 @@ public interface APIService {
     Call<APIResponse> getCuttingTicketDetail(@Header("Authorization") String authorization, @Field("serial_number") String serialNumber);
 
     @FormUrlEncoded
-    @POST("bundle-cuts")
-    Call<APIResponse> bundleTransfer(@Header("Authorization") String authorization, @Field("serial_number") String serialNumber, @Field("status") String status, @Field("remarks") String remark);
+    @POST("bundle-stocks")
+    Call<APIResponse> bundleTransfer(@Header("Authorization") String authorization, @Field("serial_number") String serialNumber, @Field("transaction_type") String transactionType, @Field("location") int location);
 
     @GET("bundle-status")
     Call<APIResponse> getBundleStatus(@Header("Authorization") String authorization);

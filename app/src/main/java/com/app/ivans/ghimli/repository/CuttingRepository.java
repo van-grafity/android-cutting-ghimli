@@ -257,9 +257,9 @@ public class CuttingRepository {
         return mutableLiveData;
     }
 
-    public LiveData<APIResponse> bundleTransferResponse(String auth, String serialNumber, String status, String remark) {
+    public LiveData<APIResponse> bundleTransferResponse(String auth, String serialNumber, String transactionType, int location) {
         final MutableLiveData<APIResponse> mutableLiveData = new MutableLiveData<>();
-        FAPI.service().bundleTransfer(auth, serialNumber, status, remark).enqueue(new APICallback<APIResponse>(mContext) {
+        FAPI.service().bundleTransfer(auth, serialNumber, transactionType, location).enqueue(new APICallback<APIResponse>(mContext) {
             @Override
             protected void onSuccess(APIResponse apiResponse) {
                 mutableLiveData.setValue(apiResponse);

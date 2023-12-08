@@ -33,7 +33,7 @@ public class CuttingTicketDetailActivity extends BaseActivity implements Adapter
     private String partStr;
     private ArrayList<String> items;
     private ArrayAdapter<String> statues;
-
+ int location = 0;
     private String stat;
 
     @NonNull
@@ -51,7 +51,7 @@ public class CuttingTicketDetailActivity extends BaseActivity implements Adapter
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayShowTitleEnabled(false);
-            actionBar.setDisplayHomeAsUpEnabled(false);
+            actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
         toolbarBinding.tvTitleLarge.setVisibility(View.VISIBLE);
@@ -111,12 +111,23 @@ public class CuttingTicketDetailActivity extends BaseActivity implements Adapter
                 finish();
             }
         });
+        binding.btnSwitch.setClickable(false);
+        binding.btnSwitch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (binding.btnSwitch.getText().toString().equals("IN")) {
+                    binding.btnSwitch.setText("OUT");
+                } else {
+                    binding.btnSwitch.setText("IN");
+                }
+            }
+        });
 
         binding.btnTransfer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(CuttingTicketDetailActivity.this, ""+stat, Toast.LENGTH_SHORT).show();
-                cuttingViewModel.bundleTransferLiveData(API.getToken(CuttingTicketDetailActivity.this), binding.etSerialNumber.getText().toString(), stat, "-").observe(CuttingTicketDetailActivity.this, new Observer<APIResponse>() {
+                cuttingViewModel.bundleTransferLiveData(API.getToken(CuttingTicketDetailActivity.this), binding.etSerialNumber.getText().toString(), binding.btnSwitch.getText().toString(), location).observe(CuttingTicketDetailActivity.this, new Observer<APIResponse>() {
                     @Override
                     public void onChanged(APIResponse apiResponse) {
                         Toast.makeText(CuttingTicketDetailActivity.this, apiResponse.getMessage(), Toast.LENGTH_SHORT).show();
@@ -134,14 +145,14 @@ public class CuttingTicketDetailActivity extends BaseActivity implements Adapter
         status.setStatus("-");
         status.setDescription("-");
         items.add(status.getStatus());
-
+       
         cuttingViewModel.getBundleStatusLiveData(API.getToken(CuttingTicketDetailActivity.this)).observe(CuttingTicketDetailActivity.this, new Observer<APIResponse>() {
             @Override
             public void onChanged(APIResponse apiResponse) {
 //                Toast.makeText(CuttingTicketDetailActivity.this, apiResponse.getData().getBundleStatus().get(1).getStatus(), Toast.LENGTH_SHORT).show();
                 for (int x = 0; x < apiResponse.getData().getBundleStatus().size(); x++) {
                     items.add(apiResponse.getData().getBundleStatus().get(x).getStatus());
-
+                    location = x;
                 }
 
                 statues = new ArrayAdapter<String>(CuttingTicketDetailActivity.this, android.R.layout.simple_spinner_item, items);

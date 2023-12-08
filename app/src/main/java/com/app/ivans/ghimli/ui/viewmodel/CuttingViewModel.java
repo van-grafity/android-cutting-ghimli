@@ -76,8 +76,8 @@ public class CuttingViewModel extends ViewModel {
         return productResponseData;
     }
 
-    public LiveData<APIResponse> bundleTransferLiveData(String auth, String serialNumber, String status, String remark) {
-        productResponseData = favoriteRepository.bundleTransferResponse(auth, serialNumber, status, remark);
+    public LiveData<APIResponse> bundleTransferLiveData(String auth, String serialNumber, String transactionType, int location) {
+        productResponseData = favoriteRepository.bundleTransferResponse(auth, serialNumber, transactionType, location);
         return productResponseData;
     }
 }
