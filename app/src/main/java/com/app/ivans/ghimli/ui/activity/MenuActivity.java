@@ -130,45 +130,42 @@ public class MenuActivity extends BaseActivity implements NavigationView.OnNavig
             menuItem.setChecked(true);
         }
         if (id == R.id.nav_home) {
-//            clearStack();
+            clearStack();
             getSupportActionBar().setTitle("Home");
             Fragment homeFragment = HomeFragment.newInstance();
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.replace(R.id.frame_container, homeFragment);
-            ft.commit();
+            ft.replace(R.id.frame_container, homeFragment).commit();
             currentFragment = homeFragment;
             menuItem.setChecked(true);
         } else if (id == R.id.nav_layer) {
+            clearStack();
             getSupportActionBar().setTitle("Layer");
             Fragment layerFragment = LayerFragment.newInstance();
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.replace(R.id.frame_container, layerFragment);
-            ft.commit();
+            ft.replace(R.id.frame_container, layerFragment).commit();
             currentFragment = layerFragment;
-//            startActivity(new Intent(MenuActivity.this, HomeActivity.class));
             menuItem.setChecked(true);
         } else if (id == R.id.nav_cutter) {
+            clearStack();
             getSupportActionBar().setTitle("Cutter");
             Fragment cutterFragment = CutterFragment.newInstance();
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.replace(R.id.frame_container, cutterFragment);
-            ft.commit();
+            ft.replace(R.id.frame_container, cutterFragment).commit();
             currentFragment = cutterFragment;
             menuItem.setChecked(true);
         } else if (id == R.id.nav_cut_piece_stock) {
+            clearStack();
             getSupportActionBar().setTitle("Cut Piece Stock");
             Fragment cutPieceStockFragment = CutPieceStockFragment.newInstance();
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.replace(R.id.frame_container, cutPieceStockFragment);
-            ft.commit();
+            ft.replace(R.id.frame_container, cutPieceStockFragment).commit();
             currentFragment = cutPieceStockFragment;
-            menuItem.setChecked(true);
         } else if (id == R.id.nav_about) {
+            clearStack();
             getSupportActionBar().setTitle("Tentang");
             Fragment aboutFragment = AboutFragment.newInstance();
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.replace(R.id.frame_container, aboutFragment);
-            ft.commit();
+            ft.replace(R.id.frame_container, aboutFragment).commit();
             currentFragment = aboutFragment;
             menuItem.setChecked(true);
         } else if (id == R.id.nav_logout) {

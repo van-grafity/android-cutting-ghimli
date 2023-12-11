@@ -34,6 +34,7 @@ public class LayerFragment extends Fragment {
     private CuttingOrderViewModel cuttingOrderViewModel;
     private CuttingAdapter cuttingAdapter;
     RecyclerView rvCuttingOrderRecord;
+    private boolean isDataLoaded = false;
 
     public static LayerFragment newInstance() {
         return new LayerFragment();
@@ -51,9 +52,10 @@ public class LayerFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(LayerViewModel.class);
+
         cuttingOrderViewModel = new ViewModelProvider(this).get(CuttingOrderViewModel.class);
 
+//        rvCuttingOrderRecord.hasFixedSize();
         rvCuttingOrderRecord.setLayoutManager(new GridLayoutManager(getActivity(), 2, GridLayoutManager.VERTICAL, false));
         cuttingAdapter = new CuttingAdapter(getActivity(), new CuttingAdapter.itemAdapterOnClickHandler() {
             @Override
@@ -61,9 +63,36 @@ public class LayerFragment extends Fragment {
                 startActivity(new Intent(getActivity(), CuttingOrderRecordDetailActivity.class));
             }
         });
+        if (cuttingOrderViewModel.getCuttingOrderPagedList() != null) {
+            cuttingAdapter.submitList(cuttingOrderViewModel.getCuttingOrderPagedList().getValue());
+            rvCuttingOrderRecord.setAdapter(cuttingAdapter);
+        } else {
+            if (!isDataLoaded) {
+                // Make the API call
+                loadCuttingOrderData();
+                isDataLoaded = true;
+            }
+        }
+    }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+    }
+
+    private void loadCuttingOrderData() {
         cuttingOrderViewModel.init(getActivity(), API.getToken(getActivity()), "");
-        cuttingOrderViewModel.getCuttingOrderPagedList().observe(getActivity(), new Observer<PagedList<CuttingOrderRecord>>() {
+        cuttingOrderViewModel.getCuttingOrderPagedList().observe(getViewLifecycleOwner(), new Observer<PagedList<CuttingOrderRecord>>() {
             @Override
             public void onChanged(PagedList<CuttingOrderRecord> cuttingOrderRecords) {
                 getActivity().runOnUiThread(new Runnable() {
