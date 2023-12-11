@@ -321,7 +321,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     public void loadDataCuttingOrderRecord() {
-        cuttingAdapter = new CuttingAdapter(HomeActivity.this, new CuttingAdapter.itemAdapterOnClickHandler() {
+        cuttingAdapter = new CuttingAdapter(HomeActivity.this, new CuttingAdapter.ItemAdapterOnClickHandler() {
             @Override
             public void onClick(CuttingOrderRecord cuttingOrder, View view, int position) {
                 Intent intent = new Intent(HomeActivity.this, CuttingOrderRecordDetailActivity.class);

@@ -79,7 +79,7 @@ public class ResultActivity extends BaseActivity {
         binding.listOfSearchedList.setHasFixedSize(true);
         binding.listOfSearchedList.setLayoutManager(new GridLayoutManager(this, (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) ? 2 : 4));
 
-        mCuttingAdapter = new CuttingAdapter(ResultActivity.this, new CuttingAdapter.itemAdapterOnClickHandler() {
+        mCuttingAdapter = new CuttingAdapter(ResultActivity.this, new CuttingAdapter.ItemAdapterOnClickHandler() {
             @Override
             public void onClick(CuttingOrderRecord cuttingOrder, View view, int position) {
                 Intent intent = new Intent(ResultActivity.this, CuttingOrderRecordDetailActivity.class);

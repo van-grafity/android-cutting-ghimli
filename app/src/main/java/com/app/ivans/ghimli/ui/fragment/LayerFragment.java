@@ -56,7 +56,7 @@ public class LayerFragment extends Fragment {
 
 //        rvCuttingOrderRecord.hasFixedSize();
         rvCuttingOrderRecord.setLayoutManager(new GridLayoutManager(getActivity(), 2, GridLayoutManager.VERTICAL, false));
-        cuttingAdapter = new CuttingAdapter(getActivity(), new CuttingAdapter.itemAdapterOnClickHandler() {
+        cuttingAdapter = new CuttingAdapter(getActivity(), new CuttingAdapter.ItemAdapterOnClickHandler() {
             @Override
             public void onClick(CuttingOrderRecord cuttingOrder, View view, int position) {
                 startActivity(new Intent(getActivity(), CuttingOrderRecordDetailActivity.class));
