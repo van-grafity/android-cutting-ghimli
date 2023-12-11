@@ -30,7 +30,6 @@ import com.app.ivans.ghimli.utils.Extension;
 
 public class LayerFragment extends Fragment {
     private static final String TAG = "LayerFragment";
-    private LayerViewModel mViewModel;
     private CuttingOrderViewModel cuttingOrderViewModel;
     private CuttingAdapter cuttingAdapter;
     RecyclerView rvCuttingOrderRecord;
