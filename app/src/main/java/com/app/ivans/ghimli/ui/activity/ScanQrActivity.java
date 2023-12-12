@@ -1,5 +1,7 @@
 package com.app.ivans.ghimli.ui.activity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
@@ -90,10 +92,24 @@ public class ScanQrActivity extends AppCompatActivity implements OnNetworkListen
                             startActivity(intent);
                             finish();
                         } else {
-                            Toast.makeText(ScanQrActivity.this, "Data tidak di termukan\natau periksa bidang yang anda kerjakan.", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(ScanQrActivity.this, MenuActivity.class);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                            startActivity(intent);
+                            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(ScanQrActivity.this);
+
+                            alertDialogBuilder.setTitle(getString(R.string.app_name));
+                            alertDialogBuilder
+                                    .setMessage("Data tidak di termukan\natau periksa bidang yang anda kerjakan.")
+                                    .setCancelable(false)
+                                    .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int id) {
+                                            Intent intent = new Intent(ScanQrActivity.this, MenuActivity.class);
+                                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                            startActivity(intent);
+                                            finish();
+                                        }
+                                    });
+
+                            AlertDialog alertDialog = alertDialogBuilder.create();
+                            alertDialog.setCanceledOnTouchOutside(false);
+                            alertDialog.show();
                         }
 
 //                        if (partStr.equals("CO")) {
