@@ -22,16 +22,16 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.viewbinding.ViewBinding;
 
-import com.app.ivans.ghimli.databinding.ActivityMenuBinding;
-import com.app.ivans.ghimli.ui.CheckedFragment;
-import com.app.ivans.ghimli.ui.fragment.AboutFragment;
-import com.app.ivans.ghimli.ui.fragment.HomeFragmentInterface;
 import com.app.ivans.ghimli.R;
 import com.app.ivans.ghimli.base.BaseActivity;
+import com.app.ivans.ghimli.databinding.ActivityMenuBinding;
 import com.app.ivans.ghimli.net.API;
+import com.app.ivans.ghimli.ui.CheckedFragment;
+import com.app.ivans.ghimli.ui.fragment.AboutFragment;
 import com.app.ivans.ghimli.ui.fragment.CutPieceStockFragment;
 import com.app.ivans.ghimli.ui.fragment.CutterFragment;
 import com.app.ivans.ghimli.ui.fragment.HomeFragment;
+import com.app.ivans.ghimli.ui.fragment.HomeFragmentInterface;
 import com.app.ivans.ghimli.ui.fragment.LayerFragment;
 import com.google.android.material.navigation.NavigationView;
 
@@ -105,18 +105,23 @@ public class MenuActivity extends BaseActivity implements NavigationView.OnNavig
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
-        MenuItem searchItem = menu.findItem(R.id.action_search);
-        searchItem.setVisible(false);
-//        if (currentFragment instanceof HomeFragment) {
-//            searchItem.setVisible(true);
-//        } else {
-//
-//        }
+        updateSearchMenuItemVisibility(menu);
         return true;
+    }
+
+    private void updateSearchMenuItemVisibility(Menu menu) {
+        MenuItem item = menu.findItem(R.id.action_search);
+        item.setVisible(true);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_search:
+                startActivity(new Intent(MenuActivity.this, SearchActivity.class));
+                return true;
+            default:
+        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -188,7 +193,7 @@ public class MenuActivity extends BaseActivity implements NavigationView.OnNavig
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-    
+
     private void clearStack() {
         int backStackEntry = getSupportFragmentManager().getBackStackEntryCount();
         if (backStackEntry > 0) {

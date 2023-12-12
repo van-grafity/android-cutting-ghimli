@@ -25,6 +25,7 @@ import com.app.ivans.ghimli.databinding.ToolbarBinding;
 import com.app.ivans.ghimli.model.CuttingOrderRecord;
 import com.app.ivans.ghimli.net.API;
 import com.app.ivans.ghimli.ui.viewmodel.CuttingOrderViewModel;
+import com.app.ivans.ghimli.utils.Extension;
 
 import java.util.ArrayList;
 
@@ -62,7 +63,7 @@ public class ResultActivity extends BaseActivity {
         toolbarBinding.txtSearch.setText(keyword);
 
         mCuttingOrderViewModel = new ViewModelProvider(ResultActivity.this).get(CuttingOrderViewModel.class);
-
+        Extension.showLoading(ResultActivity.this);
         toolbarBinding.txtSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
