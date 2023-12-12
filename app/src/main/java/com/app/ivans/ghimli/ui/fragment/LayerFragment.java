@@ -24,6 +24,7 @@ import com.app.ivans.ghimli.adapter.CuttingAdapter;
 import com.app.ivans.ghimli.model.CuttingOrderRecord;
 import com.app.ivans.ghimli.net.API;
 import com.app.ivans.ghimli.ui.activity.CuttingOrderRecordDetailActivity;
+import com.app.ivans.ghimli.ui.activity.HomeActivity;
 import com.app.ivans.ghimli.ui.viewmodel.CuttingOrderViewModel;
 import com.app.ivans.ghimli.ui.viewmodel.LayerViewModel;
 import com.app.ivans.ghimli.utils.Extension;
@@ -59,7 +60,9 @@ public class LayerFragment extends Fragment {
         cuttingAdapter = new CuttingAdapter(getActivity(), new CuttingAdapter.ItemAdapterOnClickHandler() {
             @Override
             public void onClick(CuttingOrderRecord cuttingOrder, View view, int position) {
-                startActivity(new Intent(getActivity(), CuttingOrderRecordDetailActivity.class));
+                Intent intent = new Intent(getActivity(), CuttingOrderRecordDetailActivity.class);
+                intent.putExtra(Extension.CUTTING_ORDER_RECORD, cuttingOrder);
+                startActivity(intent);
             }
         });
         if (cuttingOrderViewModel.getCuttingOrderPagedList() != null) {
