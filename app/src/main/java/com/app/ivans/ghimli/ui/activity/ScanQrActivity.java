@@ -39,7 +39,7 @@ public class ScanQrActivity extends AppCompatActivity implements OnNetworkListen
     private final int CAMERA_REQUEST_CODE = 101;
     private Snackbar snack;
     private NetworkChangeReceiver mNetworkReceiver;
-    String newString;
+    String serialGla;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,12 +59,12 @@ public class ScanQrActivity extends AppCompatActivity implements OnNetworkListen
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
             if(extras == null) {
-                newString= null;
+                serialGla = null;
             } else {
-                newString= extras.getString(Extension.CUTTING_QR);
+                serialGla = extras.getString(Extension.CUTTING_QR);
             }
         } else {
-            newString= (String) savedInstanceState.getSerializable(Extension.CUTTING_QR);
+            serialGla = (String) savedInstanceState.getSerializable("STRING_I_NEED");
         }
 
         mCodeScanner.setDecodeCallback(new DecodeCallback() {
@@ -75,17 +75,16 @@ public class ScanQrActivity extends AppCompatActivity implements OnNetworkListen
                     public void run() {
                         String message = result.getText();
                         String partStr = message.substring(0, 2);
+//                        Toast.makeText(ScanQrActivity.this, serialGla + " + " + partStr, Toast.LENGTH_SHORT).show();
 
-                        if (partStr.equals(newString)) {
-//                            Toast.makeText(CuttingLayingSheetScanQrActivity.this, message, Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(ScanQrActivity.this, CuttingOrderRecordFormActivity.class);
+                        if (serialGla.equals("CT") && serialGla.equals(partStr)){
+                            Intent intent = new Intent(ScanQrActivity.this, CuttingTicketDetailActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);
                             intent.putExtra("serialNumber", message);
                             startActivity(intent);
                             finish();
-                        } else if (partStr.equals(newString)) {
-//                            Toast.makeText(ScanQrActivity.this, message, Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(ScanQrActivity.this, CuttingTicketDetailActivity.class);
+                        } else if (serialGla.equals("CO") && serialGla.equals(partStr)) {
+                            Intent intent = new Intent(ScanQrActivity.this, CuttingOrderRecordFormActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);
                             intent.putExtra("serialNumber", message);
                             startActivity(intent);
