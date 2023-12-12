@@ -45,6 +45,8 @@ public class Extension {
     public static final String HISTORY_DATA = "history_data";
 
     public static final String CUTTING_ORDER_RECORD = "cutting_order_record";
+    public static final String CO = "cutting_order";
+    public static final String CUTTING_QR = "cutting_ticket";
 
     public static void showLoading(final Activity context) {
         try {

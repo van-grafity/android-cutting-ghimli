@@ -19,6 +19,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.app.ivans.ghimli.R;
 import com.app.ivans.ghimli.databinding.ActivityScanQrBinding;
+import com.app.ivans.ghimli.utils.Extension;
 import com.app.ivans.ghimli.utils.NetworkChangeReceiver;
 import com.app.ivans.ghimli.utils.OnNetworkListener;
 import com.app.ivans.ghimli.ui.viewmodel.CuttingViewModel;
@@ -38,6 +39,7 @@ public class ScanQrActivity extends AppCompatActivity implements OnNetworkListen
     private final int CAMERA_REQUEST_CODE = 101;
     private Snackbar snack;
     private NetworkChangeReceiver mNetworkReceiver;
+    String newString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +54,19 @@ public class ScanQrActivity extends AppCompatActivity implements OnNetworkListen
 
         mScannerView = findViewById(R.id.scanner_view);
         mCodeScanner = new CodeScanner(this, mScannerView);
+
+
+        if (savedInstanceState == null) {
+            Bundle extras = getIntent().getExtras();
+            if(extras == null) {
+                newString= null;
+            } else {
+                newString= extras.getString(Extension.CUTTING_QR);
+            }
+        } else {
+            newString= (String) savedInstanceState.getSerializable(Extension.CUTTING_QR);
+        }
+
         mCodeScanner.setDecodeCallback(new DecodeCallback() {
             @Override
             public void onDecoded(@NonNull Result result) {
@@ -61,14 +76,14 @@ public class ScanQrActivity extends AppCompatActivity implements OnNetworkListen
                         String message = result.getText();
                         String partStr = message.substring(0, 2);
 
-                        if (partStr.equals("CO")) {
+                        if (partStr.equals(newString)) {
 //                            Toast.makeText(CuttingLayingSheetScanQrActivity.this, message, Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(ScanQrActivity.this, CuttingOrderRecordFormActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);
                             intent.putExtra("serialNumber", message);
                             startActivity(intent);
                             finish();
-                        } else if (partStr.equals("CT")) {
+                        } else if (partStr.equals(newString)) {
 //                            Toast.makeText(ScanQrActivity.this, message, Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(ScanQrActivity.this, CuttingTicketDetailActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -76,8 +91,8 @@ public class ScanQrActivity extends AppCompatActivity implements OnNetworkListen
                             startActivity(intent);
                             finish();
                         } else {
-                            Toast.makeText(ScanQrActivity.this, "Data not found", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(ScanQrActivity.this, HomeActivity.class);
+                            Toast.makeText(ScanQrActivity.this, "Data tidak di termukan\natau periksa bidang yang anda kerjakan.", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(ScanQrActivity.this, MenuActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);
                             startActivity(intent);
                         }

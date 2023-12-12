@@ -9,9 +9,22 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <com.flaviofaria.kenburnsview.KenBurnsView
+            android:id="@+id/ivLogo"
+            android:layout_width="match_parent"
+            android:layout_height="320dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/icon_layer" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="320dp"
+            android:src="@drawable/grad" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_below="@+id/ivLogo"
             android:orientation="vertical">
 
             <LinearLayout
@@ -27,7 +40,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="14dp"
                     android:layout_weight="1"
-                    android:text="Cutting Order Record"
+                    android:text="Daftar Layer"
                     android:textAppearance="@style/TextAppearance.Bold18"
                     android:textStyle="bold" />
 

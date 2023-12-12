@@ -25,9 +25,11 @@ import com.app.ivans.ghimli.model.CuttingOrderRecord;
 import com.app.ivans.ghimli.net.API;
 import com.app.ivans.ghimli.ui.activity.CuttingOrderRecordDetailActivity;
 import com.app.ivans.ghimli.ui.activity.HomeActivity;
+import com.app.ivans.ghimli.ui.activity.ScanQrActivity;
 import com.app.ivans.ghimli.ui.viewmodel.CuttingOrderViewModel;
 import com.app.ivans.ghimli.ui.viewmodel.LayerViewModel;
 import com.app.ivans.ghimli.utils.Extension;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class LayerFragment extends Fragment {
     private static final String TAG = "LayerFragment";
@@ -35,6 +37,7 @@ public class LayerFragment extends Fragment {
     private CuttingAdapter cuttingAdapter;
     RecyclerView rvCuttingOrderRecord;
     private boolean isDataLoaded = false;
+    private FloatingActionButton fabScan;
 
     public static LayerFragment newInstance() {
         return new LayerFragment();
@@ -46,6 +49,7 @@ public class LayerFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_layer, container, false);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Layer");
         rvCuttingOrderRecord = view.findViewById(R.id.rvCuttingOrderRecord);
+        fabScan = view.findViewById(R.id.fabScan);
         Extension.showLoading(getActivity());
         return view;
     }
@@ -78,6 +82,15 @@ public class LayerFragment extends Fragment {
                 isDataLoaded = true;
             }
         }
+
+        fabScan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), ScanQrActivity.class);
+                intent.putExtra(Extension.CUTTING_QR, "CO");
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
