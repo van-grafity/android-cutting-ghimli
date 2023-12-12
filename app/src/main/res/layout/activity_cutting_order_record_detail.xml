@@ -3,15 +3,39 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     tools:context=".ui.activity.CuttingOrderRecordDetailActivity">
 
     <include
         android:id="@+id/toolbar"
         layout="@layout/toolbar" />
 
+    <TextView
+        android:id="@+id/tvSerialNumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar"
+        android:layout_marginHorizontal="14dp"
+        android:layout_marginBottom="14dp"
+        android:ellipsize="end"
+        android:fontFamily="sans-serif"
+        android:gravity="center"
+        android:maxLines="2"
+        android:textAllCaps="false"
+        android:textSize="20sp" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvStickerFabric"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/toolbar" />
+        android:layout_below="@+id/tvSerialNumber" />
+
+    <ImageView
+        android:visibility="gone"
+        android:id="@+id/ivIsEmpty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar"
+        android:layout_marginHorizontal="14dp"
+        android:src="@drawable/icon_empty" />
 </RelativeLayout>

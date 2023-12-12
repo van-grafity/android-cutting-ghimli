@@ -46,6 +46,7 @@ public class LayerFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_layer, container, false);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Layer");
         rvCuttingOrderRecord = view.findViewById(R.id.rvCuttingOrderRecord);
+        Extension.showLoading(getActivity());
         return view;
     }
 
@@ -66,7 +67,9 @@ public class LayerFragment extends Fragment {
             }
         });
         if (cuttingOrderViewModel.getCuttingOrderPagedList() != null) {
+
             cuttingAdapter.submitList(cuttingOrderViewModel.getCuttingOrderPagedList().getValue());
+
             rvCuttingOrderRecord.setAdapter(cuttingAdapter);
         } else {
             if (!isDataLoaded) {
@@ -97,11 +100,6 @@ public class LayerFragment extends Fragment {
         cuttingOrderViewModel.getCuttingOrderPagedList().observe(getViewLifecycleOwner(), new Observer<PagedList<CuttingOrderRecord>>() {
             @Override
             public void onChanged(PagedList<CuttingOrderRecord> cuttingOrderRecords) {
-                getActivity().runOnUiThread(new Runnable() {
-                    public void run() {
-                        Extension.dismissLoading();
-                    }
-                });
                 cuttingAdapter.submitList(cuttingOrderRecords);
                 rvCuttingOrderRecord.setAdapter(cuttingAdapter);
             }

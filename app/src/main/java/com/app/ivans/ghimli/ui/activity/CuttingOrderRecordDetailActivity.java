@@ -65,7 +65,9 @@ public class CuttingOrderRecordDetailActivity extends BaseActivity {
         mDialog = new Dialog(this);
         cuttingViewModel = new ViewModelProvider(CuttingOrderRecordDetailActivity.this).get(CuttingViewModel.class);
         mCuttingOrderRecord = (CuttingOrderRecord) getIntent().getParcelableExtra(Extension.CUTTING_ORDER_RECORD);
-        toolbarBinding.tvTitle.setText(mCuttingOrderRecord.getSerialNumber());
+
+        toolbarBinding.tvTitle.setText("Cutting Order Record");
+        binding.tvSerialNumber.setText(mCuttingOrderRecord.getSerialNumber());
         loadDataStickerFabric();
     }
 
@@ -78,10 +80,12 @@ public class CuttingOrderRecordDetailActivity extends BaseActivity {
         });
         mItemSticker = new ArrayList<>();
 
-//        for (int i = 0 ; i < mCuttingOrderRecord.getCuttingOrderRecordDetail().size() ; i++){
-//
-//        }
         mItemSticker = (ArrayList<CuttingOrderRecordDetail>) mCuttingOrderRecord.getCuttingOrderRecordDetail();
+        if (mItemSticker.size() == 0){
+            binding.ivIsEmpty.setVisibility(View.VISIBLE);
+            binding.tvSerialNumber.setVisibility(View.GONE);
+            binding.rvStickerFabric.setVisibility(View.GONE);
+        }
         FabricStickerAdapter cuttingOrderRecordAdapter = new FabricStickerAdapter(mItemSticker, CuttingOrderRecordDetailActivity.this, new FabricStickerAdapter.OnItemClickListener() {
             @Override
             public void OnClick(View view, int position, CuttingOrderRecordDetail model) {

@@ -40,6 +40,7 @@ public class CuttingOrderRecordDataSource extends PageKeyedDataSource<Integer, C
             protected void onSuccess(APIResponse apiResponse) {
                 if (InternetUtil.isInternetOn()){
                     callback.onResult(apiResponse.getData().getCuttingOrderRecords(), null, FIRST_PAGE + 1);
+                    Extension.dismissLoading();
                 } else {
                     ((Activity)context).runOnUiThread(new Runnable() {
                         public void run() {
