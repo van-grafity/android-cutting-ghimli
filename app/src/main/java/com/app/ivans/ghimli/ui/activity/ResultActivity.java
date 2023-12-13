@@ -84,7 +84,7 @@ public class ResultActivity extends BaseActivity {
             @Override
             public void onClick(CuttingOrderRecord cuttingOrder, View view, int position) {
                 Intent intent = new Intent(ResultActivity.this, CuttingOrderRecordDetailActivity.class);
-                intent.putExtra("cuttingOrder", cuttingOrder);
+                intent.putExtra(Extension.CUTTING_ORDER_RECORD, cuttingOrder);
                 startActivity(intent);
             }
         });
