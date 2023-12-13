@@ -15,16 +15,20 @@ public class CuttingOrderRecordDataSourceFactory extends DataSource.Factory {
     private Context context;
     private String authorization;
     private String search;
+    private String mStatusLayer;
+    private String mStatusCut;
 
-    public CuttingOrderRecordDataSourceFactory(Context context, String authorization, String search) {
+    public CuttingOrderRecordDataSourceFactory(Context context, String authorization, String search, String statusLayer, String statusCut) {
         this.context = context;
         this.authorization = authorization;
         this.search = search;
+        this.mStatusLayer = statusLayer;
+        this.mStatusCut = statusCut;
     }
     
     @Override
     public DataSource<Integer, CuttingOrderRecord> create() {
-        CuttingOrderRecordDataSource cuttingOrderRecordDataSource = new CuttingOrderRecordDataSource(context, authorization, search);
+        CuttingOrderRecordDataSource cuttingOrderRecordDataSource = new CuttingOrderRecordDataSource(context, authorization, search, mStatusLayer, mStatusCut);
         cuttingOrderLiveDataSource.postValue(cuttingOrderRecordDataSource);
         return cuttingOrderRecordDataSource;
     }

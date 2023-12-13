@@ -109,7 +109,7 @@ public class LayerFragment extends Fragment {
     }
 
     private void loadCuttingOrderData() {
-        cuttingOrderViewModel.init(getActivity(), API.getToken(getActivity()), "");
+        cuttingOrderViewModel.init(getActivity(), API.getToken(getActivity()), "", "1", "1");
         cuttingOrderViewModel.getCuttingOrderPagedList().observe(getViewLifecycleOwner(), new Observer<PagedList<CuttingOrderRecord>>() {
             @Override
             public void onChanged(PagedList<CuttingOrderRecord> cuttingOrderRecords) {

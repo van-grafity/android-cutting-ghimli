@@ -19,8 +19,8 @@ public class CuttingOrderViewModel extends ViewModel {
     LiveData<PageKeyedDataSource<Integer, CuttingOrderRecord>> liveDataSource;
     private CuttingOrderRecordDataSourceFactory cuttingOrderRecordDataSourceFactory;
     
-    public void init(Context context, String authorization, String search) {
-        cuttingOrderRecordDataSourceFactory = new CuttingOrderRecordDataSourceFactory(context, authorization, search);
+    public void init(Context context, String authorization, String search, String statusLayer, String statusCut) {
+        cuttingOrderRecordDataSourceFactory = new CuttingOrderRecordDataSourceFactory(context, authorization, search, statusLayer, statusCut);
         liveDataSource = cuttingOrderRecordDataSourceFactory.getCuttingOrderLiveDataSource();
         PagedList.Config config = (new PagedList.Config.Builder())
                 .setEnablePlaceholders(false)

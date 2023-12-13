@@ -24,18 +24,22 @@ public class CuttingOrderRecordDataSource extends PageKeyedDataSource<Integer, C
     private static final int FIRST_PAGE = 1;
     public static final int PAGE_SIZE = 50;
     private Context context;
-    private String search;
     private String authorization;
+    private String search;
+    private String mStatusLayer;
+    private String mStatusCut;
 
-    public CuttingOrderRecordDataSource(Context context, String authorization, String search) {
+    public CuttingOrderRecordDataSource(Context context, String authorization, String search, String statusLayer, String statusCut) {
         this.context = context;
-        this.search = search;
         this.authorization = authorization;
+        this.search = search;
+        this.mStatusLayer = statusLayer;
+        this.mStatusCut = statusCut;
     }
 
     @Override
     public void loadInitial(@NonNull LoadInitialParams<Integer> params, @NonNull final LoadInitialCallback<Integer, CuttingOrderRecord> callback) {
-        FAPI.service().getCuttingOrder(authorization, params.requestedLoadSize, FIRST_PAGE, search).enqueue(new APICallback<APIResponse>(context) {
+        FAPI.service().getCuttingOrder(authorization, params.requestedLoadSize, FIRST_PAGE, search, mStatusLayer, mStatusCut).enqueue(new APICallback<APIResponse>(context) {
             @Override
             protected void onSuccess(APIResponse apiResponse) {
                 if (InternetUtil.isInternetOn()){
@@ -69,7 +73,7 @@ public class CuttingOrderRecordDataSource extends PageKeyedDataSource<Integer, C
 
     @Override
     public void loadBefore(@NonNull final LoadParams<Integer> params, @NonNull final LoadCallback<Integer, CuttingOrderRecord> callback) {
-        FAPI.service().getCuttingOrder(authorization, PAGE_SIZE, params.key, search).enqueue(new APICallback<APIResponse>(context) {
+        FAPI.service().getCuttingOrder(authorization, PAGE_SIZE, params.key, search, mStatusLayer, mStatusCut).enqueue(new APICallback<APIResponse>(context) {
             @Override
             protected void onSuccess(APIResponse apiResponse) {
                 Integer key = (params.key > 1) ? params.key - 1 : null;
@@ -85,7 +89,7 @@ public class CuttingOrderRecordDataSource extends PageKeyedDataSource<Integer, C
 
     @Override
     public void loadAfter(@NonNull final LoadParams<Integer> params, @NonNull final LoadCallback<Integer, CuttingOrderRecord> callback) {
-        FAPI.service().getCuttingOrder(authorization, params.requestedLoadSize, params.key, search).enqueue(new APICallback<APIResponse>(context) {
+        FAPI.service().getCuttingOrder(authorization, params.requestedLoadSize, params.key, search, mStatusLayer, mStatusCut).enqueue(new APICallback<APIResponse>(context) {
             @Override
             protected void onSuccess(APIResponse apiResponse) {
                 Integer key = (params.key < apiResponse.getData().getTotalPage()) ? params.key + 1 : null;

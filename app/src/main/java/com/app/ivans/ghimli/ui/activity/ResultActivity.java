@@ -89,7 +89,7 @@ public class ResultActivity extends BaseActivity {
             }
         });
 
-        mCuttingOrderViewModel.init(ResultActivity.this, API.getToken(ResultActivity.this), query);
+        mCuttingOrderViewModel.init(ResultActivity.this, API.getToken(ResultActivity.this), query, "", "");
         mCuttingOrderViewModel.getCuttingOrderPagedList().observe(this, cuttingOrderRecords -> {
             mCuttingAdapter.submitList(cuttingOrderRecords);
             binding.listOfSearchedList.setAdapter(mCuttingAdapter);

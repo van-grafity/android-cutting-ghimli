@@ -330,7 +330,7 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-        cuttingOrderViewModel.init(HomeActivity.this, API.getToken(HomeActivity.this), "");
+        cuttingOrderViewModel.init(HomeActivity.this, API.getToken(HomeActivity.this), "", "", "");
         cuttingOrderViewModel.getCuttingOrderPagedList().observe(HomeActivity.this, new Observer<PagedList<CuttingOrderRecord>>() {
             @Override
             public void onChanged(PagedList<CuttingOrderRecord> cuttingOrderRecords) {

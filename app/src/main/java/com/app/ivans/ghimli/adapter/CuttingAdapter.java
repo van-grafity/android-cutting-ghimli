@@ -1,10 +1,13 @@
 package com.app.ivans.ghimli.adapter;
 
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -17,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.ivans.ghimli.R;
 import com.app.ivans.ghimli.model.CuttingOrderRecord;
+import com.bumptech.glide.Glide;
 
 public class CuttingAdapter extends PagedListAdapter<CuttingOrderRecord, RecyclerView.ViewHolder> {
     private static final String TAG = "CuttingAdapter";
@@ -70,11 +74,59 @@ public class CuttingAdapter extends PagedListAdapter<CuttingOrderRecord, Recycle
 
     private void bindCuttingViewHolder(CuttingViewHolder holder, CuttingOrderRecord model) {
         holder.tvSerialNumber.setText(model.getSerialNumber());
+        holder.tvColor.setText(model.getLayingPlanningDetail().getLayingPlanning().getColor().getName());
+        holder.tvStyle.setText(model.getLayingPlanningDetail().getLayingPlanning().getStyle().getStyle());
+        holder.tvStatusProgressLayer.setText(model.getStatusLayer().getName());
+        holder.tvStatusProgressCut.setText(model.getStatusCut().getName());
 
-        int progressDrawable = getProgressDrawable(model);
-        holder.viewProgress.setBackground(mContext.getResources().getDrawable(progressDrawable));
+//        int progressDrawable = getProgressDrawable(model);
+//        holder.viewProgress.setBackground(mContext.getResources().getDrawable(progressDrawable));
+        if (model.getStatusLayer().getId() == 1) {
+            Glide.with(mContext)
+                    .load(R.drawable.dot_not_yet_start)
+                    .into(holder.viewProgressLayer);
+        } else if (model.getStatusLayer().getId() == 2) {
+            Glide.with(mContext)
+                    .load(R.drawable.dot_complete)
+                    .into(holder.viewProgressLayer);
+        } else if (model.getStatusLayer().getId() == 4) {
+            Glide.with(mContext)
+                    .load(R.drawable.dot_on_progress)
+                    .into(holder.viewProgressLayer);
+        } else {
+            Glide.with(mContext)
+                    .load(R.drawable.dot_on_progress)
+                    .into(holder.viewProgressLayer);
+        }
+
+        if (model.getStatusCut().getId() == 1) {
+            Glide.with(mContext)
+                    .load(R.drawable.dot_not_yet_start)
+                    .into(holder.viewProgressCut);
+        } else if (model.getStatusCut().getId() == 2) {
+            Glide.with(mContext)
+                    .load(R.drawable.dot_complete)
+                    .into(holder.viewProgressCut);
+        } else {
+            Glide.with(mContext)
+                    .load(R.drawable.dot_on_progress)
+                    .into(holder.viewProgressCut);
+        }
 
         setClickListener(holder, model);
+        setClickListenerCopy(holder, model);
+    }
+
+    private void setClickListenerCopy(CuttingViewHolder holder, CuttingOrderRecord model) {
+        holder.ivCopy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ClipboardManager clipboard = (ClipboardManager) mContext.getSystemService(Context.CLIPBOARD_SERVICE);
+                ClipData clip = ClipData.newPlainText("label", model.getSerialNumber());
+                clipboard.setPrimaryClip(clip);
+                Toast.makeText(mContext, "Copy serial number " + model.getSerialNumber(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private int getProgressDrawable(CuttingOrderRecord model) {
@@ -97,14 +149,26 @@ public class CuttingAdapter extends PagedListAdapter<CuttingOrderRecord, Recycle
 
     static class CuttingViewHolder extends RecyclerView.ViewHolder {
         TextView tvSerialNumber;
+        TextView tvColor;
+        TextView tvStyle;
+        TextView tvStatusProgressLayer;
+        TextView tvStatusProgressCut;
+        ImageView ivCopy;
         RelativeLayout viewContentSn;
-        View viewProgress;
+        ImageView viewProgressLayer;
+        ImageView viewProgressCut;
 
         private CuttingViewHolder(View itemView) {
             super(itemView);
             tvSerialNumber = itemView.findViewById(R.id.tvSerialNumber);
+            tvColor = itemView.findViewById(R.id.tvColor);
+            tvStyle = itemView.findViewById(R.id.tvStyle);
+            tvStatusProgressLayer = itemView.findViewById(R.id.tvStatusProgressLayer);
+            tvStatusProgressCut = itemView.findViewById(R.id.tvStatusProgressCut);
+            ivCopy = itemView.findViewById(R.id.iv_copy);
             viewContentSn = itemView.findViewById(R.id.viewContentSn);
-            viewProgress = itemView.findViewById(R.id.viewProgress);
+            viewProgressLayer = itemView.findViewById(R.id.viewProgressLayer);
+            viewProgressCut = itemView.findViewById(R.id.viewProgressCut);
         }
     }
 
@@ -129,4 +193,10 @@ public class CuttingAdapter extends PagedListAdapter<CuttingOrderRecord, Recycle
                     return oldItem.getId() == newItem.getId();
                 }
             };
+
+    public enum Level {
+        NORMAL,
+        lAYERS,
+        CUTTER
+    }
 }

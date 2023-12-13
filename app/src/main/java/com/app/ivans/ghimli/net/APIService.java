@@ -30,7 +30,7 @@ public interface APIService {
     Call<APIResponse> getColor(@Header("Authorization") String authorization);
 
     @GET("cutting-orders")
-    Call<APIResponse> getCuttingOrder(@Header("Authorization") String authorization, @Query("limit") int limit, @Query("page") int page, @Query("s") String search);
+    Call<APIResponse> getCuttingOrder(@Header("Authorization") String authorization, @Query("limit") int limit, @Query("page") int page, @Query("s") String search, @Query("status_layer") String statusLayer, @Query("status_cut") String statusCut);
 
     @POST("cutting-orders") Call<APIResponse> createOptCuttingOrderObj(@Header("Authorization") String authorization, @Body CuttingOrderRecordDetail cuttingOrderRecordDetail);
 
