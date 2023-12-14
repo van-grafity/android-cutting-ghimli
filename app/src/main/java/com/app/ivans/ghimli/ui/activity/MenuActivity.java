@@ -3,12 +3,14 @@ package com.app.ivans.ghimli.ui.activity;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -34,6 +36,13 @@ import com.app.ivans.ghimli.ui.fragment.HomeFragment;
 import com.app.ivans.ghimli.ui.fragment.HomeFragmentInterface;
 import com.app.ivans.ghimli.ui.fragment.LayerFragment;
 import com.google.android.material.navigation.NavigationView;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.net.Socket;
 
 import de.hdodenhof.circleimageview.BuildConfig;
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -69,6 +78,8 @@ public class MenuActivity extends BaseActivity implements NavigationView.OnNavig
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
+
+        
         toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
             @Override
@@ -100,6 +111,44 @@ public class MenuActivity extends BaseActivity implements NavigationView.OnNavig
             currentFragment = fragment;
             binding.navView.setCheckedItem(R.id.nav_home);
         }
+
+//        https://stackoverflow.com/questions/7384678/how-to-create-socket-connection-in-android
+        final Handler handler = new Handler();
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                try {
+                    //Replace below IP with the IP of that device in which server socket open.
+                    //If you change port then change the port number in the server side code also.
+                    Socket s = new Socket("http://cutting.glaindonesia.lan", 8000);
+
+                    OutputStream out = s.getOutputStream();
+
+                    PrintWriter output = new PrintWriter(out);
+
+                    output.println("active");
+                    output.flush();
+                    BufferedReader input = new BufferedReader(new InputStreamReader(s.getInputStream()));
+                    final String st = input.readLine();
+
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(MenuActivity.this, "Connected From Server : "+st, Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+                    output.close();
+                    out.close();
+                    s.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        thread.start();
     }
 
     @Override

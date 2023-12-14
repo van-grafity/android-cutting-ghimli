@@ -94,9 +94,9 @@ public class ScanQrActivity extends AppCompatActivity implements OnNetworkListen
                         } else {
                             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(ScanQrActivity.this);
 
-                            alertDialogBuilder.setTitle(getString(R.string.app_name));
+//                            alertDialogBuilder.setTitle(getString(R.string.app_name));
                             alertDialogBuilder
-                                    .setMessage("Data tidak di termukan\natau periksa bidang yang anda kerjakan.")
+                                    .setMessage("Data tidak di temukan\natau periksa bidang yang anda kerjakan.")
                                     .setCancelable(false)
                                     .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int id) {

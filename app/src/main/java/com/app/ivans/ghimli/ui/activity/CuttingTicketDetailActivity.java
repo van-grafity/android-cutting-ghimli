@@ -64,7 +64,7 @@ public class CuttingTicketDetailActivity extends BaseActivity implements Adapter
             } else {
                 mSerialNumber = extras.getString("serialNumber");
 //                binding.tvCtNumber.setText(mSerialNumber);
-                toolbarBinding.tvTitleLarge.setText(mSerialNumber);
+                toolbarBinding.tvTitleLarge.setText("Stock In");
             }
         }
 
