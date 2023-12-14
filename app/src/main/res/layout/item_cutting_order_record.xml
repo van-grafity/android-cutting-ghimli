@@ -154,7 +154,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
                         android:gravity="left"
-                        android:maxLines="3"
+                        android:maxLines="1"
                         android:text="N4AHN011"
                         android:textAppearance="@style/TextAppearance.Regular12"
                         android:textColor="@android:color/black" />
