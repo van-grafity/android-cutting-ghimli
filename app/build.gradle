@@ -3,14 +3,14 @@ plugins {
 }
 
 android {
-    compileSdk 31
+    compileSdk 33
 
     defaultConfig {
         applicationId "com.app.ivansuhendra.ghimli"
         minSdk 19
-        targetSdk 31
-        versionCode 9
-        versionName "1.7.3"
+        targetSdk 33
+        versionCode 10
+        versionName "1.8.1"
         multiDexEnabled true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -21,15 +21,15 @@ android {
             minifyEnabled false
             shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            buildConfigField "String", "ROOT_URL", "\"http://202.169.63.44\""
-//            buildConfigField "String", "ROOT_URL", "\"http://192.168.5.236\""
+//            buildConfigField "String", "ROOT_URL", "\"http://cutting.glaindonesia.lan\""
+            buildConfigField "String", "ROOT_URL", "\"http://192.168.5.12\""
         }
         release {
             minifyEnabled false
             shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            buildConfigField "String", "ROOT_URL", "\"http://202.169.63.44\""
-//            buildConfigField "String", "ROOT_URL", "\"http://192.168.5.236\""
+//            buildConfigField "String", "ROOT_URL", "\"http://cutting.glaindonesia.lan\""
+            buildConfigField "String", "ROOT_URL", "\"http://192.168.5.12\""
         }
     }
     compileOptions {
