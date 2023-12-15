@@ -31,15 +31,16 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginHorizontal="14dp"
                     android:layout_marginVertical="14dp"
                     android:orientation="vertical">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="14dp"
                         android:text="GL"
-                        android:textAppearance="@style/TextAppearance.Bold24" />
+                        android:textAppearance="@style/TextAppearance.Light18"
+                        android:textStyle="bold" />
 
                     <Space
                         android:layout_width="match_parent"
@@ -49,8 +50,9 @@
                         android:id="@+id/etGlNumber"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="14dp"
                         android:text="63777-01-04"
-                        android:textAppearance="@style/TextAppearance.Light24"
+                        android:textAppearance="@style/TextAppearance.Bold24"
                         android:textStyle="bold" />
 
                     <Space
@@ -60,6 +62,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="14dp"
                         android:text="Serial Number"
                         android:textAppearance="@style/TextAppearance.Bold14" />
 
@@ -71,6 +74,7 @@
                         android:id="@+id/etSerialNumber"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="14dp"
                         android:text="COR-63063-00-DRTING FRL - ROYAL-006"
                         android:textAppearance="@style/TextAppearance.Bold16" />
 
@@ -78,10 +82,88 @@
                         android:layout_width="match_parent"
                         android:layout_height="14dp" />
 
+                    <LinearLayout
+                        android:paddingVertical="14dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_border_top_bottom_blue"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="14dp"
+                            android:text="Color"
+                            android:textAppearance="@style/TextAppearance.Bold14" />
+
+                        <Space
+                            android:layout_width="match_parent"
+                            android:layout_height="4dp" />
+
+                        <TextView
+                            android:id="@+id/etColor"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="14dp"
+                            android:text="BRIGHT WHITE"
+                            android:textAppearance="@style/TextAppearance.Bold16" />
+
+                        <Space
+                            android:layout_width="match_parent"
+                            android:layout_height="14dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="14dp"
+                            android:text="Style"
+                            android:textAppearance="@style/TextAppearance.Bold14" />
+
+                        <Space
+                            android:layout_width="match_parent"
+                            android:layout_height="4dp" />
+
+                        <TextView
+                            android:id="@+id/etStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="14dp"
+                            android:text="63LSD233K"
+                            android:textAppearance="@style/TextAppearance.Bold16" />
+
+                        <Space
+                            android:layout_width="match_parent"
+                            android:layout_height="14dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="14dp"
+                            android:text="Buyer"
+                            android:textAppearance="@style/TextAppearance.Bold14" />
+
+                        <Space
+                            android:layout_width="match_parent"
+                            android:layout_height="4dp" />
+
+                        <TextView
+                            android:id="@+id/etBuyer"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="14dp"
+                            android:text="CHICOS"
+                            android:textAppearance="@style/TextAppearance.Bold16" />
+
+                    </LinearLayout>
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="14dp" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Color"
+                        android:layout_marginHorizontal="14dp"
+                        android:text="Fabric Type"
                         android:textAppearance="@style/TextAppearance.Bold14" />
 
                     <Space
@@ -89,10 +171,140 @@
                         android:layout_height="4dp" />
 
                     <TextView
-                        android:id="@+id/etColor"
+                        android:id="@+id/etFabricType"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="14dp"
+                        android:gravity="center|left"
+                        android:maxLines="1"
+                        android:text="Neck Binding"
+                        android:textAppearance="@style/TextAppearance.Bold16" />
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="14dp" />
+
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="BRIGHT WHITE"
+                        android:layout_marginHorizontal="14dp"
+                        android:text="Fabric Consumption"
+                        android:textAppearance="@style/TextAppearance.Bold14" />
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="4dp" />
+
+                    <TextView
+                        android:id="@+id/etFabricConsumption"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="14dp"
+                        android:gravity="center|left"
+                        android:maxLines="1"
+                        android:text="10%/90% Body"
+                        android:textAppearance="@style/TextAppearance.Bold16" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="8dp"
+                        android:layout_marginVertical="8dp"
+                        android:background="#F1ECEC" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="14dp"
+                        android:text="No. Laying Sheet"
+                        android:textAppearance="@style/TextAppearance.Bold14" />
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="4dp" />
+
+                    <TextView
+                        android:id="@+id/etNoLayingSheet"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="14dp"
+                        android:gravity="center|left"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:text="63777-00-01"
+                        android:textAppearance="@style/TextAppearance.Bold16" />
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="14dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="14dp"
+                        android:text="Table Number"
+                        android:textAppearance="@style/TextAppearance.Bold14" />
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="4dp" />
+
+                    <TextView
+                        android:id="@+id/etTableNumber"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="14dp"
+                        android:gravity="center|left"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:text="1"
+                        android:textAppearance="@style/TextAppearance.Bold16" />
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="14dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="14dp"
+                        android:text="Fabric Roll No."
+                        android:textAppearance="@style/TextAppearance.Bold14" />
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="4dp" />
+
+                    <TextView
+                        android:id="@+id/etFabricRollNo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="14dp"
+                        android:gravity="center|left"
+                        android:maxLines="1"
+                        android:text="24"
+                        android:textAppearance="@style/TextAppearance.Bold16" />
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="14dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="14dp"
+                        android:text="Fabric PO"
+                        android:textAppearance="@style/TextAppearance.Bold14" />
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="4dp" />
+
+                    <TextView
+                        android:id="@+id/etFabricPO"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="14dp"
+                        android:text="LBKA99NA89"
                         android:textAppearance="@style/TextAppearance.Bold16" />
 
                     <Space
@@ -100,15 +312,16 @@
                         android:layout_height="14dp" />
 
                     <LinearLayout
-                        android:background="@drawable/border_top_bottom"
                         android:layout_width="match_parent"
-                        android:paddingVertical="14dp"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:background="@drawable/border_top_bottom"
+                        android:orientation="horizontal"
+                        android:paddingVertical="14dp">
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="14dp"
                             android:layout_weight="1"
                             android:orientation="vertical">
 
@@ -139,6 +352,7 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="14dp"
                             android:layout_weight="1"
                             android:gravity="right"
                             android:orientation="vertical">
@@ -169,186 +383,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Fabric PO"
-                        android:textAppearance="@style/TextAppearance.Bold14" />
-
-                    <Space
-                        android:layout_width="match_parent"
-                        android:layout_height="4dp" />
-
-                    <TextView
-                        android:id="@+id/etFabricPO"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="BRIGHT WHITE"
-                        android:textAppearance="@style/TextAppearance.Bold16" />
-
-                    <Space
-                        android:layout_width="match_parent"
-                        android:layout_height="14dp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Style"
-                        android:textAppearance="@style/TextAppearance.Bold14" />
-
-                    <Space
-                        android:layout_width="match_parent"
-                        android:layout_height="4dp" />
-
-                    <TextView
-                        android:id="@+id/etStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="63LSD233K"
-                        android:textAppearance="@style/TextAppearance.Bold16" />
-
-                    <Space
-                        android:layout_width="match_parent"
-                        android:layout_height="14dp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Buyer"
-                        android:textAppearance="@style/TextAppearance.Bold14" />
-
-                    <Space
-                        android:layout_width="match_parent"
-                        android:layout_height="4dp" />
-
-                    <TextView
-                        android:id="@+id/etBuyer"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="CHICOS"
-                        android:textAppearance="@style/TextAppearance.Bold16" />
-
-                    <Space
-                        android:layout_width="match_parent"
-                        android:layout_height="14dp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="No. Laying Sheet"
-                        android:textAppearance="@style/TextAppearance.Bold14" />
-
-                    <Space
-                        android:layout_width="match_parent"
-                        android:layout_height="4dp" />
-
-                    <TextView
-                        android:id="@+id/etNoLayingSheet"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center|left"
-                        android:inputType="text"
-                        android:maxLines="1"
-                        android:text="63777-00-01"
-                        android:textAppearance="@style/TextAppearance.Bold16" />
-
-                    <Space
-                        android:layout_width="match_parent"
-                        android:layout_height="14dp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Table Number"
-                        android:textAppearance="@style/TextAppearance.Bold14" />
-
-                    <Space
-                        android:layout_width="match_parent"
-                        android:layout_height="4dp" />
-
-                    <TextView
-                        android:id="@+id/etTableNumber"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center|left"
-                        android:inputType="text"
-                        android:maxLines="1"
-                        android:textAppearance="@style/TextAppearance.Bold16"
-                        android:text="1" />
-
-                    <Space
-                        android:layout_width="match_parent"
-                        android:layout_height="14dp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Fabric Roll No."
-                        android:textAppearance="@style/TextAppearance.Bold14" />
-
-                    <Space
-                        android:layout_width="match_parent"
-                        android:layout_height="4dp" />
-
-                    <TextView
-                        android:id="@+id/etFabricRollNo"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center|left"
-                        android:maxLines="1"
-                        android:textAppearance="@style/TextAppearance.Bold16"
-                        android:text="24" />
-
-                    <Space
-                        android:layout_width="match_parent"
-                        android:layout_height="14dp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Fabric Type"
-                        android:textAppearance="@style/TextAppearance.Bold14" />
-
-                    <Space
-                        android:layout_width="match_parent"
-                        android:layout_height="4dp" />
-
-                    <TextView
-                        android:id="@+id/etFabricType"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center|left"
-                        android:maxLines="1"
-                        android:textAppearance="@style/TextAppearance.Bold16"
-                        android:text="Neck Binding" />
-
-                    <Space
-                        android:layout_width="match_parent"
-                        android:layout_height="14dp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Fabric Consumption"
-                        android:textAppearance="@style/TextAppearance.Bold14" />
-
-                    <Space
-                        android:layout_width="match_parent"
-                        android:layout_height="4dp" />
-
-                    <TextView
-                        android:id="@+id/etFabricConsumption"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center|left"
-                        android:maxLines="1"
-                        android:textAppearance="@style/TextAppearance.Bold16"
-                        android:text="10%/90% Body" />
-
-                    <Space
-                        android:layout_width="match_parent"
-                        android:layout_height="14dp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="14dp"
                         android:text="Stock In"
                         android:textAppearance="@style/TextAppearance.Bold14" />
 
@@ -361,6 +396,7 @@
                         android:id="@+id/sp_status"
                         android:layout_width="match_parent"
                         android:layout_height="46dp"
+                        android:layout_marginHorizontal="14dp"
                         android:background="@null"
                         android:hint="Status"
                         android:visibility="visible" />
@@ -377,6 +413,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
+                            android:layout_marginHorizontal="14dp"
                             android:layout_weight="1"
                             android:gravity="center|left"
                             android:text="Transfer Type"
@@ -386,6 +423,7 @@
                             android:id="@+id/btn_switch"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
+                            android:layout_marginHorizontal="14dp"
                             android:gravity="center"
                             android:paddingLeft="54dp"
                             android:text="IN"
@@ -398,24 +436,27 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="70dp"
                 android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btnBackToHome"
+                    android:layout_width="127dp"
+                    android:layout_height="match_parent"
+                    android:backgroundTint="@android:color/holo_blue_light"
+                    android:drawableLeft="@drawable/ic_home"
+                    android:text="HOME"
+                    android:textSize="16sp"
+                    app:cornerRadius="0dp" />
 
                 <Button
                     android:id="@+id/btnTransfer"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:backgroundTint="@android:color/holo_orange_light"
-                    android:text="Stock In" />
-
-                <Button
-                    android:id="@+id/btnBackToHome"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:backgroundTint="@android:color/holo_orange_light"
-                    android:text="Back to Home" />
+                    android:layout_height="match_parent"
+                    android:backgroundTint="@android:color/holo_green_light"
+                    android:text="STOCK IN"
+                    android:textSize="16sp"
+                    app:cornerRadius="0dp" />
             </LinearLayout>
 
         </LinearLayout>

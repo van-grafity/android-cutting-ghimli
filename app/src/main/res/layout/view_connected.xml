@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rlViewConnected"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:background="@drawable/rounded_view_connected"
+        android:orientation="horizontal"
+        android:padding="12dp">
+
+        <LinearLayout
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_margin="8dp"
+            android:background="@drawable/round_connected"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/iv_connection_state"
+                android:layout_width="10dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_connection" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_connection_state"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="Wifi Terhubung"
+            android:textAppearance="@style/TextAppearance.Regular16"
+            android:textColor="@android:color/black" />
+    </LinearLayout>
+</RelativeLayout>

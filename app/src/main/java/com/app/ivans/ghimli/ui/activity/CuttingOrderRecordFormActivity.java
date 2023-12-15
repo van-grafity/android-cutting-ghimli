@@ -383,7 +383,7 @@ public class CuttingOrderRecordFormActivity extends BaseActivity implements Adap
                                                         .setCancelable(true)
                                                         .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
                                                             public void onClick(DialogInterface dialog, int id) {
-                                                                Intent intent = new Intent(CuttingOrderRecordFormActivity.this, HomeActivity.class);
+                                                                Intent intent = new Intent(CuttingOrderRecordFormActivity.this, MenuActivity.class);
                                                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                                                 startActivity(intent);
                                                                 finish();
@@ -415,7 +415,7 @@ public class CuttingOrderRecordFormActivity extends BaseActivity implements Adap
                                                         .setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
                                                             @Override
                                                             public void onClick(DialogInterface dialogInterface, int i) {
-                                                                Intent intent = new Intent(CuttingOrderRecordFormActivity.this, HomeActivity.class);
+                                                                Intent intent = new Intent(CuttingOrderRecordFormActivity.this, MenuActivity.class);
                                                                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                                                                 startActivity(intent);
                                                                 finish();

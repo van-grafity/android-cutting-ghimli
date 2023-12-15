@@ -1,10 +1,17 @@
 package com.app.ivans.ghimli.ui.activity;
 
+import static com.app.ivans.ghimli.utils.Extension.isWifiAlertEnabled;
+import static com.app.ivans.ghimli.utils.Extension.setCustomePositionView;
+
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,11 +29,14 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.viewbinding.ViewBinding;
 
+import com.app.ivans.ghimli.MainActivity;
 import com.app.ivans.ghimli.R;
 import com.app.ivans.ghimli.base.BaseActivity;
 import com.app.ivans.ghimli.databinding.ActivityMenuBinding;
+import com.app.ivans.ghimli.model.BodyNotification;
 import com.app.ivans.ghimli.net.API;
 import com.app.ivans.ghimli.ui.CheckedFragment;
 import com.app.ivans.ghimli.ui.fragment.AboutFragment;
@@ -35,6 +45,7 @@ import com.app.ivans.ghimli.ui.fragment.CutterFragment;
 import com.app.ivans.ghimli.ui.fragment.HomeFragment;
 import com.app.ivans.ghimli.ui.fragment.HomeFragmentInterface;
 import com.app.ivans.ghimli.ui.fragment.LayerFragment;
+import com.app.ivans.ghimli.utils.NetworkFunctions;
 import com.google.android.material.navigation.NavigationView;
 
 import java.io.BufferedReader;
@@ -46,6 +57,7 @@ import java.net.Socket;
 
 import de.hdodenhof.circleimageview.BuildConfig;
 import de.hdodenhof.circleimageview.CircleImageView;
+import io.github.inflationx.viewpump.ViewPumpContextWrapper;
 
 public class MenuActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener, CheckedFragment {
     private static final String TAG = "MenuActivity";
@@ -57,6 +69,7 @@ public class MenuActivity extends BaseActivity implements NavigationView.OnNavig
     private HomeFragmentInterface homeFragmentInterface = null;
     private ActionBarDrawerToggle toggle;
     private DrawerLayout drawer;
+    private NetworkFunctions mNetworkFunctions;
 
     @NonNull
     @Override
@@ -78,7 +91,7 @@ public class MenuActivity extends BaseActivity implements NavigationView.OnNavig
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
-
+        mNetworkFunctions = new NetworkFunctions(MenuActivity.this);
         
         toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
@@ -175,6 +188,21 @@ public class MenuActivity extends BaseActivity implements NavigationView.OnNavig
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        Log.i(TAG, "onResume: registerReceiver");
+        LocalBroadcastManager.getInstance(this);
+        registerReceiver(networkChangeReceiver, new IntentFilter("android.net.conn.CONNECTIVITY_CHANGE"));
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.i(TAG, "onPause: unregisterReceiver");
+        unregisterReceiver(networkChangeReceiver);
+    }
+
+    @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         int id = menuItem.getItemId();
 
@@ -259,6 +287,44 @@ public class MenuActivity extends BaseActivity implements NavigationView.OnNavig
                 }
             }
         }
+    }
+
+    private BroadcastReceiver networkChangeReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            BodyNotification bodyNotification = new BodyNotification();
+            Log.i(TAG, "fcmReceiver: Type " + bodyNotification.getType());
+            Log.i(TAG, "fcmReceiver: IType " + intent.getStringExtra("type"));
+
+            int networkState = NetworkFunctions.getConnectionStatus(context);
+
+            switch (networkState) {
+                case NetworkFunctions.WIFI:
+                    break;
+                case NetworkFunctions.MOBILE:
+                    break;
+                case NetworkFunctions.NOT_CONNECTED:
+                    break;
+            }
+
+            if (networkState != NetworkFunctions.WIFI && isWifiAlertEnabled) {
+                isWifiAlertEnabled = false;
+                mNetworkFunctions.show(NetworkFunctions.NetworkStatus.DISCONNECTED);
+                setCustomePositionView(R.layout.view_disconnected, MenuActivity.this, findViewById(R.id.rlViewDisconnected), Gravity.CENTER_VERTICAL | Gravity.TOP);
+                Log.i(TAG, "onReceive: tvIpAddress " + NetworkFunctions.getIpAddress(context));
+            }
+            if (networkState == NetworkFunctions.WIFI && !isWifiAlertEnabled) {
+                isWifiAlertEnabled = true;
+                mNetworkFunctions.show(NetworkFunctions.NetworkStatus.CONNECTED);
+                setCustomePositionView(R.layout.view_connected, MenuActivity.this, findViewById(R.id.rlViewConnected), Gravity.CENTER_VERTICAL | Gravity.TOP);
+                Log.i(TAG, "onReceive: tvIpAddress " + NetworkFunctions.getIpAddress(context));
+            }
+        }
+    };
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase));
     }
 
     @Override

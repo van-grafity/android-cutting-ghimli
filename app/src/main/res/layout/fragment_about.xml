@@ -59,7 +59,7 @@
                 android:background="@drawable/custom_rounded_button_gray"
                 android:paddingHorizontal="6dp"
                 android:paddingVertical="4dp"
-                android:text="Lates"
+                android:text="Play Store"
                 android:textColor="@color/white" />
         </LinearLayout>
 
@@ -83,6 +83,7 @@
                 android:layout_height="12dp" />
 
             <TextView
+                android:id="@+id/tvWebsite"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/ic_link"
@@ -91,6 +92,7 @@
                 android:textAppearance="@style/TextAppearance.Medium14" />
 
             <TextView
+                android:id="@+id/tvEmail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/ic_mail"
@@ -99,11 +101,21 @@
                 android:textAppearance="@style/TextAppearance.Medium14" />
 
             <TextView
+                android:id="@+id/tvPhone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/ic_phone"
                 android:drawablePadding="4dp"
                 android:text="021-3456-7890"
+                android:textAppearance="@style/TextAppearance.Medium14" />
+
+            <TextView
+                android:id="@+id/tvLocation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_location_on"
+                android:drawablePadding="4dp"
+                android:text="PT Ghimli Indonesia"
                 android:textAppearance="@style/TextAppearance.Medium14" />
         </LinearLayout>
     </RelativeLayout>

@@ -9,15 +9,21 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Handler;
 import android.os.Vibrator;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.LayoutRes;
 import androidx.core.content.ContextCompat;
 
 import com.app.ivans.ghimli.R;
@@ -43,6 +49,11 @@ public class Extension {
     public static final String PREF_USER_KEY = "user";
     public static final String KEYWORD = "keyword";
     public static final String HISTORY_DATA = "history_data";
+
+    public static double TARGET_LAT = 1.10765434;
+    public static double TARGET_LONG = 104.07164224;
+    public static String ZOOM_LEVEL = "2";
+    public static boolean isWifiAlertEnabled = true;
 
     public static final String CUTTING_ORDER_RECORD = "cutting_order_record";
     public static final String CO = "cutting_order";
@@ -455,5 +466,22 @@ public class Extension {
         } catch (PackageManager.NameNotFoundException e) {
             return "1.0.1";
         }
+    }
+
+    public static void setCustomePositionView(@LayoutRes int resource, Activity context, ViewGroup root, int gravity) {
+        LayoutInflater inflater = context.getLayoutInflater();
+        View layout = inflater.inflate(resource, root);
+        final Toast toast = new Toast(context);
+        toast.setGravity(gravity, 0, 0);
+        toast.setView(layout);
+        toast.show();
+
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                toast.cancel();
+            }
+        }, 5000);
     }
 }

@@ -44,4 +44,5 @@
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
     <string name="search">Search</string>
     <string name="notification">Notification</string>
+    <string name="google_mtv_coord_zoom12">geo:1.107646,-104.071587?z=12\n</string>
 </resources>

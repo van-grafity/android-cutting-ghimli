@@ -20,12 +20,12 @@ import com.app.ivans.ghimli.databinding.ToolbarBinding;
 import com.app.ivans.ghimli.model.APIResponse;
 import com.app.ivans.ghimli.model.BundleStatus;
 import com.app.ivans.ghimli.net.API;
-import com.app.ivans.ghimli.utils.Extension;
 import com.app.ivans.ghimli.ui.viewmodel.CuttingViewModel;
+import com.app.ivans.ghimli.utils.Extension;
 
 import java.util.ArrayList;
 
-public class CuttingTicketDetailActivity extends BaseActivity implements AdapterView.OnItemSelectedListener{
+public class CuttingTicketDetailActivity extends BaseActivity implements AdapterView.OnItemSelectedListener {
     private ActivityCuttingTicketDetailBinding binding;
     private ToolbarBinding toolbarBinding;
     private CuttingViewModel cuttingViewModel;
@@ -33,7 +33,7 @@ public class CuttingTicketDetailActivity extends BaseActivity implements Adapter
     private String partStr;
     private ArrayList<String> items;
     private ArrayAdapter<String> statues;
- int location = 0;
+    int location = 0;
     private String stat;
 
     @NonNull
@@ -107,7 +107,7 @@ public class CuttingTicketDetailActivity extends BaseActivity implements Adapter
         binding.btnBackToHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(CuttingTicketDetailActivity.this, HomeActivity.class));
+                startActivity(new Intent(CuttingTicketDetailActivity.this, MenuActivity.class));
                 finish();
             }
         });
@@ -126,7 +126,7 @@ public class CuttingTicketDetailActivity extends BaseActivity implements Adapter
         binding.btnTransfer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(CuttingTicketDetailActivity.this, ""+stat, Toast.LENGTH_SHORT).show();
+                Toast.makeText(CuttingTicketDetailActivity.this, "" + stat, Toast.LENGTH_SHORT).show();
                 cuttingViewModel.bundleTransferLiveData(API.getToken(CuttingTicketDetailActivity.this), binding.etSerialNumber.getText().toString(), binding.btnSwitch.getText().toString(), location).observe(CuttingTicketDetailActivity.this, new Observer<APIResponse>() {
                     @Override
                     public void onChanged(APIResponse apiResponse) {
@@ -145,7 +145,7 @@ public class CuttingTicketDetailActivity extends BaseActivity implements Adapter
         status.setStatus("-");
         status.setDescription("-");
         items.add(status.getStatus());
-       
+
         cuttingViewModel.getBundleStatusLiveData(API.getToken(CuttingTicketDetailActivity.this)).observe(CuttingTicketDetailActivity.this, new Observer<APIResponse>() {
             @Override
             public void onChanged(APIResponse apiResponse) {
