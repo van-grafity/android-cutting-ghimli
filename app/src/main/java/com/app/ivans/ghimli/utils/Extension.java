@@ -461,7 +461,7 @@ public class Extension {
         try {
             PackageInfo pInfo = context.getPackageManager().getPackageInfo(
                     context.getPackageName(), PackageManager.GET_META_DATA);
-            return String.valueOf(pInfo.versionCode) + " " + pInfo.versionName;
+            return String.valueOf(pInfo.versionCode) + "." + pInfo.versionName;
 
         } catch (PackageManager.NameNotFoundException e) {
             return "1.0.1";
