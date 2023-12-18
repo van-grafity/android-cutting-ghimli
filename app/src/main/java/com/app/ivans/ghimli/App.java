@@ -21,7 +21,7 @@ public class App extends Application {
         ViewPump.init(ViewPump.builder()
                 .addInterceptor(new CalligraphyInterceptor(
                         new CalligraphyConfig.Builder()
-                                .setDefaultFontPath("fonts/Lato-Regular.ttf")
+                                .setDefaultFontPath("fonts/Lato-Medium.ttf")
                                 .setFontAttrId(R.attr.fontPath)
                                 .build()))
                 .build());

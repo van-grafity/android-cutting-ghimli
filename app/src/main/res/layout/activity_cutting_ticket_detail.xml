@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
     tools:context=".ui.activity.CuttingOrderRecordDetailActivity">
 
     <include
@@ -74,6 +73,7 @@
                         android:id="@+id/etSerialNumber"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textStyle="bold"
                         android:layout_marginHorizontal="14dp"
                         android:text="COR-63063-00-DRTING FRL - ROYAL-006"
                         android:textAppearance="@style/TextAppearance.Bold16" />
@@ -83,7 +83,7 @@
                         android:layout_height="14dp" />
 
                     <LinearLayout
-                        android:paddingVertical="14dp"
+                        android:paddingVertical="4dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/bg_border_top_bottom_blue"
@@ -105,7 +105,8 @@
                             android:layout_height="wrap_content"
                             android:layout_marginHorizontal="14dp"
                             android:text="BRIGHT WHITE"
-                            android:textAppearance="@style/TextAppearance.Bold16" />
+                            android:textAppearance="@style/TextAppearance.Bold16"
+                            android:textStyle="bold" />
 
                         <Space
                             android:layout_width="match_parent"
@@ -128,6 +129,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginHorizontal="14dp"
                             android:text="63LSD233K"
+                            android:textStyle="bold"
                             android:textAppearance="@style/TextAppearance.Bold16" />
 
                         <Space
@@ -151,6 +153,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginHorizontal="14dp"
                             android:text="CHICOS"
+                            android:textStyle="bold"
                             android:textAppearance="@style/TextAppearance.Bold16" />
 
                     </LinearLayout>
@@ -176,6 +179,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="14dp"
                         android:gravity="center|left"
+                        android:textStyle="bold"
                         android:maxLines="1"
                         android:text="Neck Binding"
                         android:textAppearance="@style/TextAppearance.Bold16" />
@@ -202,6 +206,7 @@
                         android:layout_marginHorizontal="14dp"
                         android:gravity="center|left"
                         android:maxLines="1"
+                        android:textStyle="bold"
                         android:text="10%/90% Body"
                         android:textAppearance="@style/TextAppearance.Bold16" />
 
@@ -229,6 +234,7 @@
                         android:layout_marginHorizontal="14dp"
                         android:gravity="center|left"
                         android:inputType="text"
+                        android:textStyle="bold"
                         android:maxLines="1"
                         android:text="63777-00-01"
                         android:textAppearance="@style/TextAppearance.Bold16" />
@@ -256,6 +262,7 @@
                         android:gravity="center|left"
                         android:inputType="text"
                         android:maxLines="1"
+                        android:textStyle="bold"
                         android:text="1"
                         android:textAppearance="@style/TextAppearance.Bold16" />
 
@@ -281,6 +288,7 @@
                         android:layout_marginHorizontal="14dp"
                         android:gravity="center|left"
                         android:maxLines="1"
+                        android:textStyle="bold"
                         android:text="24"
                         android:textAppearance="@style/TextAppearance.Bold16" />
 
@@ -305,6 +313,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="14dp"
                         android:text="LBKA99NA89"
+                        android:textStyle="bold"
                         android:textAppearance="@style/TextAppearance.Bold16" />
 
                     <Space
@@ -316,7 +325,7 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/border_top_bottom"
                         android:orientation="horizontal"
-                        android:paddingVertical="14dp">
+                        android:paddingVertical="4dp">
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -336,6 +345,7 @@
                                 android:layout_height="4dp" />
 
                             <TextView
+                                android:textStyle="bold"
                                 android:id="@+id/etSize"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -368,6 +378,7 @@
                                 android:layout_height="4dp" />
 
                             <TextView
+                                android:textStyle="bold"
                                 android:id="@+id/etLayer"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"

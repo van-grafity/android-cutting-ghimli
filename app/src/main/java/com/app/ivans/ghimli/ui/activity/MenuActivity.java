@@ -105,6 +105,19 @@ public class MenuActivity extends BaseActivity implements NavigationView.OnNavig
                 super.onDrawerClosed(drawerView);
             }
         };
+        toggle.setDrawerIndicatorEnabled(false);
+
+        toggle.setHomeAsUpIndicator(R.drawable.ic_menu_drawer);
+        toggle.setToolbarNavigationClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (drawer.isDrawerVisible(GravityCompat.START)) {
+                    drawer.closeDrawer(GravityCompat.START);
+                } else {
+                    drawer.openDrawer(GravityCompat.START);
+                }
+            }
+        });
         drawer.addDrawerListener(toggle);
         binding.navView.setNavigationItemSelectedListener(this);
 

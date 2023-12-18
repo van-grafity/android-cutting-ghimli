@@ -9,15 +9,17 @@
     android:contentInsetLeft="0dp"
     android:contentInsetEnd="0dp"
     android:contentInsetRight="0dp"
-    android:navigationIcon="@drawable/ic_arrow_left_white"
-    android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
     app:contentInsetEnd="0dp"
     app:contentInsetLeft="0dp"
+    android:fitsSystemWindows="true"
     app:contentInsetRight="0dp"
     app:contentInsetStart="0dp"
     app:layout_scrollFlags="scroll|enterAlways"
-    app:navigationIcon="@drawable/ic_arrow_left_white"
-    app:popupTheme="@style/MyToolbarTheme">
+    app:navigationIcon="@drawable/ic_arrow_back"
+    android:background="@android:color/holo_purple"
+    android:navigationIcon="@drawable/ic_arrow_back"
+    android:theme="@style/ThemeOverlay.AppCompat.Light"
+    app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
     <LinearLayout
         android:id="@+id/searchInHome"
@@ -45,7 +47,7 @@
             android:maxLines="1"
             android:text="Title"
             android:textAllCaps="false"
-            android:textColor="@android:color/black"
+            android:textColor="@android:color/white"
             android:textSize="20sp"
             android:textStyle="bold"
             android:visibility="gone" />
