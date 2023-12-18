@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.app.ivans.ghimli.R;
 import com.app.ivans.ghimli.ui.activity.CuttingOrderRecordDetailActivity;
@@ -25,7 +26,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 public class CutPieceStockFragment extends Fragment {
 
     private CutPieceStockViewModel mViewModel;
-    private FloatingActionButton fabScanBundle;
+    private Button fabScanBundle;
 
     public static CutPieceStockFragment newInstance() {
         return new CutPieceStockFragment();
