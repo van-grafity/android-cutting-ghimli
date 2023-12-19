@@ -60,7 +60,7 @@
             android:gravity="center|start"
             android:maxLines="1"
             android:textAllCaps="true"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="20sp"
             android:textStyle="bold"
             android:visibility="gone" />
