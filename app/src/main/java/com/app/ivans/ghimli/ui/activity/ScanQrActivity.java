@@ -21,6 +21,8 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.app.ivans.ghimli.R;
 import com.app.ivans.ghimli.databinding.ActivityScanQrBinding;
+import com.app.ivans.ghimli.helper.CuttingOrderRecordDBHelper;
+import com.app.ivans.ghimli.model.CuttingOrderRecordDetail;
 import com.app.ivans.ghimli.utils.Extension;
 import com.app.ivans.ghimli.utils.NetworkChangeReceiver;
 import com.app.ivans.ghimli.utils.OnNetworkListener;
@@ -30,6 +32,8 @@ import com.budiyev.android.codescanner.CodeScannerView;
 import com.budiyev.android.codescanner.DecodeCallback;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.zxing.Result;
+
+import java.util.List;
 
 public class ScanQrActivity extends AppCompatActivity implements OnNetworkListener {
     private static final String TAG = "CuttingLayingSheetScanQ";
@@ -79,15 +83,6 @@ public class ScanQrActivity extends AppCompatActivity implements OnNetworkListen
                         String partStr = message.substring(0, 2);
 //                        Toast.makeText(ScanQrActivity.this, serialGla + " + " + partStr, Toast.LENGTH_SHORT).show();
 
-                        if (serialGla.equals("TRANSFER")){
-                            Toast.makeText(ScanQrActivity.this, "Transfer " + message,Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(ScanQrActivity.this, MenuActivity.class);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                            intent.putExtra("serialNumber", message);
-                            startActivity(intent);
-                            finish();
-                        }
-
                         if (serialGla.equals("CT") && serialGla.equals(partStr)){
                             Intent intent = new Intent(ScanQrActivity.this, CuttingTicketDetailActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -100,6 +95,22 @@ public class ScanQrActivity extends AppCompatActivity implements OnNetworkListen
                             intent.putExtra("serialNumber", message);
                             startActivity(intent);
                             finish();
+                        } else if (serialGla.equals("TRANSFER")){
+
+                            // Menyimpan data
+                            CuttingOrderRecordDetail record = new CuttingOrderRecordDetail();
+                            record.setCuttingOrderRecordId(1);
+                            record.setFabricRoll(message);
+                            CuttingOrderRecordDBHelper dbHelper = new CuttingOrderRecordDBHelper(ScanQrActivity.this);
+                            dbHelper.addCuttingOrderRecord(record);
+
+                            Intent intent = new Intent(ScanQrActivity.this, MenuActivity.class);
+                            intent.putExtra("serialNumber", message);
+                            startActivity(intent);
+
+                            // Mengambil data
+                            List<CuttingOrderRecordDetail> records = dbHelper.getAllCuttingOrderRecords();
+                            Log.i(TAG, "run: records "+records.get(2).getFabricRoll());
                         } else {
                             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(ScanQrActivity.this);
 
