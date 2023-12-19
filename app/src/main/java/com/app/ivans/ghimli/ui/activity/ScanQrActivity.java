@@ -79,6 +79,15 @@ public class ScanQrActivity extends AppCompatActivity implements OnNetworkListen
                         String partStr = message.substring(0, 2);
 //                        Toast.makeText(ScanQrActivity.this, serialGla + " + " + partStr, Toast.LENGTH_SHORT).show();
 
+                        if (serialGla.equals("TRANSFER")){
+                            Toast.makeText(ScanQrActivity.this, "Transfer " + message,Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(ScanQrActivity.this, MenuActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                            intent.putExtra("serialNumber", message);
+                            startActivity(intent);
+                            finish();
+                        }
+
                         if (serialGla.equals("CT") && serialGla.equals(partStr)){
                             Intent intent = new Intent(ScanQrActivity.this, CuttingTicketDetailActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);

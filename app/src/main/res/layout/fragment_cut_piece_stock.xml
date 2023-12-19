@@ -35,6 +35,7 @@
                 android:textColor="@android:color/black" />
 
             <Button
+                android:id="@+id/fabScanTransfer"
                 android:layout_width="180dp"
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/ic_outgoing"
