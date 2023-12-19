@@ -6,7 +6,6 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
-
     <uses-permission android:name="android.permission.CAMERA" />
 
     <uses-feature android:name="android.hardware.camera" />
@@ -14,14 +13,16 @@
     <queries>
         <intent>
             <action android:name="android.intent.action.SEND" />
+
             <data android:mimeType="image/jpeg" />
         </intent>
     </queries>
-
     <queries>
         <intent>
             <action android:name="android.intent.action.VIEW" />
+
             <category android:name="android.intent.category.BROWSABLE" />
+
             <data android:scheme="https" />
         </intent>
     </queries>
@@ -42,6 +43,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GhimLi"
         android:usesCleartextTraffic="true">
+        <activity
+            android:name=".ui.activity.StockOutActivity"
+            android:theme="@style/Theme.GhimLi.NoActionBar"
+            android:exported="false" />
         <activity
             android:name=".ui.activity.MenuActivity"
             android:exported="false" />

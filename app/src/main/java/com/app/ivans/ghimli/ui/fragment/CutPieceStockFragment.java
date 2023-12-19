@@ -21,6 +21,7 @@ import com.app.ivans.ghimli.model.CuttingTicket;
 import com.app.ivans.ghimli.ui.activity.CuttingOrderRecordDetailActivity;
 import com.app.ivans.ghimli.ui.activity.HomeActivity;
 import com.app.ivans.ghimli.ui.activity.ScanQrActivity;
+import com.app.ivans.ghimli.ui.activity.StockOutActivity;
 import com.app.ivans.ghimli.ui.viewmodel.CutPieceStockViewModel;
 import com.app.ivans.ghimli.utils.Extension;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -68,9 +69,9 @@ public class CutPieceStockFragment extends Fragment {
         fabScanTransfer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), ScanQrActivity.class);
-                intent.putExtra(Extension.CUTTING_QR, "TRANSFER");
+                Intent intent = new Intent(getActivity(), StockOutActivity.class);
                 startActivity(intent);
+                getActivity().finish();
             }
         });
     }

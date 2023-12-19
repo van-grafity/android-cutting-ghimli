@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,8 +20,9 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.app.ivans.ghimli.R;
 import com.app.ivans.ghimli.databinding.ActivityScanQrBinding;
-import com.app.ivans.ghimli.helper.CuttingOrderRecordDBHelper;
+import com.app.ivans.ghimli.helper.CuttingTicketDBHelper;
 import com.app.ivans.ghimli.model.CuttingOrderRecordDetail;
+import com.app.ivans.ghimli.model.CuttingTicket;
 import com.app.ivans.ghimli.utils.Extension;
 import com.app.ivans.ghimli.utils.NetworkChangeReceiver;
 import com.app.ivans.ghimli.utils.OnNetworkListener;
@@ -98,18 +98,38 @@ public class ScanQrActivity extends AppCompatActivity implements OnNetworkListen
                         } else if (serialGla.equals("TRANSFER")){
 
                             // Menyimpan data
-                            CuttingOrderRecordDetail record = new CuttingOrderRecordDetail();
-                            record.setCuttingOrderRecordId(1);
-                            record.setFabricRoll(message);
-                            CuttingOrderRecordDBHelper dbHelper = new CuttingOrderRecordDBHelper(ScanQrActivity.this);
-                            dbHelper.addCuttingOrderRecord(record);
+                            CuttingTicket record = new CuttingTicket();
+                            record.setId(1);
+                            record.setSerialNumber(message);
+                            CuttingTicketDBHelper dbHelper = new CuttingTicketDBHelper(ScanQrActivity.this);
+                            List<CuttingTicket> records = dbHelper.getAllCuttingTickets();
+                            for (int i = 0; i < records.size(); i++) {
+                                if (records.get(i).getSerialNumber().equals(message)) {
+                                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(ScanQrActivity.this);
+                                    alertDialogBuilder
+                                            .setMessage("Data sudah tersimpan")
+                                            .setCancelable(false)
+                                            .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+                                                public void onClick(DialogInterface dialog, int id) {
+                                                    Intent intent = new Intent(ScanQrActivity.this, MenuActivity.class);
+                                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                                    startActivity(intent);
+                                                    finish();
+                                                }
+                                            });
+                                    AlertDialog alertDialog = alertDialogBuilder.create();
+                                    alertDialog.show();
+                                    return;
+                                }
+                            }
+                            dbHelper.addCuttingTicket(record);
 
-                            Intent intent = new Intent(ScanQrActivity.this, MenuActivity.class);
-                            intent.putExtra("serialNumber", message);
+                            Intent intent = new Intent(ScanQrActivity.this, StockOutActivity.class);
                             startActivity(intent);
+                            finish();
 
                             // Mengambil data
-                            List<CuttingOrderRecordDetail> records = dbHelper.getAllCuttingOrderRecords();
+//                            List<CuttingTicket> records = dbHelper.getAllCuttingTickets();
 //                            Log.i(TAG, "run: records "+records.get(2).getFabricRoll());
                         } else {
                             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(ScanQrActivity.this);

@@ -30,14 +30,6 @@ public class CuttingTicket {
         return id;
     }
 
-    public String getSerialNumber() {
-        return serialNumber;
-    }
-
-    public ArrayList<BundleCut> getBundleCuts() {
-        return bundleCuts;
-    }
-
     public void setId(int id) {
         this.id = id;
     }
@@ -48,6 +40,14 @@ public class CuttingTicket {
 
     public void setTicketNumber(int ticketNumber) {
         this.ticketNumber = ticketNumber;
+    }
+
+    public String getSerialNumber() {
+        return serialNumber;
+    }
+
+    public void setSerialNumber(String serialNumber) {
+        this.serialNumber = serialNumber;
     }
 
     public Size getSize() {
@@ -96,5 +96,13 @@ public class CuttingTicket {
 
     public void setFabricRoll(String fabricRoll) {
         this.fabricRoll = fabricRoll;
+    }
+
+    public ArrayList<BundleCut> getBundleCuts() {
+        return bundleCuts;
+    }
+
+    public void setBundleCuts(ArrayList<BundleCut> bundleCuts) {
+        this.bundleCuts = bundleCuts;
     }
 }

@@ -12,15 +12,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.app.ivans.ghimli.R;
 import com.app.ivans.ghimli.model.CuttingTicket;
 
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
+import java.util.List;
 
 public class TransferAdapter extends RecyclerView.Adapter<TransferAdapter.TransferViewHolder> {
-    private ArrayList<CuttingTicket> mItems;
+    private List<CuttingTicket> mItems;
     private Context mContext;
 
-    public TransferAdapter(Context mContext, ArrayList<CuttingTicket> mItems) {
+    public TransferAdapter(Context mContext, List<CuttingTicket> mItems) {
         this.mContext = mContext;
         this.mItems = mItems;
     }
@@ -35,7 +33,7 @@ public class TransferAdapter extends RecyclerView.Adapter<TransferAdapter.Transf
     @Override
     public void onBindViewHolder(@NonNull TransferAdapter.TransferViewHolder holder, int position) {
         CuttingTicket model = mItems.get(position);
-        holder.tvLayer.setText(String.valueOf(model.getLayer()));
+        holder.tvSerialNumber.setText(String.valueOf(model.getSerialNumber()));
 
 
     }
@@ -46,11 +44,11 @@ public class TransferAdapter extends RecyclerView.Adapter<TransferAdapter.Transf
     }
 
     public class TransferViewHolder extends RecyclerView.ViewHolder {
-        TextView tvLayer;
+        TextView tvSerialNumber;
 
         public TransferViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvLayer = itemView.findViewById(R.id.tvLayer);
+            tvSerialNumber = itemView.findViewById(R.id.tvSerialNumber);
         }
     }
 }
