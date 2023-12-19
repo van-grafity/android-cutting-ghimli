@@ -16,7 +16,7 @@ import retrofit2.http.Query;
 
 public interface APIService {
     @GET("users")
-    Call<APIResponse> getUsers(@Header("Authorization") String authorization);
+    Call<APIResponse> getUsers(@Header("Authorization") String authorization);                                  
 
     @FormUrlEncoded
     @POST("login")
@@ -79,5 +79,9 @@ public interface APIService {
 
     @GET("bundle-status")
     Call<APIResponse> getBundleStatus(@Header("Authorization") String authorization);
+    
+    @FormUrlEncoded
+    @POST("bundle-stocks/store-multiple")
+    Call<APIResponse> bundleTransferMultiple(@Header("Authorization") String authorization, @Field("serial_number") String[] serialNumber, @Field("transaction_type") String transactionType, @Field("location") int location);
 
 }

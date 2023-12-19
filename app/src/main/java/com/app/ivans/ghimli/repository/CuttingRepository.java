@@ -272,4 +272,21 @@ public class CuttingRepository {
         });
         return mutableLiveData;
     }
+
+    public LiveData<APIResponse> bundleTransferMultipleResponse(String auth, String[] serialNumber, String transactionType, int location) {
+        final MutableLiveData<APIResponse> mutableLiveData = new MutableLiveData<>();
+        FAPI.service().bundleTransferMultiple(auth, serialNumber, transactionType, location).enqueue(new APICallback<APIResponse>(mContext) {
+            @Override
+            protected void onSuccess(APIResponse apiResponse) {
+                mutableLiveData.setValue(apiResponse);
+
+            }
+
+            @Override
+            protected void onError(BadRequest error) {
+
+            }
+        });
+        return mutableLiveData;
+    }
 }
