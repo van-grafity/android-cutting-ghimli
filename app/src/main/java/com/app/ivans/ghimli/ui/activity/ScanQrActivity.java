@@ -110,7 +110,7 @@ public class ScanQrActivity extends AppCompatActivity implements OnNetworkListen
 
                             // Mengambil data
                             List<CuttingOrderRecordDetail> records = dbHelper.getAllCuttingOrderRecords();
-                            Log.i(TAG, "run: records "+records.get(2).getFabricRoll());
+//                            Log.i(TAG, "run: records "+records.get(2).getFabricRoll());
                         } else {
                             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(ScanQrActivity.this);
 
