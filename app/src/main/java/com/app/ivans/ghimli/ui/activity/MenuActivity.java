@@ -84,6 +84,7 @@ public class MenuActivity extends BaseActivity implements NavigationView.OnNavig
         if (BuildConfig.DEBUG) {
             Log.i(TAG, "onCreate: DEBUG");
         }
+
         drawer = binding.drawerLayout;
         Toolbar toolbar = binding.included.toolbar;
         setSupportActionBar(toolbar);
@@ -92,7 +93,7 @@ public class MenuActivity extends BaseActivity implements NavigationView.OnNavig
         getSupportActionBar().setHomeButtonEnabled(true);
 
         mNetworkFunctions = new NetworkFunctions(MenuActivity.this);
-        
+
         toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
             @Override
@@ -250,7 +251,7 @@ public class MenuActivity extends BaseActivity implements NavigationView.OnNavig
             menuItem.setChecked(true);
         } else if (id == R.id.nav_cut_piece_stock) {
             clearStack();
-            getSupportActionBar().setTitle("Cut Piece Stock");
+            getSupportActionBar().setTitle("Cut Piece");
             Fragment cutPieceStockFragment = CutPieceStockFragment.newInstance();
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.frame_container, cutPieceStockFragment).commit();

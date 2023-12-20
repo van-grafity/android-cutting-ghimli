@@ -25,7 +25,7 @@
     <string name="nav_home">Home</string>
     <string name="nav_layer">Layer</string>
     <string name="nav_cutter">Cutter</string>
-    <string name="nav_cut_piece_stock">Cut Piece Stock</string>
+    <string name="nav_cut_piece_stock">Cut Piece</string>
     <string name="nav_logout">Keluar</string>
     <string name="want_to_logout">Apakah yakin ingin keluar dari aplikasi ?</string>
     <!-- Preference Titles -->

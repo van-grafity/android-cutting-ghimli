@@ -50,9 +50,9 @@ public class Extension {
     public static final String KEYWORD = "keyword";
     public static final String HISTORY_DATA = "history_data";
 
-    public static double TARGET_LAT = 1.10765434;
-    public static double TARGET_LONG = 104.07164224;
-    public static String ZOOM_LEVEL = "2";
+    public static double TARGET_LAT = 1.10776;
+    public static double TARGET_LONG = 104.07167;
+    public static String ZOOM_LEVEL = "21";
     public static boolean isWifiAlertEnabled = true;
 
     public static final String CUTTING_ORDER_RECORD = "cutting_order_record";

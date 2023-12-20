@@ -22,7 +22,7 @@ import retrofit2.Response;
 
 public class CuttingOrderRecordDataSource extends PageKeyedDataSource<Integer, CuttingOrderRecord> {
     private static final int FIRST_PAGE = 1;
-    public static final int PAGE_SIZE = 50;
+    public static final int PAGE_SIZE = 24;
     private Context context;
     private String authorization;
     private String search;

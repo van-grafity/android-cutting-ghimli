@@ -4,6 +4,7 @@ package com.app.ivans.ghimli.adapter;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -76,8 +77,8 @@ public class CuttingAdapter extends PagedListAdapter<CuttingOrderRecord, Recycle
         holder.tvSerialNumber.setText(model.getSerialNumber());
         holder.tvColor.setText(model.getLayingPlanningDetail().getLayingPlanning().getColor().getName());
         holder.tvStyle.setText(model.getLayingPlanningDetail().getLayingPlanning().getStyle().getStyle());
-        holder.tvStatusProgressLayer.setText(model.getStatusLayer().getName());
-        holder.tvStatusProgressCut.setText(model.getStatusCut().getName());
+//        holder.tvStatusProgressLayer.setText(model.getStatusLayer().getName());
+//        holder.tvStatusProgressCut.setText(model.getStatusCut().getName());
 
 //        int progressDrawable = getProgressDrawable(model);
 //        holder.viewProgress.setBackground(mContext.getResources().getDrawable(progressDrawable));
@@ -85,10 +86,12 @@ public class CuttingAdapter extends PagedListAdapter<CuttingOrderRecord, Recycle
             Glide.with(mContext)
                     .load(R.drawable.dot_not_yet_start)
                     .into(holder.viewProgressLayer);
+            holder.tvStatusProgressLayer.setText("Belum Layer");
         } else if (model.getStatusLayer().getId() == 2) {
             Glide.with(mContext)
                     .load(R.drawable.dot_complete)
                     .into(holder.viewProgressLayer);
+            holder.tvStatusProgressLayer.setText("Sudah Layer");
         } else if (model.getStatusLayer().getId() == 4) {
             Glide.with(mContext)
                     .load(R.drawable.dot_on_progress)
@@ -97,20 +100,24 @@ public class CuttingAdapter extends PagedListAdapter<CuttingOrderRecord, Recycle
             Glide.with(mContext)
                     .load(R.drawable.dot_on_progress)
                     .into(holder.viewProgressLayer);
+            holder.tvStatusProgressLayer.setText("Sedang di Layer");
         }
 
         if (model.getStatusCut().getId() == 1) {
             Glide.with(mContext)
                     .load(R.drawable.dot_not_yet_start)
                     .into(holder.viewProgressCut);
+            holder.tvStatusProgressCut.setText("Belum Potong");
         } else if (model.getStatusCut().getId() == 2) {
             Glide.with(mContext)
                     .load(R.drawable.dot_complete)
                     .into(holder.viewProgressCut);
+            holder.tvStatusProgressCut.setText("Sudah Potong");
         } else {
             Glide.with(mContext)
                     .load(R.drawable.dot_on_progress)
                     .into(holder.viewProgressCut);
+            holder.tvStatusProgressCut.setText("Sedang di Potong");
         }
 
         setClickListener(holder, model);
@@ -161,6 +168,7 @@ public class CuttingAdapter extends PagedListAdapter<CuttingOrderRecord, Recycle
         private CuttingViewHolder(View itemView) {
             super(itemView);
             tvSerialNumber = itemView.findViewById(R.id.tvSerialNumber);
+            tvSerialNumber.setTypeface(Typeface.createFromAsset(itemView.getContext().getAssets(), "fonts/Lato-Regular.ttf"));
             tvColor = itemView.findViewById(R.id.tvColor);
             tvStyle = itemView.findViewById(R.id.tvStyle);
             tvStatusProgressLayer = itemView.findViewById(R.id.tvStatusProgressLayer);

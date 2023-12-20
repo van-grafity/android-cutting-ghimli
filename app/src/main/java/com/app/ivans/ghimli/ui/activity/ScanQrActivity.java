@@ -97,7 +97,6 @@ public class ScanQrActivity extends AppCompatActivity implements OnNetworkListen
                             finish();
                         } else if (serialGla.equals("TRANSFER")){
 
-                            // Menyimpan data
                             CuttingTicket record = new CuttingTicket();
                             record.setId(1);
                             record.setSerialNumber(message);
@@ -107,11 +106,11 @@ public class ScanQrActivity extends AppCompatActivity implements OnNetworkListen
                                 if (records.get(i).getSerialNumber().equals(message)) {
                                     AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(ScanQrActivity.this);
                                     alertDialogBuilder
-                                            .setMessage("Data sudah tersimpan")
+                                            .setMessage("Duplikat Ticket")
                                             .setCancelable(false)
                                             .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
                                                 public void onClick(DialogInterface dialog, int id) {
-                                                    Intent intent = new Intent(ScanQrActivity.this, MenuActivity.class);
+                                                    Intent intent = new Intent(ScanQrActivity.this, StockOutActivity.class);
                                                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);
                                                     startActivity(intent);
                                                     finish();

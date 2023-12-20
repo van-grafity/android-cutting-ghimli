@@ -1,5 +1,7 @@
 package com.app.ivans.ghimli.ui.activity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -15,6 +17,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewbinding.ViewBinding;
 
+import com.app.ivans.ghimli.R;
 import com.app.ivans.ghimli.base.BaseActivity;
 import com.app.ivans.ghimli.databinding.ActivityCuttingTicketDetailBinding;
 import com.app.ivans.ghimli.databinding.ToolbarBinding;
@@ -112,7 +115,7 @@ public class CuttingTicketDetailActivity extends BaseActivity implements Adapter
                 finish();
             }
         });
-        binding.btnSwitch.setClickable(true);
+        binding.btnSwitch.setClickable(false);
         binding.btnSwitch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -127,12 +130,27 @@ public class CuttingTicketDetailActivity extends BaseActivity implements Adapter
         binding.btnTransfer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(CuttingTicketDetailActivity.this, "" + stat, Toast.LENGTH_SHORT).show();
+                runOnUiThread(new Runnable() {
+                    public void run() {
+                        Extension.showLoading(CuttingTicketDetailActivity.this);
+                    }
+                });
                 cuttingViewModel.bundleTransferLiveData(API.getToken(CuttingTicketDetailActivity.this), binding.etSerialNumber.getText().toString(), binding.btnSwitch.getText().toString(), location).observe(CuttingTicketDetailActivity.this, new Observer<APIResponse>() {
                     @Override
                     public void onChanged(APIResponse apiResponse) {
-                        Toast.makeText(CuttingTicketDetailActivity.this, apiResponse.getMessage(), Toast.LENGTH_SHORT).show();
-                        finish();
+                        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(CuttingTicketDetailActivity.this);
+                        alertDialogBuilder
+                                .setMessage(apiResponse.getMessage())
+                                .setCancelable(false)
+                                .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        finish();
+                                    }
+                                });
+
+                        AlertDialog alertDialog = alertDialogBuilder.create();
+                        alertDialog.setCanceledOnTouchOutside(false);
+                        alertDialog.show();
                     }
                 });
             }

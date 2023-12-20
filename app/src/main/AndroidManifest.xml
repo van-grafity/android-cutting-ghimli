@@ -45,7 +45,6 @@
         android:usesCleartextTraffic="true">
         <activity
             android:name=".ui.activity.StockOutActivity"
-            android:theme="@style/Theme.GhimLi.NoActionBar"
             android:exported="false" />
         <activity
             android:name=".ui.activity.MenuActivity"

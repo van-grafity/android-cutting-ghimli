@@ -49,7 +49,7 @@ public class AboutFragment extends Fragment implements LocationListener {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_about, container, false);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("About");
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Tentang");
         tvVersion = view.findViewById(R.id.tvResVersion);
         btnUpdateVersion = view.findViewById(R.id.btnUpdateVersion);
         tvWebsite = view.findViewById(R.id.tvWebsite);
@@ -127,9 +127,9 @@ public class AboutFragment extends Fragment implements LocationListener {
                 Intent intent = new Intent();
                 intent.setAction(Intent.ACTION_VIEW);
                 String data = String.format("geo:%s,%s", String.valueOf(Extension.TARGET_LAT), String.valueOf(Extension.TARGET_LONG));
-//                if (zoomLevel != null) {
-//                    data = String.format("%s?z=%s", data, zoomLevel);
-//                }
+                if (Extension.ZOOM_LEVEL != null) {
+                    data = String.format("%s?z=%s", data, Extension.ZOOM_LEVEL);
+                }
                 intent.setData(Uri.parse(data));
                 if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
                     startActivity(intent);
