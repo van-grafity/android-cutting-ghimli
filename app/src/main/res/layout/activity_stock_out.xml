@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -15,14 +16,29 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/toolbar" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabScan"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
         android:layout_alignParentBottom="true"
-        android:layout_centerInParent="true"
-        android:layout_gravity="bottom"
-        android:layout_margin="16dp"
-        android:clickable="true"
-        android:src="@drawable/uc_qr_code_scanner" />
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnScan"
+            android:layout_width="127dp"
+            android:layout_height="match_parent"
+            android:backgroundTint="@android:color/holo_blue_light"
+            android:drawableLeft="@drawable/uc_qr_code_scanner"
+            android:text="SCAN"
+            android:textSize="16sp"
+            app:cornerRadius="0dp" />
+
+        <Button
+            android:id="@+id/btnStockOut"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:backgroundTint="@android:color/holo_green_light"
+            android:text="STOCK OUT"
+            android:textSize="16sp"
+            app:cornerRadius="0dp" />
+    </LinearLayout>
 </RelativeLayout>

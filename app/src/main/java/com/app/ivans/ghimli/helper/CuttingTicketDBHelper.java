@@ -64,4 +64,10 @@ public class CuttingTicketDBHelper {
         db.close();
         return records;
     }
+    
+    public void deleteCuttingTickets() {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        db.delete(DBHelper.TABLE_NAME, null, null);
+        db.close();
+    }
 }

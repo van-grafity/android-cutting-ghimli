@@ -82,6 +82,6 @@ public interface APIService {
     
     @FormUrlEncoded
     @POST("bundle-stocks/store-multiple")
-    Call<APIResponse> bundleTransferMultiple(@Header("Authorization") String authorization, @Field("serial_number") String[] serialNumber, @Field("transaction_type") String transactionType, @Field("location") int location);
+    Call<APIResponse> bundleTransferMultiple(@Header("Authorization") String authorization, @Field("serial_number[]") String[] serialNumber, @Field("transaction_type") String transactionType, @Field("location") int location);
 
 }
