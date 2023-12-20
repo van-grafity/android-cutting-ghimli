@@ -110,9 +110,19 @@ public class StockOutActivity extends BaseActivity {
                 for (int i = 0; i < records.size(); i++) {
                     serialNumber[i] = records.get(i).getSerialNumber();
                 }
+                runOnUiThread(new Runnable() {
+                    public void run() {
+                        Extension.showLoading(StockOutActivity.this);
+                    }
+                });
                 cuttingViewModel.bundleTransferMultipleLiveData(API.getToken(StockOutActivity.this), serialNumber, "OUT", 3).observe(StockOutActivity.this, new Observer<APIResponse>() {
                     @Override
                     public void onChanged(APIResponse apiResponse) {
+                        runOnUiThread(new Runnable() {
+                            public void run() {
+                                Extension.dismissLoading();
+                            }
+                        });
                         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(StockOutActivity.this);
                         alertDialogBuilder
                                 .setMessage(apiResponse.getMessage())
