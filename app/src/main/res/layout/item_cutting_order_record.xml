@@ -41,8 +41,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="left"
                         android:text="complete"
-                        android:textAppearance="@style/TextAppearance.Regular10"
-                        android:textColor="@android:color/black"
+                        android:textAppearance="@style/TextAppearance.Bold10"
                         android:textStyle="bold" />
 
                     <androidx.legacy.widget.Space
@@ -81,8 +80,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="left"
                         android:text="complete"
-                        android:textAppearance="@style/TextAppearance.Regular10"
-                        android:textColor="@android:color/black"
+                        android:textAppearance="@style/TextAppearance.Bold10"
                         android:textStyle="bold" />
 
                     <androidx.legacy.widget.Space

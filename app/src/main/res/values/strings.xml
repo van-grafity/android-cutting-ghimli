@@ -45,4 +45,7 @@
     <string name="search">Search</string>
     <string name="notification">Notification</string>
     <string name="google_mtv_coord_zoom12">geo:1.107646,-104.071587?z=12\n</string>
+    <string name="waiting_for_bundle">Daftar Waiting for Bundle</string>
+    <string name="bundle">Bundle</string>
+    <string name="menu_not_found">Menu tidak di temukan</string>
 </resources>

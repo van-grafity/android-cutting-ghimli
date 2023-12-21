@@ -168,7 +168,7 @@ public class CuttingAdapter extends PagedListAdapter<CuttingOrderRecord, Recycle
         private CuttingViewHolder(View itemView) {
             super(itemView);
             tvSerialNumber = itemView.findViewById(R.id.tvSerialNumber);
-            tvSerialNumber.setTypeface(Typeface.createFromAsset(itemView.getContext().getAssets(), "fonts/Lato-Regular.ttf"));
+//            tvSerialNumber.setTypeface(Typeface.createFromAsset(itemView.getContext().getAssets(), "fonts/Lato-Regular.ttf"));
             tvColor = itemView.findViewById(R.id.tvColor);
             tvStyle = itemView.findViewById(R.id.tvStyle);
             tvStatusProgressLayer = itemView.findViewById(R.id.tvStatusProgressLayer);

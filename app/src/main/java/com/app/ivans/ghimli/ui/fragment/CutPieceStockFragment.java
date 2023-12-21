@@ -57,7 +57,7 @@ public class CutPieceStockFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_cut_piece_stock, container, false);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Cut Piece");
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(R.string.bundle);
         fabScanBundle = view.findViewById(R.id.fabScanBundle);
         fabScanTransfer = view.findViewById(R.id.fabScanTransfer);
         rvCutPiece = view.findViewById(R.id.rvCutPiece);

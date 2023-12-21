@@ -39,7 +39,7 @@ public class AboutFragment extends Fragment implements LocationListener {
     private TextView tvLocation;
 
     private LocationManager locationManager;
-    public static final double MAX_DISTANCE = 50.0; // dalam meter
+    public static final double MAX_DISTANCE = 30.0; // dalam meter
 
     public static AboutFragment newInstance() {
         return new AboutFragment();
