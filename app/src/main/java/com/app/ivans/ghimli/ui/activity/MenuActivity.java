@@ -99,6 +99,7 @@ public class MenuActivity extends BaseActivity implements NavigationView.OnNavig
             @Override
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
+                setupPermission();
             }
 
             @Override
@@ -121,6 +122,8 @@ public class MenuActivity extends BaseActivity implements NavigationView.OnNavig
         });
         drawer.addDrawerListener(toggle);
         binding.navView.setNavigationItemSelectedListener(this);
+
+        setupPermission();
 
         View headerContainer = binding.navView.getHeaderView(0);
         circleImageView = headerContainer.findViewById(R.id.profile_image);
@@ -178,6 +181,15 @@ public class MenuActivity extends BaseActivity implements NavigationView.OnNavig
         thread.start();
     }
 
+    private void setupPermission() {
+        MenuItem navCalendarItem =  binding.navView.getMenu().findItem(R.id.nav_layer);
+        navCalendarItem.setVisible(false);
+        invalidateOptionsMenu();
+//        if (API.currentUser(MenuActivity.this).getRole().getName() == "cutter"){
+//
+//        }
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
@@ -225,8 +237,6 @@ public class MenuActivity extends BaseActivity implements NavigationView.OnNavig
         } else {
             menuItem.setChecked(true);
         }
-
-        
 
         if (id == R.id.nav_home) {
             clearStack();
