@@ -32,7 +32,6 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.viewbinding.ViewBinding;
 
-import com.app.ivans.ghimli.MainActivity;
 import com.app.ivans.ghimli.R;
 import com.app.ivans.ghimli.base.BaseActivity;
 import com.app.ivans.ghimli.databinding.ActivityMenuBinding;
@@ -40,11 +39,12 @@ import com.app.ivans.ghimli.model.BodyNotification;
 import com.app.ivans.ghimli.net.API;
 import com.app.ivans.ghimli.ui.CheckedFragment;
 import com.app.ivans.ghimli.ui.fragment.AboutFragment;
-import com.app.ivans.ghimli.ui.fragment.CutPieceStockFragment;
+import com.app.ivans.ghimli.ui.fragment.BundleFragment;
 import com.app.ivans.ghimli.ui.fragment.CutterFragment;
 import com.app.ivans.ghimli.ui.fragment.HomeFragment;
 import com.app.ivans.ghimli.ui.fragment.HomeFragmentInterface;
 import com.app.ivans.ghimli.ui.fragment.LayerFragment;
+import com.app.ivans.ghimli.utils.Extension;
 import com.app.ivans.ghimli.utils.NetworkFunctions;
 import com.google.android.material.navigation.NavigationView;
 
@@ -162,7 +162,7 @@ public class MenuActivity extends BaseActivity implements NavigationView.OnNavig
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
-                            Toast.makeText(MenuActivity.this, "Connected From Server : "+st, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MenuActivity.this, "Connected From Server : " + st, Toast.LENGTH_SHORT).show();
                         }
                     });
 
@@ -225,6 +225,9 @@ public class MenuActivity extends BaseActivity implements NavigationView.OnNavig
         } else {
             menuItem.setChecked(true);
         }
+
+        
+
         if (id == R.id.nav_home) {
             clearStack();
             getSupportActionBar().setTitle("Home");
@@ -249,13 +252,21 @@ public class MenuActivity extends BaseActivity implements NavigationView.OnNavig
             ft.replace(R.id.frame_container, cutterFragment).commit();
             currentFragment = cutterFragment;
             menuItem.setChecked(true);
-        } else if (id == R.id.nav_cut_piece_stock) {
+        } else if (id == R.id.nav_bundle) {
             clearStack();
-            getSupportActionBar().setTitle("Cut Piece");
-            Fragment cutPieceStockFragment = CutPieceStockFragment.newInstance();
+            getSupportActionBar().setTitle("Bundle");
+            Fragment cutPieceStockFragment = BundleFragment.newInstance();
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.frame_container, cutPieceStockFragment).commit();
             currentFragment = cutPieceStockFragment;
+        } else if (id == R.id.nav_stock_in) {
+            getSupportActionBar().setTitle("Sock in");
+            Intent intent = new Intent(MenuActivity.this, ScanQrActivity.class);
+            intent.putExtra(Extension.CUTTING_QR, "CT");
+            startActivity(intent);
+        } else if (id == R.id.nav_stock_out) {
+            Intent intent = new Intent(MenuActivity.this, StockOutActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_about) {
             clearStack();
             getSupportActionBar().setTitle("Tentang");

@@ -18,9 +18,19 @@
             android:icon="@drawable/ic_nav_cutter"
             android:title="@string/nav_cutter" />
         <item
-            android:id="@+id/nav_cut_piece_stock"
+            android:id="@+id/nav_bundle"
             android:icon="@drawable/ic_nav_stock"
-            android:title="@string/nav_cut_piece_stock" />
+            android:title="@string/nav_bundle" />
+
+        <item
+            android:id="@+id/nav_stock_in"
+            android:icon="@drawable/ic_nav_stock"
+            android:title="@string/nav_stock_in" />
+
+        <item
+            android:id="@+id/nav_stock_out"
+            android:icon="@drawable/ic_nav_stock"
+            android:title="@string/nav_stock_out" />
     </group>
 
     <group android:checkableBehavior="single"

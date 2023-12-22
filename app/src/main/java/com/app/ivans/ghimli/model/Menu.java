@@ -3,9 +3,11 @@ package com.app.ivans.ghimli.model;
 public class Menu {
     private String name;
     private String desc;
+    private int img;
 
-    public Menu(String name) {
+    public Menu(String name, int img) {
         this.name = name;
+        this.img = img;
     }
 
     public String getName() {
@@ -22,5 +24,13 @@ public class Menu {
 
     public void setDesc(String desc) {
         this.desc = desc;
+    }
+
+    public int getImg() {
+        return img;
+    }
+
+    public void setImg(int img) {
+        this.img = img;
     }
 }

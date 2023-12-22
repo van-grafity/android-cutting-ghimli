@@ -25,7 +25,7 @@
     <string name="nav_home">Home</string>
     <string name="nav_layer">Layer</string>
     <string name="nav_cutter">Cutter</string>
-    <string name="nav_cut_piece_stock">Cut Piece</string>
+    <string name="nav_bundle">Bundle</string>
     <string name="nav_logout">Keluar</string>
     <string name="want_to_logout">Apakah yakin ingin keluar dari aplikasi ?</string>
     <!-- Preference Titles -->
@@ -48,4 +48,6 @@
     <string name="waiting_for_bundle">Daftar Waiting for Bundle</string>
     <string name="bundle">Bundle</string>
     <string name="menu_not_found">Menu tidak di temukan</string>
+    <string name="nav_stock_in">Stock In</string>
+    <string name="nav_stock_out">Stock Out</string>
 </resources>

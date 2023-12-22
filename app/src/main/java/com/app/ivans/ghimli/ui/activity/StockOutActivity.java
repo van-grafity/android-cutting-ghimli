@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -23,20 +25,26 @@ import com.app.ivans.ghimli.databinding.ActivityStockOutBinding;
 import com.app.ivans.ghimli.databinding.ToolbarBinding;
 import com.app.ivans.ghimli.helper.CuttingTicketDBHelper;
 import com.app.ivans.ghimli.model.APIResponse;
+import com.app.ivans.ghimli.model.BundleStatus;
 import com.app.ivans.ghimli.model.CuttingTicket;
 import com.app.ivans.ghimli.net.API;
 import com.app.ivans.ghimli.ui.viewmodel.CuttingViewModel;
 import com.app.ivans.ghimli.utils.Extension;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class StockOutActivity extends BaseActivity {
+public class StockOutActivity extends BaseActivity implements AdapterView.OnItemSelectedListener{
     private ActivityStockOutBinding binding;
     private ToolbarBinding toolbarBinding;
     private TransferAdapter mAdapter;
     private CuttingTicketDBHelper mDbHelper;
     private CuttingViewModel cuttingViewModel;
     public List<CuttingTicket> records;
+    private String stat;
+    int location = 0;
+    private ArrayAdapter<String> statues;
+    private ArrayList<String> items;
 
     @NonNull
     @Override
@@ -58,6 +66,7 @@ public class StockOutActivity extends BaseActivity {
         toolbarBinding.tvTitle.setVisibility(View.VISIBLE);
         toolbarBinding.tvTitle.setText("Stock Out");
         cuttingViewModel = new ViewModelProvider(StockOutActivity.this).get(CuttingViewModel.class);
+        binding.spStatus.setOnItemSelectedListener(this);
 //        init
         mDbHelper = new CuttingTicketDBHelper(StockOutActivity.this);
 
@@ -67,7 +76,7 @@ public class StockOutActivity extends BaseActivity {
         binding.rvTransferNote.setAdapter(mAdapter);
 
 
-
+        loadDataBundleStatus();
         binding.btnScan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -115,7 +124,8 @@ public class StockOutActivity extends BaseActivity {
                         Extension.showLoading(StockOutActivity.this);
                     }
                 });
-                cuttingViewModel.bundleTransferMultipleLiveData(API.getToken(StockOutActivity.this), serialNumber, "OUT", 3).observe(StockOutActivity.this, new Observer<APIResponse>() {
+
+                cuttingViewModel.bundleTransferMultipleLiveData(API.getToken(StockOutActivity.this), serialNumber, "OUT", location).observe(StockOutActivity.this, new Observer<APIResponse>() {
                     @Override
                     public void onChanged(APIResponse apiResponse) {
                         runOnUiThread(new Runnable() {
@@ -142,6 +152,38 @@ public class StockOutActivity extends BaseActivity {
             }
         });
     }
+
+    private void loadDataBundleStatus() {
+        items = new ArrayList<>();
+        BundleStatus status = new BundleStatus();
+        status.setId(55);
+        status.setStatus("-");
+        status.setDescription("-");
+        items.add(status.getStatus());
+
+        binding.spStatus.setVisibility(View.GONE);
+        binding.progressLocation.setVisibility(View.VISIBLE);
+        cuttingViewModel.getBundleStatusLiveData(API.getToken(StockOutActivity.this)).observe(StockOutActivity.this, new Observer<APIResponse>() {
+            @Override
+            public void onChanged(APIResponse apiResponse) {
+//                Toast.makeText(CuttingTicketDetailActivity.this, apiResponse.getData().getBundleStatus().get(1).getStatus(), Toast.LENGTH_SHORT).show();  
+                for (int x = 0; x < apiResponse.getData().getBundleStatus().size(); x++) {
+                    if (apiResponse.getData().getBundleStatus().get(x).getId() != 1) {
+                        items.add(apiResponse.getData().getBundleStatus().get(x).getStatus());
+                        location = apiResponse.getData().getBundleStatus().get(x).getId();
+                    }
+                }
+                statues = new ArrayAdapter<String>(StockOutActivity.this, android.R.layout.simple_spinner_item, items);
+
+                statues.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                binding.spStatus.setAdapter(statues);
+                binding.spStatus.setVisibility(View.VISIBLE);
+                binding.progressLocation.setVisibility(View.GONE);
+
+                binding.spStatus.setSelection(0);
+            }
+        });
+    }
     
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -152,5 +194,15 @@ public class StockOutActivity extends BaseActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        stat = parent.getSelectedItem().toString();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
     }
 }

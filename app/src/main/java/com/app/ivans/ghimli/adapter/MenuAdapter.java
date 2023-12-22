@@ -1,17 +1,22 @@
 package com.app.ivans.ghimli.adapter;
 
 import android.content.Context;
+import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.ivans.ghimli.R;
 import com.app.ivans.ghimli.model.Menu;
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
@@ -53,50 +58,47 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MenuViewHolder
 
         holder.tvName.setText(menu.getName());
 
+        Glide.with(mContext)
+                .load(menu.getImg())
+                .into(holder.ivImg);
+
         if (position == 0) {
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
+            holder.btnCutter.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     mClickedLayer.onClick(v, holder.getAdapterPosition(), menu);
                 }
             });
         } else if (position == 1) {
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
+            holder.btnCutter.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     mClickedCutter.onClick(v, holder.getAdapterPosition(), menu);
                 }
             });
         } else if (position == 2) {
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
+            holder.btnCutter.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     mClickedBundle.onClick(v, holder.getAdapterPosition(), menu);
                 }
             });
         } else if (position == 3) {
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mClickedBundle.onClick(v, holder.getAdapterPosition(), menu);
-                }
-            });
-        } else if (position == 4) {
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
+            holder.btnCutter.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     mClickedStockIn.onClick(v, holder.getAdapterPosition(), menu);
                 }
             });
-        } else if (position == 5) {
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
+        } else if (position == 4) {
+            holder.btnCutter.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     mClickedStockOut.onClick(v, holder.getAdapterPosition(), menu);
                 }
             });
-        } else if (position == 6) {
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
+        } else if (position == 5) {
+            holder.btnCutter.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     mClickedAbout.onClick(v, holder.getAdapterPosition(), menu);
@@ -115,10 +117,14 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MenuViewHolder
 
     public static class MenuViewHolder extends RecyclerView.ViewHolder {
         private TextView tvName;
+        private ImageView ivImg;
+        private CardView btnCutter;
 
         public MenuViewHolder(@NonNull View itemView) {
             super(itemView);
             tvName = itemView.findViewById(R.id.tv_name);
+            ivImg = itemView.findViewById(R.id.iv_img);
+            btnCutter = itemView.findViewById(R.id.btn_cutter);
         }
     }
 }

@@ -17,8 +17,7 @@ public class User {
     private String createdAt;
     @SerializedName("updated_at")
     private String updatedAt;
-    @SerializedName("roles")
-    private int roles;
+    private Role role;
 
     public int getId() {
         return id;
@@ -52,7 +51,7 @@ public class User {
         return updatedAt;
     }
 
-    public int getRoles() {
-        return roles;
+    public Role getRole() {
+        return role;
     }
 }

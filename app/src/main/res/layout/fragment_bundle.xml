@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.fragment.CutPieceStockFragment">
+    tools:context=".ui.fragment.BundleFragment">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -61,32 +61,6 @@
                 android:id="@+id/rvCutPiece"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerInParent="true"
-            android:layout_margin="24dp"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/fabScanBundle"
-                android:layout_width="200dp"
-                android:layout_height="80dp"
-                android:text="STOCK IN"
-
-                android:drawableLeft="@drawable/ic_ingoing"
-                android:textColor="@android:color/white" />
-
-            <Button
-                android:id="@+id/fabScanTransfer"
-                android:layout_width="200dp"
-                android:layout_height="80dp"
-                android:drawableLeft="@drawable/ic_outgoing"
-                android:text="STOCK OUT"
-                android:textColor="@android:color/white" />
         </LinearLayout>
     </RelativeLayout>
 </FrameLayout>

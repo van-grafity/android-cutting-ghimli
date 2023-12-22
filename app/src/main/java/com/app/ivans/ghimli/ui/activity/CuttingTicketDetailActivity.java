@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -115,15 +116,23 @@ public class CuttingTicketDetailActivity extends BaseActivity implements Adapter
                 finish();
             }
         });
-        binding.btnSwitch.setClickable(false);
-        binding.btnSwitch.setOnClickListener(new View.OnClickListener() {
+//        binding.btnSwitch.setClickable(false);
+//        binding.btnSwitch.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (binding.btnSwitch.getText().toString().equals("IN")) {
+//                    binding.btnSwitch.setText("OUT");
+//                } else {
+//                    binding.btnSwitch.setText("IN");
+//                }
+//            }
+//        });
+        binding.btnSwitch.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View v) {
-                if (binding.btnSwitch.getText().toString().equals("IN")) {
-                    binding.btnSwitch.setText("OUT");
-                } else {
-                    binding.btnSwitch.setText("IN");
-                }
+            public boolean onTouch(View v, MotionEvent event) {
+                Toast.makeText(CuttingTicketDetailActivity.this, "Stock In Cutting",Toast.LENGTH_SHORT).show();
+                binding.btnSwitch.setClickable(false);
+                return false;
             }
         });
 
@@ -169,11 +178,12 @@ public class CuttingTicketDetailActivity extends BaseActivity implements Adapter
             @Override
             public void onChanged(APIResponse apiResponse) {
 //                Toast.makeText(CuttingTicketDetailActivity.this, apiResponse.getData().getBundleStatus().get(1).getStatus(), Toast.LENGTH_SHORT).show();
-                for (int x = 0; x < apiResponse.getData().getBundleStatus().size(); x++) {
-                    items.add(apiResponse.getData().getBundleStatus().get(x).getStatus());
-                    location = x;
-                }
-
+//                for (int x = 0; x < apiResponse.getData().getBundleStatus().size(); x++) {
+//
+//
+//                }
+                items.add(apiResponse.getData().getBundleStatus().get(0).getStatus());
+                location = apiResponse.getData().getBundleStatus().get(0).getId();
                 statues = new ArrayAdapter<String>(CuttingTicketDetailActivity.this, android.R.layout.simple_spinner_item, items);
                 statues.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 binding.spStatus.setAdapter(statues);
