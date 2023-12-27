@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.ivans.ghimli.R;
 import com.app.ivans.ghimli.model.Menu;
+import com.app.ivans.ghimli.net.API;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
@@ -66,6 +67,10 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MenuViewHolder
             holder.btnCutter.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    if (API.currentUser(mContext).getRole().getName().equals("bundle")){
+                        Toast.makeText(mContext, "You are not allowed to access this menu", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                     mClickedLayer.onClick(v, holder.getAdapterPosition(), menu);
                 }
             });
@@ -73,6 +78,10 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MenuViewHolder
             holder.btnCutter.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    if (API.currentUser(mContext).getRole().getName().equals("bundle")){
+                        Toast.makeText(mContext, "You are not allowed to access this menu", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                     mClickedCutter.onClick(v, holder.getAdapterPosition(), menu);
                 }
             });
@@ -80,6 +89,10 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MenuViewHolder
             holder.btnCutter.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    if (API.currentUser(mContext).getRole().getName().equals("cutter")){
+                        Toast.makeText(mContext, "You are not allowed to access this menu", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                     mClickedBundle.onClick(v, holder.getAdapterPosition(), menu);
                 }
             });
@@ -87,6 +100,10 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MenuViewHolder
             holder.btnCutter.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    if (API.currentUser(mContext).getRole().getName().equals("cutter")){
+                        Toast.makeText(mContext, "You are not allowed to access this menu", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                     mClickedStockIn.onClick(v, holder.getAdapterPosition(), menu);
                 }
             });
@@ -94,6 +111,10 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MenuViewHolder
             holder.btnCutter.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    if (API.currentUser(mContext).getRole().getName().equals("cutter")){
+                        Toast.makeText(mContext, "You are not allowed to access this menu", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                     mClickedStockOut.onClick(v, holder.getAdapterPosition(), menu);
                 }
             });

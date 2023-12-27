@@ -182,12 +182,20 @@ public class MenuActivity extends BaseActivity implements NavigationView.OnNavig
     }
 
     private void setupPermission() {
-        MenuItem navCalendarItem =  binding.navView.getMenu().findItem(R.id.nav_layer);
-        navCalendarItem.setVisible(false);
-        invalidateOptionsMenu();
-//        if (API.currentUser(MenuActivity.this).getRole().getName() == "cutter"){
-//
-//        }
+        if (API.currentUser(MenuActivity.this).getRole().getName().equals("bundle")){
+            MenuItem navLayerItem =  binding.navView.getMenu().findItem(R.id.nav_layer);
+            navLayerItem.setVisible(false);
+            MenuItem navCutterItem =  binding.navView.getMenu().findItem(R.id.nav_cutter);
+            navCutterItem.setVisible(false);
+//            invalidateOptionsMenu();
+        } else if (API.currentUser(MenuActivity.this).getRole().getName().equals("cutter")) {
+            MenuItem navBundleItem =  binding.navView.getMenu().findItem(R.id.nav_bundle);
+            navBundleItem.setVisible(false);
+            MenuItem navStockInItem =  binding.navView.getMenu().findItem(R.id.nav_stock_in);
+            navStockInItem.setVisible(false);
+            MenuItem navStockOutItem =  binding.navView.getMenu().findItem(R.id.nav_stock_out);
+            navStockOutItem.setVisible(false);
+        } 
     }
 
     @Override
