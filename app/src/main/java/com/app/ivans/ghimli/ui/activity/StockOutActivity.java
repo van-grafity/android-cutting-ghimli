@@ -54,6 +54,12 @@ public class StockOutActivity extends BaseActivity implements AdapterView.OnItem
         return binding;
     }
 
+    // public TransferAdapter(Context mContext, List<CuttingTicket> mItems, TransferAdapter.onItemClickListener clickedDelete) {
+    //     this.mContext = mContext;
+    //     this.mItems = mItems;
+    //     this.mClickedDelete = clickedDelete;
+    // }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,7 +78,15 @@ public class StockOutActivity extends BaseActivity implements AdapterView.OnItem
 
         binding.rvTransferNote.setLayoutManager(new GridLayoutManager(StockOutActivity.this, 2, LinearLayoutManager.VERTICAL, false));
         records = mDbHelper.getAllCuttingTickets();
-        mAdapter = new TransferAdapter(StockOutActivity.this, records);
+        mAdapter = new TransferAdapter(StockOutActivity.this, records, new TransferAdapter.onItemClickListener() {
+            @Override
+            public void onClick(View view, int position, CuttingTicket ticket) {
+                mDbHelper.deleteCuttingTicket(ticket.getId());
+                mAdapter.removeItem(position);
+                Toast.makeText(StockOutActivity.this, "Deleted", Toast.LENGTH_SHORT).show();
+                mAdapter.notifyDataSetChanged();
+            }
+        });
         binding.rvTransferNote.setAdapter(mAdapter);
 
 
@@ -140,7 +154,6 @@ public class StockOutActivity extends BaseActivity implements AdapterView.OnItem
                                 .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int id) {
                                         mDbHelper.deleteCuttingTickets();
-                                        finish();
                                     }
                                 });
 
@@ -190,6 +203,7 @@ public class StockOutActivity extends BaseActivity implements AdapterView.OnItem
         switch (item.getItemId()) {
             case android.R.id.home:
                 onBackPressed();
+                mDbHelper.deleteCuttingTickets();
                 return true;
         }
 

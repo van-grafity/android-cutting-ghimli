@@ -70,4 +70,11 @@ public class CuttingTicketDBHelper {
         db.delete(DBHelper.TABLE_NAME, null, null);
         db.close();
     }
+
+    public void deleteCuttingTicket(int id) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        db.delete(DBHelper.TABLE_NAME, DBHelper.COLUMN_CUTTING_TICKET_ID + " = ?",
+                new String[]{String.valueOf(id)});
+        db.close();
+    }
 }
