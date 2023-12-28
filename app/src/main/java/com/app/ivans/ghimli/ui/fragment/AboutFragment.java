@@ -28,7 +28,7 @@ import com.app.ivans.ghimli.R;
 import com.app.ivans.ghimli.ui.viewmodel.AboutViewModel;
 import com.app.ivans.ghimli.utils.Extension;
 
-public class AboutFragment extends Fragment implements LocationListener {
+public class AboutFragment extends Fragment {
 
     private AboutViewModel mViewModel;
     private TextView tvVersion;
@@ -69,10 +69,10 @@ public class AboutFragment extends Fragment implements LocationListener {
             ActivityCompat.requestPermissions(requireActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 22);
         }
 
-        if (locationManager != null) {
-            // Use your desired provider and minimum time interval for updates
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1, this);
-        }
+//        if (locationManager != null) {
+//            // Use your desired provider and minimum time interval for updates
+//            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1, this);
+//        }
 
         btnUpdateVersion.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -166,55 +166,39 @@ public class AboutFragment extends Fragment implements LocationListener {
         return distance <= MAX_DISTANCE;
     }
 
-    @Override
-    public void onLocationChanged(@NonNull Location location) {
-        double currentLat = location.getLatitude();
-        double currentLng = location.getLongitude();
-
-        // Specify the desired radius in meters
-        double radius = 50.0;
-
-        // Check if the current location is within the specified radius
-        if (isWithinDistance(Extension.TARGET_LAT, Extension.TARGET_LONG, currentLat, currentLng)) {
-            // Jarak kurang dari atau sama dengan 50 meter
-            if(getActivity() == null) return;
-            getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-//                    showToast("Jarak kurang dari atau sama dengan 50 meter");
-                }
-            });
-
-        } else {
-            // Jarak lebih dari 50 meter
-            if(getActivity() == null) return;
-            getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    showToast("Kamu sedang tidak berada di sekitar cutting");
-                }
-            });
-        }
-
-        // Your existing code
-        // ...
-    }
-
-    // Other LocationListener methods
-    @Override
-    public void onStatusChanged(String provider, int status, Bundle extras) {
-        // ...
-    }
-
-    @Override
-    public void onProviderEnabled(String provider) {
-        // ...
-    }
-
-    @Override
-    public void onProviderDisabled(String provider) {
-        // ...
-    }
+//    @Override
+//    public void onLocationChanged(@NonNull Location location) {
+//        double currentLat = location.getLatitude();
+//        double currentLng = location.getLongitude();
+//
+//        // Specify the desired radius in meters
+//        double radius = 50.0;
+//
+//        // Check if the current location is within the specified radius
+//        if (isWithinDistance(Extension.TARGET_LAT, Extension.TARGET_LONG, currentLat, currentLng)) {
+//            // Jarak kurang dari atau sama dengan 50 meter
+//            if(getActivity() == null) return;
+//            getActivity().runOnUiThread(new Runnable() {
+//                @Override
+//                public void run() {
+////                    showToast("Jarak kurang dari atau sama dengan 50 meter");
+//                }
+//            });
+//
+//        } else {
+//            // Jarak lebih dari 50 meter
+//            if(getActivity() == null) return;
+//            getActivity().runOnUiThread(new Runnable() {
+//                @Override
+//                public void run() {
+//                    showToast("Kamu sedang tidak berada di sekitar cutting");
+//                }
+//            });
+//        }
+//
+//        // Your existing code
+//        // ...
+//    }
 
     // Method to show a Toast message
     private void showToast(String message) {
