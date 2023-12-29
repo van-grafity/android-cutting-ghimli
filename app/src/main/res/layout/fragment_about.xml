@@ -97,7 +97,7 @@
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/ic_mail"
                 android:drawablePadding="4dp"
-                android:text="support@glaindonesia.com"
+                android:text="programmer@glaindonesia.com"
                 android:textAppearance="@style/TextAppearance.Medium14" />
 
             <TextView

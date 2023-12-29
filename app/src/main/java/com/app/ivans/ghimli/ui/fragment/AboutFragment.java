@@ -35,7 +35,6 @@ public class AboutFragment extends Fragment {
     private Button btnUpdateVersion;
     private TextView tvWebsite;
     private TextView tvEmail;
-    private TextView tvPhone;
     private TextView tvLocation;
 
     private LocationManager locationManager;
@@ -54,7 +53,6 @@ public class AboutFragment extends Fragment {
         btnUpdateVersion = view.findViewById(R.id.btnUpdateVersion);
         tvWebsite = view.findViewById(R.id.tvWebsite);
         tvEmail = view.findViewById(R.id.tvEmail);
-        tvPhone = view.findViewById(R.id.tvPhone);
         tvLocation = view.findViewById(R.id.tvLocation);
         tvVersion.setText(Extension.getVersion(getActivity()));
 
@@ -100,7 +98,7 @@ public class AboutFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 String uriText =
-                        "mailto:ivan.suhendraaja@gmail.com" +
+                        "mailto:programmer@glaindonesia.com" +
                                 "?subject=" + Uri.encode("") +
                                 "&body=" + Uri.encode("");
 
@@ -111,13 +109,6 @@ public class AboutFragment extends Fragment {
                 if (sendIntent.resolveActivity(getActivity().getPackageManager()) != null) {
                     startActivity(Intent.createChooser(sendIntent, "Send email"));
                 }
-            }
-        });
-
-        tvPhone.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
             }
         });
 
