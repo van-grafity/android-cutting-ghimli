@@ -20,18 +20,18 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewbinding.ViewBinding;
 
-import com.app.ivans.ghimli.databinding.ActivityCuttingOrderRecordFormBinding;
-import com.app.ivans.ghimli.databinding.ToolbarBinding;
-import com.app.ivans.ghimli.ui.custom.CommentContentBottomSheetDialog;
 import com.app.ivans.ghimli.R;
 import com.app.ivans.ghimli.adapter.ColorAdapter;
 import com.app.ivans.ghimli.base.BaseActivity;
+import com.app.ivans.ghimli.databinding.ActivityCuttingOrderRecordFormBinding;
+import com.app.ivans.ghimli.databinding.ToolbarBinding;
 import com.app.ivans.ghimli.model.APIResponse;
 import com.app.ivans.ghimli.model.CuttingOrderRecordDetail;
 import com.app.ivans.ghimli.model.CuttingRecordRemark;
 import com.app.ivans.ghimli.net.API;
-import com.app.ivans.ghimli.utils.Extension;
+import com.app.ivans.ghimli.ui.custom.CommentContentBottomSheetDialog;
 import com.app.ivans.ghimli.ui.viewmodel.CuttingViewModel;
+import com.app.ivans.ghimli.utils.Extension;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -40,7 +40,7 @@ public class CuttingOrderRecordFormActivity extends BaseActivity implements Adap
     private static final String TAG = "CuttingLayingSheetFormActivity";
     private ActivityCuttingOrderRecordFormBinding binding;
     private CuttingViewModel cuttingViewModel;
-    private String mSerialNumber, mFabricRoll, mFabricBatch, colorName, mYard, mWeight, mLayer, mJoint, mBalanceEnd;
+    private String mSerialNumber, mFabricRoll, mFabricBatch, colorName, mYard, mWeight, mLayer, mJoint, mBalanceEnd, mCode;
     private ColorAdapter mColorAdapter;
     private ToolbarBinding toolbarBinding;
     private ArrayList<String> items;
@@ -77,8 +77,10 @@ public class CuttingOrderRecordFormActivity extends BaseActivity implements Adap
             Bundle extras = getIntent().getExtras();
             if (extras == null) {
                 mSerialNumber = null;
+                mCode = null;
             } else {
                 mSerialNumber = extras.getString("serialNumber");
+                mCode = extras.getString(Extension.CUTTING_CODE);
                 binding.etSerialNumber.setText(mSerialNumber);
                 binding.etSerialNumber.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -88,6 +90,8 @@ public class CuttingOrderRecordFormActivity extends BaseActivity implements Adap
                 });
             }
         }
+
+
         commentContentBottomSheetDialog = CommentContentBottomSheetDialog.newInstance();
         cuttingViewModel = new ViewModelProvider(CuttingOrderRecordFormActivity.this).get(CuttingViewModel.class);
 
@@ -98,7 +102,7 @@ public class CuttingOrderRecordFormActivity extends BaseActivity implements Adap
             }
         });
 
-        getInitData();
+        getInitDataFirst();
 
         binding.spRemarks.setOnItemSelectedListener(this);
 
@@ -111,6 +115,211 @@ public class CuttingOrderRecordFormActivity extends BaseActivity implements Adap
             @Override
             public void onClick(View view) {
                 showComment();
+            }
+        });
+    }
+
+    private void getInitDataFirst() {
+        runOnUiThread(new Runnable() {
+            public void run() {
+                Extension.showLoading(CuttingOrderRecordFormActivity.this);
+            }
+        });
+        cuttingViewModel.getLayingPlanningBySerialNumberLiveData(API.getToken(CuttingOrderRecordFormActivity.this), mSerialNumber).observe(CuttingOrderRecordFormActivity.this, new Observer<APIResponse>() {
+            @Override
+            public void onChanged(APIResponse apiResponse) {
+                runOnUiThread(new Runnable() {
+                    public void run() {
+                        Extension.dismissLoading();
+                    }
+                });
+                if (apiResponse.getData() == null) {
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(CuttingOrderRecordFormActivity.this);
+
+                    alertDialogBuilder.setTitle(getString(R.string.app_name));
+                    alertDialogBuilder
+                            .setMessage(apiResponse.getMessage())
+                            .setCancelable(false)
+                            .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    startActivity(new Intent(CuttingOrderRecordFormActivity.this, ScanQrActivity.class));
+                                    finish();
+                                }
+                            });
+
+                    AlertDialog alertDialog = alertDialogBuilder.create();
+                    alertDialog.setCanceledOnTouchOutside(false);
+                    alertDialog.show();
+                }
+
+                if (mCode.equals("LAYER_CODE")) {
+                    Toast.makeText(CuttingOrderRecordFormActivity.this, mCode, Toast.LENGTH_SHORT).show();
+                    if (apiResponse.getData().getCuttingOrderRecord().getStatusLayer().getName().equals("completed") && apiResponse.getData().getCuttingOrderRecord().getStatusCut().getName().equals("belum")) {
+                        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(CuttingOrderRecordFormActivity.this);
+
+                        alertDialogBuilder.setTitle(getString(R.string.app_name));
+                        alertDialogBuilder
+                                .setMessage("Cutting Order ini sudah selesai di layer.")
+                                .setCancelable(false)
+                                .setNeutralButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        Intent intent = new Intent(CuttingOrderRecordFormActivity.this, ScanQrActivity.class);
+                                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                        startActivity(intent);
+                                        finish();
+                                    }
+                                });
+
+                        AlertDialog alertDialog = alertDialogBuilder.create();
+                        alertDialog.show();
+                    } else if (apiResponse.getData().getCuttingOrderRecord().getStatusLayer().getName().equals("completed") && apiResponse.getData().getCuttingOrderRecord().getStatusCut().getName().equals("sudah")) {
+                        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(CuttingOrderRecordFormActivity.this);
+
+                        alertDialogBuilder.setTitle(getString(R.string.app_name));
+                        alertDialogBuilder
+                                .setMessage("Cutting Order ini sudah selesai di potong.")
+                                .setCancelable(false)
+                                .setNeutralButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        Intent intent = new Intent(CuttingOrderRecordFormActivity.this, ScanQrActivity.class);
+                                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                        startActivity(intent);
+                                        finish();
+                                    }
+                                });
+
+                        AlertDialog alertDialog = alertDialogBuilder.create();
+                        alertDialog.show();
+                    } else {
+                        nameUser = API.currentUser(CuttingOrderRecordFormActivity.this).getName();
+                        binding.etOperator.setText(nameUser);
+
+                        colorName = apiResponse.getData().getCuttingOrderRecord().getLayingPlanningDetail().getLayingPlanning().getColor().getName();
+                        yrd = apiResponse.getData().getCuttingOrderRecord().getLayingPlanningDetail().getMarkerYard();
+                        inch = apiResponse.getData().getCuttingOrderRecord().getLayingPlanningDetail().getMarkerInch();
+                        binding.etColor.setText(colorName);
+
+                        loadDataRemarks();
+
+                        binding.etColor.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Toast.makeText(CuttingOrderRecordFormActivity.this, "Color can't edit", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                        binding.etMarkerYard.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Toast.makeText(CuttingOrderRecordFormActivity.this, "Marker yard can't edit", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                        binding.etMarkerYard.setText(new DecimalFormat("##.##").format(Double.parseDouble(markerYard(yrd))));
+                    }
+                } else if (mCode.equals("CUT_CODE")) {
+                    Toast.makeText(CuttingOrderRecordFormActivity.this, mCode, Toast.LENGTH_SHORT).show();
+                if (apiResponse.getData().getCuttingOrderRecord().getStatusLayer().getName().equals("not completed")){
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(CuttingOrderRecordFormActivity.this);
+
+                    alertDialogBuilder.setTitle(getString(R.string.app_name));
+                    alertDialogBuilder
+                            .setMessage("Cutting Order ini belum di layer.")
+                            .setCancelable(false)
+                            .setNeutralButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    Intent intent = new Intent(CuttingOrderRecordFormActivity.this, ScanQrActivity.class);
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                    startActivity(intent);
+                                    finish();
+                                }
+                            });
+
+                    AlertDialog alertDialog = alertDialogBuilder.create();
+                    alertDialog.show();
+                } else if (apiResponse.getData().getCuttingOrderRecord().getStatusLayer().getName().equals("on progress")){
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(CuttingOrderRecordFormActivity.this);
+
+                    alertDialogBuilder.setTitle(getString(R.string.app_name));
+                    alertDialogBuilder
+                            .setMessage("Cutting Order ini sedang di layer.")
+                            .setCancelable(false)
+                            .setNeutralButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    Intent intent = new Intent(CuttingOrderRecordFormActivity.this, ScanQrActivity.class);
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                    startActivity(intent);
+                                    finish();
+                                }
+                            });
+
+                    AlertDialog alertDialog = alertDialogBuilder.create();
+                    alertDialog.show();
+                } else if (apiResponse.getData().getCuttingOrderRecord().getStatusLayer().getName().equals("completed") && apiResponse.getData().getCuttingOrderRecord().getStatusCut().getName().equals("belum")) {
+                        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(CuttingOrderRecordFormActivity.this);
+
+                        alertDialogBuilder.setTitle(getString(R.string.app_name));
+                        alertDialogBuilder
+                                .setMessage("Layer status " + apiResponse.getMessage() + "." + "\nApakah sudah selesai potong?")
+                                .setCancelable(false)
+                                .setPositiveButton(R.string.done, new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        runOnUiThread(new Runnable() {
+                                            public void run() {
+                                                Extension.showLoading(CuttingOrderRecordFormActivity.this);
+                                            }
+                                        });
+                                        cuttingViewModel.postStatusCutBySerialNumberLiveData(API.getToken(CuttingOrderRecordFormActivity.this), mSerialNumber, "sudah").observe(CuttingOrderRecordFormActivity.this, new Observer<APIResponse>() {
+                                            @Override
+                                            public void onChanged(APIResponse apiResponse) {
+                                                Toast.makeText(CuttingOrderRecordFormActivity.this, apiResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                                            }
+                                        });
+                                        finish();
+                                    }
+                                }).setNeutralButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        Intent intent = new Intent(CuttingOrderRecordFormActivity.this, ScanQrActivity.class);
+                                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                        startActivity(intent);
+                                        finish();
+                                    }
+                                })
+                                .setNegativeButton(R.string.not_yet_cut, new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        cuttingViewModel.postStatusCutBySerialNumberLiveData(API.getToken(CuttingOrderRecordFormActivity.this), mSerialNumber, "belum").observe(CuttingOrderRecordFormActivity.this, new Observer<APIResponse>() {
+                                            @Override
+                                            public void onChanged(APIResponse apiResponse) {
+                                                Toast.makeText(CuttingOrderRecordFormActivity.this, apiResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                                            }
+                                        });
+                                        finish();
+                                    }
+                                });
+
+                        AlertDialog alertDialog = alertDialogBuilder.create();
+                        alertDialog.show();
+                    } else if (apiResponse.getData().getCuttingOrderRecord().getStatusLayer().getName().equals("completed") && apiResponse.getData().getCuttingOrderRecord().getStatusCut().getName().equals("sudah")) {
+                        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(CuttingOrderRecordFormActivity.this);
+
+                        alertDialogBuilder.setTitle(getString(R.string.app_name));
+                        alertDialogBuilder
+                                .setMessage("Cutting Order ini sudah di potong.")
+                                .setCancelable(false)
+                                .setNeutralButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        Intent intent = new Intent(CuttingOrderRecordFormActivity.this, ScanQrActivity.class);
+                                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                        startActivity(intent);
+                                        finish();
+                                    }
+                                });
+
+                        AlertDialog alertDialog = alertDialogBuilder.create();
+                        alertDialog.show();
+                    }
+                } else {
+                    Toast.makeText(CuttingOrderRecordFormActivity.this, "Perhatikan role department anda.", Toast.LENGTH_SHORT).show();
+                    finish();
+                }
             }
         });
     }
@@ -146,12 +355,12 @@ public class CuttingOrderRecordFormActivity extends BaseActivity implements Adap
                     AlertDialog alertDialog = alertDialogBuilder.create();
                     alertDialog.setCanceledOnTouchOutside(false);
                     alertDialog.show();
-                } else if (apiResponse.getData().getCuttingOrderRecord().getStatusLayer().getName().equals("completed") || apiResponse.getData().getCuttingOrderRecord().getStatusLayer().getName().equals("over layer")) {
+                } else if (apiResponse.getData().getCuttingOrderRecord().getStatusLayer().getName().equals("completed") && apiResponse.getData().getCuttingOrderRecord().getStatusCut().getName().equals("belum")) {
                     AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(CuttingOrderRecordFormActivity.this);
 
                     alertDialogBuilder.setTitle(getString(R.string.app_name));
                     alertDialogBuilder
-                            .setMessage("Gelar selesai dengan status " + apiResponse.getMessage() + "." + "\nApakah udah selesai potong?")
+                            .setMessage("Layer status " + apiResponse.getMessage() + "." + "\nApakah sudah selesai potong?")
                             .setCancelable(false)
                             .setPositiveButton(R.string.done, new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
@@ -184,6 +393,24 @@ public class CuttingOrderRecordFormActivity extends BaseActivity implements Adap
                                             Toast.makeText(CuttingOrderRecordFormActivity.this, apiResponse.getMessage(), Toast.LENGTH_SHORT).show();
                                         }
                                     });
+                                    finish();
+                                }
+                            });
+
+                    AlertDialog alertDialog = alertDialogBuilder.create();
+                    alertDialog.show();
+                } else if (apiResponse.getData().getCuttingOrderRecord().getStatusLayer().getName().equals("completed") && apiResponse.getData().getCuttingOrderRecord().getStatusCut().getName().equals("sudah")) {
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(CuttingOrderRecordFormActivity.this);
+
+                    alertDialogBuilder.setTitle(getString(R.string.app_name));
+                    alertDialogBuilder
+                            .setMessage("Cutting Order ini sudah di potong.")
+                            .setCancelable(false)
+                            .setNeutralButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    Intent intent = new Intent(CuttingOrderRecordFormActivity.this, ScanQrActivity.class);
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                    startActivity(intent);
                                     finish();
                                 }
                             });
@@ -379,7 +606,7 @@ public class CuttingOrderRecordFormActivity extends BaseActivity implements Adap
                                                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(CuttingOrderRecordFormActivity.this);
                                                 alertDialogBuilder.setTitle(getString(R.string.app_name));
                                                 alertDialogBuilder
-                                                        .setMessage("Layer sudah selesai dikerjakan, dengan status " + apiResponse.getData().getCuttingOrderRecord().getStatusLayer().getName() + "\nScan ulang untuk mulai potong")
+                                                        .setMessage("Layer status " + apiResponse.getData().getCuttingOrderRecord().getStatusLayer().getName() + "." + "\nScan ulang jika sudah selesai potong!")
                                                         .setCancelable(true)
                                                         .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
                                                             public void onClick(DialogInterface dialog, int id) {

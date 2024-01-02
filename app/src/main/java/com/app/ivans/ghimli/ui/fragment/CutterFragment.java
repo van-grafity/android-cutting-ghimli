@@ -82,6 +82,7 @@ public class CutterFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), ScanQrActivity.class);
+                intent.putExtra(Extension.CUTTING_CODE, "CUT_CODE");
                 intent.putExtra(Extension.CUTTING_QR, "CO");
                 startActivity(intent);
             }

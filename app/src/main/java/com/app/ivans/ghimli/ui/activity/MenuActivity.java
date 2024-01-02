@@ -278,7 +278,7 @@ public class MenuActivity extends BaseActivity implements NavigationView.OnNavig
             ft.replace(R.id.frame_container, cutPieceStockFragment).commit();
             currentFragment = cutPieceStockFragment;
         } else if (id == R.id.nav_stock_in) {
-            getSupportActionBar().setTitle("Sock in");
+            getSupportActionBar().setTitle("Stock in");
             Intent intent = new Intent(MenuActivity.this, ScanQrActivity.class);
             intent.putExtra(Extension.CUTTING_QR, "CT");
             startActivity(intent);

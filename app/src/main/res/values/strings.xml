@@ -26,7 +26,7 @@
     <string name="nav_layer">Layer</string>
     <string name="nav_cutter">Cutter</string>
     <string name="nav_bundle">Bundle</string>
-    <string name="nav_logout">Keluar</string>
+    <string name="nav_logout">Logout</string>
     <string name="want_to_logout">Apakah yakin ingin keluar dari aplikasi ?</string>
     <!-- Preference Titles -->
     <string name="messages_header">Messages</string>
