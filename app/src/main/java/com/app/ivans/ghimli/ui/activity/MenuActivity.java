@@ -294,19 +294,7 @@ public class MenuActivity extends BaseActivity implements NavigationView.OnNavig
             currentFragment = aboutFragment;
             menuItem.setChecked(true);
         } else if (id == R.id.nav_logout) {
-            AlertDialog alertDialog = new AlertDialog.Builder(this)
-                    .setIcon(android.R.drawable.ic_dialog_alert)
-                    .setMessage(R.string.want_to_logout)
-                    .setPositiveButton(R.string.ok, (dialog, which) -> {
-                        API.logOut(MenuActivity.this);
-                        Intent intent = new Intent(MenuActivity.this, LoginActivity.class);
-                        startActivity(intent);
-                        finish();
-                    })
-                    .setNegativeButton(R.string.cancel, null)
-                    .show();
-            alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(this, R.color.grey_dark));
-            alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(ContextCompat.getColor(this, R.color.grey_dark));
+            API.logOut(MenuActivity.this);
         }
         binding.navView.setCheckedItem(id);
         drawer = findViewById(R.id.drawer_layout);

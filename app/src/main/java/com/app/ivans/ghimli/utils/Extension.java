@@ -475,6 +475,7 @@ public class Extension {
         final Toast toast = new Toast(context);
         toast.setGravity(gravity, 0, 0);
         toast.setView(layout);
+        toast.setDuration(Toast.LENGTH_LONG);
         toast.show();
 
         Handler handler = new Handler();

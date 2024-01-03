@@ -177,12 +177,12 @@ public class CuttingOrderRecordFormActivity extends BaseActivity implements Adap
 
                         alertDialogBuilder.setTitle(getString(R.string.app_name));
                         alertDialogBuilder
-                                .setMessage("Cutting Order ini sudah selesai di potong.")
+                                .setMessage(getString(R.string.this_cutting_order_has_been_cut))
                                 .setCancelable(false)
                                 .setNeutralButton(R.string.cancel, new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int id) {
-                                        Intent intent = new Intent(CuttingOrderRecordFormActivity.this, ScanQrActivity.class);
-                                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                        Intent intent = new Intent(CuttingOrderRecordFormActivity.this, MenuActivity.class);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                         startActivity(intent);
                                         finish();
                                     }
@@ -238,9 +238,9 @@ public class CuttingOrderRecordFormActivity extends BaseActivity implements Adap
                 } else if (apiResponse.getData().getCuttingOrderRecord().getStatusLayer().getName().equals("on progress")){
                     AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(CuttingOrderRecordFormActivity.this);
 
-                    alertDialogBuilder.setTitle(getString(R.string.app_name));
+                    alertDialogBuilder.setTitle("Cutting Order ini sedang di layer.");
                     alertDialogBuilder
-                            .setMessage("Cutting Order ini sedang di layer.")
+                            .setMessage("Harap selesaikan layer terlebih dahulu")
                             .setCancelable(false)
                             .setNeutralButton(R.string.cancel, new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
@@ -282,17 +282,6 @@ public class CuttingOrderRecordFormActivity extends BaseActivity implements Adap
                                         startActivity(intent);
                                         finish();
                                     }
-                                })
-                                .setNegativeButton(R.string.not_yet_cut, new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int id) {
-                                        cuttingViewModel.postStatusCutBySerialNumberLiveData(API.getToken(CuttingOrderRecordFormActivity.this), mSerialNumber, "belum").observe(CuttingOrderRecordFormActivity.this, new Observer<APIResponse>() {
-                                            @Override
-                                            public void onChanged(APIResponse apiResponse) {
-                                                Toast.makeText(CuttingOrderRecordFormActivity.this, apiResponse.getMessage(), Toast.LENGTH_SHORT).show();
-                                            }
-                                        });
-                                        finish();
-                                    }
                                 });
 
                         AlertDialog alertDialog = alertDialogBuilder.create();
@@ -302,12 +291,12 @@ public class CuttingOrderRecordFormActivity extends BaseActivity implements Adap
 
                         alertDialogBuilder.setTitle(getString(R.string.app_name));
                         alertDialogBuilder
-                                .setMessage("Cutting Order ini sudah di potong.")
+                                .setMessage(getString(R.string.this_cutting_order_has_been_cut))
                                 .setCancelable(false)
                                 .setNeutralButton(R.string.cancel, new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int id) {
-                                        Intent intent = new Intent(CuttingOrderRecordFormActivity.this, ScanQrActivity.class);
-                                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                        Intent intent = new Intent(CuttingOrderRecordFormActivity.this, MenuActivity.class);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                         startActivity(intent);
                                         finish();
                                     }
@@ -404,12 +393,12 @@ public class CuttingOrderRecordFormActivity extends BaseActivity implements Adap
 
                     alertDialogBuilder.setTitle(getString(R.string.app_name));
                     alertDialogBuilder
-                            .setMessage("Cutting Order ini sudah di potong.")
+                            .setMessage(getString(R.string.this_cutting_order_has_been_cut))
                             .setCancelable(false)
                             .setNeutralButton(R.string.cancel, new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
-                                    Intent intent = new Intent(CuttingOrderRecordFormActivity.this, ScanQrActivity.class);
-                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                    Intent intent = new Intent(CuttingOrderRecordFormActivity.this, MenuActivity.class);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                     startActivity(intent);
                                     finish();
                                 }
@@ -606,7 +595,7 @@ public class CuttingOrderRecordFormActivity extends BaseActivity implements Adap
                                                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(CuttingOrderRecordFormActivity.this);
                                                 alertDialogBuilder.setTitle(getString(R.string.app_name));
                                                 alertDialogBuilder
-                                                        .setMessage("Layer status " + apiResponse.getData().getCuttingOrderRecord().getStatusLayer().getName() + "." + "\nScan ulang jika sudah selesai potong!")
+                                                        .setMessage("Layer status " + apiResponse.getData().getCuttingOrderRecord().getStatusLayer().getName() + ".")
                                                         .setCancelable(true)
                                                         .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
                                                             public void onClick(DialogInterface dialog, int id) {
@@ -625,9 +614,9 @@ public class CuttingOrderRecordFormActivity extends BaseActivity implements Adap
 
                                                 alertDialogBuilder.setTitle(getString(R.string.app_name));
                                                 alertDialogBuilder
-                                                        .setMessage("Apakah anda ingin melanjutkan input data?")
+                                                        .setMessage("Lanjut menambahkan Fabric Roll?")
                                                         .setCancelable(true)
-                                                        .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+                                                        .setPositiveButton("Tambah", new DialogInterface.OnClickListener() {
                                                             public void onClick(DialogInterface dialog, int id) {
 //                                                            binding.etFabricRoll.setText("");
 //                                                            binding.etFabricBatch.setText("");

@@ -132,15 +132,12 @@ public class ScanQrActivity extends AppCompatActivity implements OnNetworkListen
                             startActivity(intent);
                             finish();
 
-                            // Mengambil data
-//                            List<CuttingTicket> records = dbHelper.getAllCuttingTickets();
-//                            Log.i(TAG, "run: records "+records.get(2).getFabricRoll());
                         } else {
                             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(ScanQrActivity.this);
 
 //                            alertDialogBuilder.setTitle(getString(R.string.app_name));
                             alertDialogBuilder
-                                    .setMessage("Data tidak di temukan\natau periksa bidang yang anda kerjakan.")
+                                    .setMessage("Ticket ini tidak ditemukan.")
                                     .setCancelable(false)
                                     .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int id) {
@@ -155,47 +152,6 @@ public class ScanQrActivity extends AppCompatActivity implements OnNetworkListen
                             alertDialog.setCanceledOnTouchOutside(false);
                             alertDialog.show();
                         }
-
-//                        if (partStr.equals("CO")) {
-//                            runOnUiThread(new Runnable() {
-//                                public void run() {
-//                                    Extension.showLoading(CuttingLayingSheetScanQrActivity.this);
-//                                }
-//                            });
-//                            cuttingViewModel.getLayingPlanningBySerialNumberLiveData(API.getToken(CuttingLayingSheetScanQrActivity.this), message).observe(CuttingLayingSheetScanQrActivity.this, new Observer<APIResponse>() {
-//                                @Override
-//                                public void onChanged(APIResponse apiResponse) {
-//                                    runOnUiThread(new Runnable() {
-//                                        public void run() {
-//                                            Extension.dismissLoading();
-//                                        }
-//                                    });
-//                                    if (apiResponse.getStatus() == 404) {
-//
-//                                        AlertDialog alertDialog = new AlertDialog.Builder(CuttingLayingSheetScanQrActivity.this).create();
-//                                        alertDialog.setTitle(getString(R.string.sorry));
-//                                        alertDialog.setMessage(apiResponse.getMessage());
-//                                        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.dialog_ok),
-//                                                new DialogInterface.OnClickListener() {
-//                                                    public void onClick(DialogInterface dialog, int which) {
-//                                                        dialog.dismiss();
-//                                                    }
-//                                                });
-//                                        alertDialog.show();
-//                                        finish();
-//
-//                                    }
-//                                    Intent intent = new Intent(CuttingLayingSheetScanQrActivity.this, CuttingOrderRecordFormActivity.class);
-//                                    intent.putExtra("serialNumber", message);
-//                                    startActivity(intent);
-//                                }
-//                            });
-//                        } else if (partStr.equals("CT")) {
-//                            startActivity(new Intent(CuttingLayingSheetScanQrActivity.this, CuttingTicketDetailActivity.class));
-//                        } else {
-//                            Toast.makeText(CuttingLayingSheetScanQrActivity.this, "Data not found", Toast.LENGTH_SHORT).show();
-//                            startActivity(new Intent(CuttingLayingSheetScanQrActivity.this, HomeActivity.class));
-//                        }
                     }
                 });
             }

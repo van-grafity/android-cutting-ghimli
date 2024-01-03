@@ -50,4 +50,5 @@
     <string name="menu_not_found">Menu tidak di temukan</string>
     <string name="nav_stock_in">Stock In</string>
     <string name="nav_stock_out">Stock Out</string>
+    <string name="this_cutting_order_has_been_cut">Cutting Order ini sudah selesai di potong.</string>
 </resources>
