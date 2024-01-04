@@ -7,6 +7,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
@@ -16,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,6 +32,8 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.viewbinding.ViewBinding;
 
 import com.app.ivans.ghimli.R;
@@ -65,6 +69,7 @@ public class MenuActivity extends BaseActivity implements NavigationView.OnNavig
     private CircleImageView circleImageView;
 
     private Fragment currentFragment = null;
+    private boolean mIsPortrait;
 
     private HomeFragmentInterface homeFragmentInterface = null;
     private ActionBarDrawerToggle toggle;
@@ -84,6 +89,16 @@ public class MenuActivity extends BaseActivity implements NavigationView.OnNavig
         if (BuildConfig.DEBUG) {
             Log.i(TAG, "onCreate: DEBUG");
         }
+
+//        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+//
+//        mIsPortrait = getResources().getBoolean(R.bool.portrait_only);
+//        if(mIsPortrait){
+//            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+//        }
+//        else{
+//            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
+//        }
 
         drawer = binding.drawerLayout;
         Toolbar toolbar = binding.included.toolbar;

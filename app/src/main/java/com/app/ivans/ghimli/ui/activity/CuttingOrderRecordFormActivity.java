@@ -150,10 +150,7 @@ public class CuttingOrderRecordFormActivity extends BaseActivity implements Adap
                     AlertDialog alertDialog = alertDialogBuilder.create();
                     alertDialog.setCanceledOnTouchOutside(false);
                     alertDialog.show();
-                }
-
-                if (mCode.equals("LAYER_CODE")) {
-                    Toast.makeText(CuttingOrderRecordFormActivity.this, mCode, Toast.LENGTH_SHORT).show();
+                } else if (mCode.equals("LAYER_CODE")) {
                     if (apiResponse.getData().getCuttingOrderRecord().getStatusLayer().getName().equals("completed") && apiResponse.getData().getCuttingOrderRecord().getStatusCut().getName().equals("belum")) {
                         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(CuttingOrderRecordFormActivity.this);
 
@@ -216,7 +213,6 @@ public class CuttingOrderRecordFormActivity extends BaseActivity implements Adap
                         binding.etMarkerYard.setText(new DecimalFormat("##.##").format(Double.parseDouble(markerYard(yrd))));
                     }
                 } else if (mCode.equals("CUT_CODE")) {
-                    Toast.makeText(CuttingOrderRecordFormActivity.this, mCode, Toast.LENGTH_SHORT).show();
                 if (apiResponse.getData().getCuttingOrderRecord().getStatusLayer().getName().equals("not completed")){
                     AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(CuttingOrderRecordFormActivity.this);
 
