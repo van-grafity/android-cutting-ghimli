@@ -106,7 +106,7 @@ public class FAPI {
 
             Retrofit retrofit = new Retrofit.Builder()
                     .client(client)
-                    .baseUrl(BuildConfig.ROOT_URL + "/cutting-app/public" + "/api/")
+                    .baseUrl(BuildConfig.ROOT_URL + "/api/")
                     .addConverterFactory(GsonConverterFactory.create(gson))
                     .build();
 

@@ -106,6 +106,7 @@ public class CuttingOrderRecordFormActivity extends BaseActivity implements Adap
 
         binding.spRemarks.setOnItemSelectedListener(this);
 
+        binding.etFabricRoll.addTextChangedListener(textWatcherRoll);
         binding.etLayer.addTextChangedListener(mTextWatcher);
         binding.etYardage.addTextChangedListener(mTextWatcher);
 
@@ -114,7 +115,7 @@ public class CuttingOrderRecordFormActivity extends BaseActivity implements Adap
         binding.ivComment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showComment();
+//                showComment();
             }
         });
     }
@@ -213,7 +214,7 @@ public class CuttingOrderRecordFormActivity extends BaseActivity implements Adap
                         binding.etMarkerYard.setText(new DecimalFormat("##.##").format(Double.parseDouble(markerYard(yrd))));
                     }
                 } else if (mCode.equals("CUT_CODE")) {
-                if (apiResponse.getData().getCuttingOrderRecord().getStatusLayer().getName().equals("not completed")){
+                if (apiResponse.getData().getCuttingOrderRecord().getStatusLayer().getName().equals("not completed")) {
                     AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(CuttingOrderRecordFormActivity.this);
 
                     alertDialogBuilder.setTitle(getString(R.string.app_name));
@@ -231,7 +232,7 @@ public class CuttingOrderRecordFormActivity extends BaseActivity implements Adap
 
                     AlertDialog alertDialog = alertDialogBuilder.create();
                     alertDialog.show();
-                } else if (apiResponse.getData().getCuttingOrderRecord().getStatusLayer().getName().equals("on progress")){
+                } else if (apiResponse.getData().getCuttingOrderRecord().getStatusLayer().getName().equals("on progress")) {
                     AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(CuttingOrderRecordFormActivity.this);
 
                     alertDialogBuilder.setTitle("Cutting Order ini sedang di layer.");
@@ -429,63 +430,70 @@ public class CuttingOrderRecordFormActivity extends BaseActivity implements Adap
                 }
             }
         });
-
-        binding.etFabricRoll.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                // Tidak perlu melakukan apa-apa sebelum teks berubah
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                // Saat teks berubah, Anda bisa memuat data dari API berdasarkan teks yang baru
-                String searchText = charSequence.toString();
-                loadDataFromApi(searchText);
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                // Tidak perlu melakukan apa-apa setelah teks berubah
-            }
-        });
     }
 
+    public TextWatcher textWatcherRoll = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
+            String searchText = editable.toString();
+            if (searchText.isEmpty()) {
+                runOnUiThread(new Runnable() {
+                    public void run() {
+                        Extension.dismissLoading();
+                    }
+                });
+                return;
+            }
+//            loadDataFromApi(searchText);
+        }
+    };
+
     private void loadDataFromApi(String searchText) {
+        runOnUiThread(new Runnable() {
+            public void run() {
+                Extension.showLoading(CuttingOrderRecordFormActivity.this);
+            }
+        });
+
         cuttingViewModel.getLayingPlanningBySerialNumberLiveData(API.getToken(CuttingOrderRecordFormActivity.this), mSerialNumber).observe(CuttingOrderRecordFormActivity.this, new Observer<APIResponse>() {
             @Override
             public void onChanged(APIResponse apiResponse) {
+                runOnUiThread(new Runnable() {
+                    public void run() {
+                        Extension.dismissLoading();
+                    }
+                });
                 for (int x = 0; x < apiResponse.getData().getCuttingOrderRecord().getCuttingOrderRecordDetail().size(); x++) {
                     CuttingOrderRecordDetail detail = apiResponse.getData().getCuttingOrderRecord().getCuttingOrderRecordDetail().get(x);
 
                     // Memeriksa apakah fabric roll sama dengan searchText dan fabric batch juga sama
                     if (detail.getFabricRoll().equals(searchText) && detail.getFabricBatch().equals(binding.etFabricBatch.getText().toString())) {
-                        runOnUiThread(new Runnable() {
-                            public void run() {
-                                Extension.showLoading(CuttingOrderRecordFormActivity.this);
-                            }
-                        });
 
                         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(CuttingOrderRecordFormActivity.this);
+
                         alertDialogBuilder.setTitle(getString(R.string.app_name));
                         alertDialogBuilder
                                 .setMessage("Fabric roll sudah ada dengan fabric batch yang sama.\nPastikan fabric roll tidak sama.")
-                                .setCancelable(true)
+                                .setCancelable(false)
                                 .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int id) {
-                                        binding.etFabricRoll.setText("");
+
                                     }
                                 });
 
-                        runOnUiThread(new Runnable() {
-                            public void run() {
-                                Extension.dismissLoading();
-                            }
-                        });
-
                         AlertDialog alertDialog = alertDialogBuilder.create();
+                        alertDialog.setCanceledOnTouchOutside(false);
                         alertDialog.show();
-
-                        break; // Tambahkan break untuk menghentikan iterasi setelah menemukan kesamaan
                     }
                 }
             }
