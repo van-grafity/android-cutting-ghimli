@@ -42,7 +42,7 @@
         android:roundIcon="@mipmap/ic_garment"
         android:supportsRtl="true"
         android:theme="@style/Theme.GhimLi"
-        android:usesCleartextTraffic="true">
+        android:usesCleartextTraffic="false">
         <activity
             android:name=".ui.activity.StockOutActivity"
             android:exported="false" />

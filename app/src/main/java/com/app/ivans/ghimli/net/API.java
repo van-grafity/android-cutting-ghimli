@@ -47,7 +47,7 @@ public class API {
 
         Retrofit retrofit = new Retrofit.Builder()
                 .client(okHttpClient)
-                .baseUrl(BuildConfig.ROOT_URL + "/api/")
+                .baseUrl(BuildConfig.ROOT_URL + "/cutting-app/public" + "/api/")
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
         return retrofit.create(APIService.class);

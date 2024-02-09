@@ -10,7 +10,6 @@ import com.app.ivans.ghimli.model.APIResponse;
 import com.app.ivans.ghimli.model.CuttingOrderRecordDetail;
 import com.app.ivans.ghimli.repository.CuttingRepository;
 
-
 public class CuttingViewModel extends ViewModel {
 
     private CuttingRepository favoriteRepository;
@@ -23,6 +22,16 @@ public class CuttingViewModel extends ViewModel {
 
     public LiveData<APIResponse> createOptCuttingOrderLiveData(String auth, String serialNumber, String fabricRoll, String fabricBatch, String color, double yardage, double weight, int layer, String joint, String balanceEnd, String remarks, String operator, int user_id) {
         productResponseData = favoriteRepository.createOptCuttingOrderResponse(auth, serialNumber, fabricRoll, fabricBatch, color, yardage, weight, layer, joint, balanceEnd, remarks, operator, user_id);
+        return productResponseData;
+    }
+
+    public LiveData<APIResponse> updateOptCuttingOrderLiveData(String auth, int id, String serialNumber, String fabricRoll, String fabricBatch, String color, double yardage, double weight, int layer, String joint, String balanceEnd, String remarks, String operator, int user_id) {
+        productResponseData = favoriteRepository.updateOptCuttingOrderResponse(auth, id, serialNumber, fabricRoll, fabricBatch, color, yardage, weight, layer, joint, balanceEnd, remarks, operator, user_id);
+        return productResponseData;
+    }
+
+    public LiveData<APIResponse> destroyOptCuttingOrderLiveData(String auth, int id) {
+        productResponseData = favoriteRepository.destroyOptCuttingOrderResponse(auth, id);
         return productResponseData;
     }
 
