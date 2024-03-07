@@ -19,6 +19,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.app.ivans.ghimli.CuttingOrderActivity;
 import com.app.ivans.ghimli.R;
 import com.app.ivans.ghimli.adapter.CuttingAdapter;
 import com.app.ivans.ghimli.model.CuttingOrderRecord;
@@ -66,6 +67,7 @@ public class LayerFragment extends Fragment {
             @Override
             public void onClick(CuttingOrderRecord cuttingOrder, View view, int position) {
                 Intent intent = new Intent(getActivity(), CuttingOrderRecordDetailActivity.class);
+//                Intent intent = new Intent(getActivity(), CuttingOrderActivity.class);
                 intent.putExtra(Extension.CUTTING_ORDER_RECORD, cuttingOrder);
                 startActivity(intent);
             }
