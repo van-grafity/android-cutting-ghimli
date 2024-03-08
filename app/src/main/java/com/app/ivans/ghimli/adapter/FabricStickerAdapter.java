@@ -43,7 +43,8 @@ public class FabricStickerAdapter extends RecyclerView.Adapter<FabricStickerAdap
         CuttingOrderRecordDetail model = mItems.get(position);
         holder.tvStickerNo.setText(model.getFabricRoll());
         holder.tvBalanceEnd.setText(String.valueOf(model.getBalanceEnd()));
-        holder.tvOpt.setText(model.getOperator());
+        holder.tvBatch.setText(String.valueOf(model.getFabricBatch()));
+        holder.tvLayer.setText(String.valueOf(model.getLayer()));
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,14 +65,16 @@ public class FabricStickerAdapter extends RecyclerView.Adapter<FabricStickerAdap
     public static class FabricStickerViewHolder extends RecyclerView.ViewHolder {
         TextView tvStickerNo;
         TextView tvBalanceEnd;
-        TextView tvOpt;
+        TextView tvBatch;
+        TextView tvLayer;
         RelativeLayout viewContentSn;
 
         public FabricStickerViewHolder(@NonNull View itemView) {
             super(itemView);
             tvStickerNo = itemView.findViewById(R.id.tvStickerNo);
             tvBalanceEnd = itemView.findViewById(R.id.tvBalanceEnd);
-            tvOpt = itemView.findViewById(R.id.tvOpt);
+            tvBatch = itemView.findViewById(R.id.tvBatch);
+            tvLayer = itemView.findViewById(R.id.tvLayer);
             viewContentSn = itemView.findViewById(R.id.viewContentSn);
         }
     }

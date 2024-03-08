@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Ghim Li</string>
+    <string name="app_name">Cutting GLA</string>
 
     <string name="loading">Loading</string>
     <string name="email_required">Email Required</string>
@@ -18,4 +18,37 @@
     <string name="not_yet_cut">Belum</string>
     <string name="cancel">Kembali</string>
     <string name="done">Sudah</string>
+    <string name="navigation_drawer_open">Navigation Drawer Open</string>
+    <string name="navigation_drawer_close">Navigation Drawer Close</string>
+    <string name="want_to_exit">Apakah yakin ingin keluar dari aplikasi ?</string>
+    <string name="ok">Ya</string>
+    <string name="nav_home">Home</string>
+    <string name="nav_layer">Layer</string>
+    <string name="nav_cutter">Cutter</string>
+    <string name="nav_bundle">Bundle</string>
+    <string name="nav_logout">Logout</string>
+    <string name="want_to_logout">Apakah yakin ingin keluar dari aplikasi ?</string>
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="search">Search</string>
+    <string name="notification">Notification</string>
+    <string name="google_mtv_coord_zoom12">geo:1.107646,-104.071587?z=12\n</string>
+    <string name="waiting_for_bundle">Daftar Waiting for Bundle</string>
+    <string name="bundle">Bundle</string>
+    <string name="menu_not_found">Menu tidak di temukan</string>
+    <string name="nav_stock_in">Stock In</string>
+    <string name="nav_stock_out">Stock Out</string>
+    <string name="this_cutting_order_has_been_cut">Cutting Order ini sudah selesai di potong.</string>
 </resources>

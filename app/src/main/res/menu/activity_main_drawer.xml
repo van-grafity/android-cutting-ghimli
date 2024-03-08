@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single"
+        android:id="@+id/group1">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_nav_home"
+            android:title="@string/nav_home" />
+        <item
+            android:id="@+id/nav_layer"
+            android:icon="@drawable/ic_nav_layer"
+            android:title="@string/nav_layer" />
+        <item
+            android:id="@+id/nav_cutter"
+            android:icon="@drawable/ic_nav_cutter"
+            android:title="@string/nav_cutter" />
+        <item
+            android:id="@+id/nav_bundle"
+            android:icon="@drawable/ic_nav_stock"
+            android:title="@string/nav_bundle" />
+
+        <item
+            android:id="@+id/nav_stock_in"
+            android:icon="@drawable/ic_nav_stock"
+            android:title="@string/nav_stock_in" />
+
+        <item
+            android:id="@+id/nav_stock_out"
+            android:icon="@drawable/ic_nav_stock"
+            android:title="@string/nav_stock_out" />
+    </group>
+
+    <group android:checkableBehavior="single"
+        android:id="@+id/group2">
+
+        <item
+            android:id="@+id/nav_about"
+            android:icon="@drawable/ic_nav_info"
+            android:title="Tentang" />
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/ic_nav_logout"
+            android:title="@string/nav_logout" />
+    </group>
+</menu>

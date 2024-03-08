@@ -1,12 +1,9 @@
 package com.app.ivans.ghimli;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.WindowManager;
 
@@ -14,10 +11,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.app.ivans.ghimli.databinding.ActivityMainBinding;
 import com.app.ivans.ghimli.model.User;
+import com.app.ivans.ghimli.ui.activity.LoginActivity;
+import com.app.ivans.ghimli.ui.activity.MenuActivity;
 import com.app.ivans.ghimli.utils.Extension;
 
 import br.com.kots.mob.complex.preferences.ComplexPreferences;
-import io.github.inflationx.viewpump.ViewPumpContextWrapper;
 
 public class MainActivity extends AppCompatActivity {
     private boolean mIsPortrait;
@@ -45,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
             finish();
             return;
         } else {
-            startActivity(new Intent(getBaseContext(), HomeActivity.class));
+            startActivity(new Intent(getBaseContext(), MenuActivity.class));
             finish();
         }
     }

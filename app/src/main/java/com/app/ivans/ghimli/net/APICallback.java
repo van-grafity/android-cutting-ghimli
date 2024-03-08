@@ -13,7 +13,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.widget.TextView;
 
-import com.app.ivans.ghimli.LoginActivity;
+import com.app.ivans.ghimli.ui.activity.LoginActivity;
 import com.app.ivans.ghimli.R;
 
 import java.io.IOException;
@@ -39,8 +39,9 @@ public abstract class APICallback<T> implements Callback<T> {
             // HTTP 204 No Content "...response MUST NOT include a message-body"
             // HTTP 205 Reset Content "...response MUST NOT include an entity"
             onSuccess(response.body());
+
         } else if (response.code() == 401) { //UNAUTHORIZED
-//            refreshToken(call);
+            refreshToken(call);
 
         } else {
             try {
@@ -89,9 +90,45 @@ public abstract class APICallback<T> implements Callback<T> {
         }
     }
 
+
     protected abstract void onSuccess(T t);
 
     protected abstract void onError(BadRequest error);
+
+    private void refreshToken(final Call<T> call) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        if (Build.VERSION.SDK_INT >= 24) {
+            builder.setMessage(Html.fromHtml(context.getString(R.string.session_over), Html.FROM_HTML_MODE_LEGACY));
+        } else {
+            builder.setMessage(Html.fromHtml(context.getString(R.string.session_over)));
+        }
+        builder.setPositiveButton("Ok", null);
+
+        try {
+            Log.e("Force Logout", "context" + context);
+//                context.stopService(MainActivity.chatSocket);
+//                context.stopService(MainActivity.splitBillSocket);
+
+            API.logOut(((Activity)context));
+            API.setSessionError(false);
+//            App.isAuthorized = false;
+    
+                AlertDialog dialog = builder.show();
+                TextView messageText = dialog.findViewById(android.R.id.message);
+                messageText.setGravity(Gravity.CENTER);
+                messageText.setText(R.string.session_over);
+                dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                    public void onDismiss(final DialogInterface dialog) {
+                        Intent intent = new Intent(context, LoginActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        context.startActivity(intent);
+                    }
+                });
+                dialog.show();
+        } catch (Exception exception) {
+            Log.e("ERROR", "LOGOUT : " + exception);
+        }
+    }
 
     private void forceLogout() {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
@@ -107,8 +144,9 @@ public abstract class APICallback<T> implements Callback<T> {
 //                context.stopService(MainActivity.chatSocket);
 //                context.stopService(MainActivity.splitBillSocket);
 
-            FAPI.logOut((Activity) context);
+            API.logOut(((Activity)context));
             API.setSessionError(false);
+//            App.isAuthorized = false;
 
             AlertDialog dialog = builder.show();
             TextView messageText = dialog.findViewById(android.R.id.message);

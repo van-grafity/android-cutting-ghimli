@@ -1,5 +1,6 @@
 package com.app.ivans.ghimli.net;
 
+import android.app.Activity;
 import android.content.Context;
 
 import androidx.lifecycle.MutableLiveData;
@@ -9,36 +10,31 @@ import androidx.paging.PageKeyedDataSource;
 import com.app.ivans.ghimli.model.CuttingOrderRecord;
 
 public class CuttingOrderRecordDataSourceFactory extends DataSource.Factory {
+    private MutableLiveData<PageKeyedDataSource<Integer, CuttingOrderRecord>>cuttingOrderLiveDataSource = new MutableLiveData<>();
+    
+    private Context context;
+    private String authorization;
+    private String search;
+    private String mStatusLayer;
+    private String mStatusCut;
 
-    // Creating the mutable live database
-    private MutableLiveData<PageKeyedDataSource<Integer, CuttingOrderRecord>> productLiveDataSource = new MutableLiveData<>();
-
-    public static CuttingOrderRecordDataSource cuttingOrderRecordDataSource;
-
-    private Context mContext;
-    private String mAuth;
-
-    public CuttingOrderRecordDataSourceFactory(Context context, String auth) {
-        this.mContext = context;
-        this.mAuth = auth;
-
+    public CuttingOrderRecordDataSourceFactory(Context context, String authorization, String search, String statusLayer, String statusCut) {
+        this.context = context;
+        this.authorization = authorization;
+        this.search = search;
+        this.mStatusLayer = statusLayer;
+        this.mStatusCut = statusCut;
     }
-
+    
     @Override
     public DataSource<Integer, CuttingOrderRecord> create() {
-        // Getting our Data source object
-        cuttingOrderRecordDataSource = new CuttingOrderRecordDataSource(mContext, mAuth);
-
-        // Posting the Data source to get the values
-        productLiveDataSource.postValue(cuttingOrderRecordDataSource);
-
-        // Returning the Data source
+        CuttingOrderRecordDataSource cuttingOrderRecordDataSource = new CuttingOrderRecordDataSource(context, authorization, search, mStatusLayer, mStatusCut);
+        cuttingOrderLiveDataSource.postValue(cuttingOrderRecordDataSource);
         return cuttingOrderRecordDataSource;
     }
 
-
-    // Getter for Product live DataSource
-    public MutableLiveData<PageKeyedDataSource<Integer, CuttingOrderRecord>> getMutableLiveData() {
-        return productLiveDataSource;
+    // Getter for Cutting Order live DataSource
+    public MutableLiveData<PageKeyedDataSource<Integer, CuttingOrderRecord>> getCuttingOrderLiveDataSource() {
+        return cuttingOrderLiveDataSource;
     }
 }

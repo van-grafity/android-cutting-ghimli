@@ -5,10 +5,14 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+
 public class CuttingTicket {
     private int id;
     @SerializedName("ticket_number")
     private int ticketNumber;
+    @SerializedName("serial_number")
+    private String serialNumber;
     private Size size;
     private int layer;
     @SerializedName("cutting_order_record")
@@ -19,7 +23,8 @@ public class CuttingTicket {
     private int tableNo;
     @SerializedName("fabric_roll")
     private String fabricRoll;
-
+    @SerializedName("bundle_cuts")
+    private ArrayList<BundleCut> bundleCuts;
 
     public int getId() {
         return id;
@@ -35,6 +40,14 @@ public class CuttingTicket {
 
     public void setTicketNumber(int ticketNumber) {
         this.ticketNumber = ticketNumber;
+    }
+
+    public String getSerialNumber() {
+        return serialNumber;
+    }
+
+    public void setSerialNumber(String serialNumber) {
+        this.serialNumber = serialNumber;
     }
 
     public Size getSize() {
@@ -83,5 +96,13 @@ public class CuttingTicket {
 
     public void setFabricRoll(String fabricRoll) {
         this.fabricRoll = fabricRoll;
+    }
+
+    public ArrayList<BundleCut> getBundleCuts() {
+        return bundleCuts;
+    }
+
+    public void setBundleCuts(ArrayList<BundleCut> bundleCuts) {
+        this.bundleCuts = bundleCuts;
     }
 }

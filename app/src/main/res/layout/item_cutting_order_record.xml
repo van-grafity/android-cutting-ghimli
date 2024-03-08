@@ -15,31 +15,176 @@
 
         <RelativeLayout
             android:id="@+id/viewContentSn"
-            android:padding="4dp"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:gravity="center">
-            <View
-                android:id="@+id/viewProgress"
-                android:layout_width="12dp"
-                android:layout_height="12dp"
+            android:layout_height="125dp"
+            android:gravity="center"
+            android:padding="4dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:padding="8dp"
-                android:layout_alignParentBottom="true"/>
-                
-            <TextView
-                android:id="@+id/tvSerialNumber"
+                android:layout_alignParentBottom="true"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingHorizontal="8dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tvStatusProgressLayer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        android:text="complete"
+                        android:textAppearance="@style/TextAppearance.Bold10"
+                        android:textStyle="bold" />
+
+                    <androidx.legacy.widget.Space
+                        android:layout_width="8dp"
+                        android:layout_height="wrap_content" />
+
+                    <ImageView
+                        android:id="@+id/viewProgressLayer"
+                        android:layout_width="8dp"
+                        android:layout_height="8dp" />
+                </LinearLayout>
+
+                <androidx.legacy.widget.Space
+                    android:layout_width="8dp"
+                    android:layout_height="wrap_content" />
+
+                <View
+                    android:layout_width="1.2dp"
+                    android:layout_height="8dp"
+                    android:layout_marginVertical="8dp"
+                    android:background="@android:color/darker_gray" />
+
+                <androidx.legacy.widget.Space
+                    android:layout_width="8dp"
+                    android:layout_height="wrap_content" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tvStatusProgressCut"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        android:text="complete"
+                        android:textAppearance="@style/TextAppearance.Bold10"
+                        android:textStyle="bold" />
+
+                    <androidx.legacy.widget.Space
+                        android:layout_width="8dp"
+                        android:layout_height="wrap_content" />
+
+                    <ImageView
+                        android:id="@+id/viewProgressCut"
+                        android:layout_width="8dp"
+                        android:layout_height="8dp" />
+                </LinearLayout>
+            </LinearLayout>
+
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:layout_centerInParent="true"
-                android:maxLines="3"
-                android:text="COR-63267-00-ACBXAZHSSPAN-S88-07-016"
-                android:textAppearance="@style/TextAppearance.Regular16"
-                android:textColor="@android:color/black"
-                android:textStyle="bold" />
+                android:paddingBottom="8dp"
+                android:orientation="vertical">
 
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
+                    <ImageView
+                        android:id="@+id/iv_copy"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:paddingStart="6dp"
+                        android:paddingRight="4dp"
+                        android:src="@drawable/ic_copy" />
+
+                    <TextView
+                        android:id="@+id/tvSerialNumber"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_toEndOf="@id/iv_copy"
+                        android:gravity="center"
+                        android:maxLines="2"
+                        android:text="COR-63267-00-ACBXAZHSSPAN-S88-07-016"
+                        android:textAppearance="@style/TextAppearance.Bold16"
+                        android:textStyle="bold" />
+                </RelativeLayout>
+
+                <androidx.legacy.widget.Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="8dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:gravity="left"
+                        android:maxLines="3"
+                        android:text="Color :  "
+                        android:textAppearance="@style/TextAppearance.Regular12"
+                        android:textColor="@android:color/black" />
+
+                    <TextView
+                        android:id="@+id/tvColor"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:gravity="left"
+                        android:maxLines="1"
+                        android:text="N4AHN011"
+                        android:textAppearance="@style/TextAppearance.Regular12"
+                        android:textColor="@android:color/black" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:gravity="left"
+                        android:maxLines="3"
+                        android:text="Style :  "
+                        android:textAppearance="@style/TextAppearance.Regular12"
+                        android:textColor="@android:color/black" />
+
+                    <TextView
+                        android:id="@+id/tvStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:gravity="left"
+                        android:maxLines="1"
+                        android:text="GIII NAUTICA"
+                        android:textAppearance="@style/TextAppearance.Regular12"
+                        android:textColor="@android:color/black" />
+                </LinearLayout>
+            </LinearLayout>
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 </LinearLayout>

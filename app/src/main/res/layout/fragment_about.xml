@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.fragment.AboutFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".ui.activity.AboutActivity">
+
+        <com.flaviofaria.kenburnsview.KenBurnsView
+            android:id="@+id/ivLogo"
+            android:layout_width="match_parent"
+            android:layout_height="320dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/bg_garment" />
+
+        <TextView
+            android:id="@+id/tvDesc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ivLogo"
+            android:layout_marginHorizontal="14dp"
+            android:layout_marginTop="14dp"
+            android:text="Kami memastikan produk berkualitas dengan menetapkan proses produksi dan standar kualitas yang ketat di mitra pabrik, pengujian laboratorium, pra-produksi dan terakhir melalui inspeksi kendali mutu."
+            android:textAppearance="@style/TextAppearance.Medium14" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvDesc"
+            android:layout_marginTop="44dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvVersion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Version" />
+
+            <TextView
+                android:id="@+id/tvResVersion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Version" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="6dp" />
+
+            <Button
+                android:id="@+id/btnUpdateVersion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/custom_rounded_button_gray"
+                android:paddingHorizontal="6dp"
+                android:paddingVertical="4dp"
+                android:text="Play Store"
+                android:textColor="@color/white" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginHorizontal="14dp"
+            android:layout_marginBottom="14dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Hubungi Kami"
+                android:textAppearance="@style/TextAppearance.Bold18"
+                android:textStyle="bold" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="12dp" />
+
+            <TextView
+                android:id="@+id/tvWebsite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_link"
+                android:drawablePadding="4dp"
+                android:text="www.glaindonesia.com"
+                android:textAppearance="@style/TextAppearance.Medium14" />
+
+            <TextView
+                android:id="@+id/tvEmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_mail"
+                android:drawablePadding="4dp"
+                android:text="programmer@glaindonesia.com"
+                android:textAppearance="@style/TextAppearance.Medium14" />
+
+            <TextView
+                android:id="@+id/tvLocation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_location_on"
+                android:drawablePadding="4dp"
+                android:text="PT Ghimli Indonesia"
+                android:textAppearance="@style/TextAppearance.Medium14" />
+        </LinearLayout>
+    </RelativeLayout>
+
+</FrameLayout>

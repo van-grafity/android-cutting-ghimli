@@ -55,6 +55,66 @@ public class CuttingRepository {
         return mutableLiveData;
     }
 
+    public LiveData<APIResponse> updateOptCuttingOrderResponse(String auth, int id, String serialNumber, String fabricRoll, String fabricBatch, String color, double yardage, double weight, int layer, String joint, String balanceEnd, String remarks, String operator, int user_id) {
+        final MutableLiveData<APIResponse> mutableLiveData = new MutableLiveData<>();
+        FAPI.service().updateOptCuttingOrder(auth, id, serialNumber, fabricRoll, fabricBatch, color,yardage, weight, layer, joint, balanceEnd, remarks, operator, user_id).enqueue(new APICallback<APIResponse>(mContext) {
+            @Override
+            protected void onSuccess(APIResponse apiResponse) {
+                mutableLiveData.setValue(apiResponse);
+            }
+
+            @Override
+            protected void onError(BadRequest error) {
+                ((Activity)mContext).runOnUiThread(new Runnable() {
+                    public void run() {
+                        Extension.dismissLoading();
+                    }
+                });
+                AlertDialog alertDialog = new AlertDialog.Builder(mContext).create();
+                alertDialog.setTitle(mContext.getString(R.string.sorry));
+                alertDialog.setMessage(error.errorDetails);
+                alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, mContext.getString(R.string.dialog_ok),
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+                alertDialog.show();
+            }
+        });
+        return mutableLiveData;
+    }
+
+    public LiveData<APIResponse> destroyOptCuttingOrderResponse(String auth, int id) {
+        final MutableLiveData<APIResponse> mutableLiveData = new MutableLiveData<>();
+        FAPI.service().destroyOptCuttingOrder(auth, id).enqueue(new APICallback<APIResponse>(mContext) {
+            @Override
+            protected void onSuccess(APIResponse apiResponse) {
+                mutableLiveData.setValue(apiResponse);
+            }
+
+            @Override
+            protected void onError(BadRequest error) {
+                ((Activity)mContext).runOnUiThread(new Runnable() {
+                    public void run() {
+                        Extension.dismissLoading();
+                    }
+                });
+                AlertDialog alertDialog = new AlertDialog.Builder(mContext).create();
+                alertDialog.setTitle(mContext.getString(R.string.sorry));
+                alertDialog.setMessage(error.errorDetails);
+                alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, mContext.getString(R.string.dialog_ok),
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+                alertDialog.show();
+            }
+        });
+        return mutableLiveData;
+    }
+
     public LiveData<APIResponse> createOptCuttingOrderResponseObj(String auth, CuttingOrderRecordDetail cuttingOrderRecordDetail) {
         final MutableLiveData<APIResponse> mutableLiveData = new MutableLiveData<>();
         FAPI.service().createOptCuttingOrderObj(auth, cuttingOrderRecordDetail).enqueue(new APICallback<APIResponse>(mContext) {
@@ -87,26 +147,26 @@ public class CuttingRepository {
 
     public LiveData<APIResponse> getCuttingOrderResponse(String auth) {
         final MutableLiveData<APIResponse> mutableLiveData = new MutableLiveData<>();
-        FAPI.service().getCuttingOrder(auth).enqueue(new APICallback<APIResponse>(mContext) {
-            @Override
-            protected void onSuccess(APIResponse apiResponse) {
-                mutableLiveData.setValue(apiResponse);
-            }
-
-            @Override
-            protected void onError(BadRequest error) {
-                AlertDialog alertDialog = new AlertDialog.Builder(mContext).create();
-                alertDialog.setTitle(mContext.getString(R.string.sorry));
-                alertDialog.setMessage(error.errorDetails);
-                alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, mContext.getString(R.string.dialog_ok),
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        });
-                alertDialog.show();
-            }
-        });
+//        FAPI.service().getCuttingOrder(auth).enqueue(new APICallback<APIResponse>(mContext) {
+//            @Override
+//            protected void onSuccess(APIResponse apiResponse) {
+//                mutableLiveData.setValue(apiResponse);
+//            }
+//
+//            @Override
+//            protected void onError(BadRequest error) {
+//                AlertDialog alertDialog = new AlertDialog.Builder(mContext).create();
+//                alertDialog.setTitle(mContext.getString(R.string.sorry));
+//                alertDialog.setMessage(error.errorDetails);
+//                alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, mContext.getString(R.string.dialog_ok),
+//                        new DialogInterface.OnClickListener() {
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                dialog.dismiss();
+//                            }
+//                        });
+//                alertDialog.show();
+//            }
+//        });
         return mutableLiveData;
     }
 
@@ -225,12 +285,61 @@ public class CuttingRepository {
         return mutableLiveData;
     }
 
-    public LiveData<APIResponse> getCuttingTicketDetailResponse(String auth, int id) {
+    public LiveData<APIResponse> getCuttingTicketDetailResponse(String auth, String serialNumber) {
         final MutableLiveData<APIResponse> mutableLiveData = new MutableLiveData<>();
-        FAPI.service().getCuttingTicketDetail(auth, id).enqueue(new APICallback<APIResponse>(mContext) {
+        FAPI.service().getCuttingTicketDetail(auth, serialNumber).enqueue(new APICallback<APIResponse>(mContext) {
             @Override
             protected void onSuccess(APIResponse apiResponse) {
                 mutableLiveData.setValue(apiResponse);
+            }
+
+            @Override
+            protected void onError(BadRequest error) {
+
+            }
+        });
+        return mutableLiveData;
+    }
+
+    public LiveData<APIResponse> getBundleStatusResponse(String auth) {
+        final MutableLiveData<APIResponse> mutableLiveData = new MutableLiveData<>();
+        FAPI.service().getBundleStatus(auth).enqueue(new APICallback<APIResponse>(mContext) {
+            @Override
+            protected void onSuccess(APIResponse apiResponse) {
+                mutableLiveData.setValue(apiResponse);
+            }
+
+            @Override
+            protected void onError(BadRequest error) {
+
+            }
+        });
+        return mutableLiveData;
+    }
+
+    public LiveData<APIResponse> bundleTransferResponse(String auth, String serialNumber, String transactionType, int location) {
+        final MutableLiveData<APIResponse> mutableLiveData = new MutableLiveData<>();
+        FAPI.service().bundleTransfer(auth, serialNumber, transactionType, location).enqueue(new APICallback<APIResponse>(mContext) {
+            @Override
+            protected void onSuccess(APIResponse apiResponse) {
+                mutableLiveData.setValue(apiResponse);
+            }
+
+            @Override
+            protected void onError(BadRequest error) {
+
+            }
+        });
+        return mutableLiveData;
+    }
+
+    public LiveData<APIResponse> bundleTransferMultipleResponse(String auth, String[] serialNumber, String transactionType, int location) {
+        final MutableLiveData<APIResponse> mutableLiveData = new MutableLiveData<>();
+        FAPI.service().bundleTransferMultiple(auth, serialNumber, transactionType, location).enqueue(new APICallback<APIResponse>(mContext) {
+            @Override
+            protected void onSuccess(APIResponse apiResponse) {
+                mutableLiveData.setValue(apiResponse);
+
             }
 
             @Override

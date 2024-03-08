@@ -17,6 +17,8 @@ public class CuttingOrderRecord implements Parcelable {
     private LayingPlanningDetail layingPlanningDetail;
     @SerializedName("status_layer")
     private StatusLayer statusLayer;
+    @SerializedName("status_cut")
+    private StatusLayer statusCut;
 
     public StatusLayer getStatusLayer() {
         return statusLayer;
@@ -24,6 +26,14 @@ public class CuttingOrderRecord implements Parcelable {
 
     public void setStatusLayer(StatusLayer statusLayer) {
         this.statusLayer = statusLayer;
+    }
+
+    public StatusLayer getStatusCut() {
+        return statusCut;
+    }
+
+    public void setStatusCut(StatusLayer statusCut) {
+        this.statusCut = statusCut;
     }
 
     public LayingPlanningDetail getLayingPlanningDetail() {

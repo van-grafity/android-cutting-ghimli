@@ -5,6 +5,8 @@ import android.content.Context;
 import android.os.CountDownTimer;
 import android.util.Log;
 
+import com.app.ivans.ghimli.utils.InternetUtil;
+
 import br.com.kots.mob.complex.preferences.ComplexPreferences;
 import io.github.inflationx.calligraphy3.CalligraphyConfig;
 import io.github.inflationx.calligraphy3.CalligraphyInterceptor;
@@ -19,11 +21,11 @@ public class App extends Application {
         ViewPump.init(ViewPump.builder()
                 .addInterceptor(new CalligraphyInterceptor(
                         new CalligraphyConfig.Builder()
-                                .setDefaultFontPath("fonts/Lato-Regular.ttf")
+                                .setDefaultFontPath("fonts/Lato-Medium.ttf")
                                 .setFontAttrId(R.attr.fontPath)
                                 .build()))
                 .build());
-//        InternetUtil.getInstance(this);
+        InternetUtil.init(this);
     }
 
 

@@ -4,17 +4,26 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Handler;
+import android.os.Vibrator;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.LayoutRes;
 import androidx.core.content.ContextCompat;
 
 import com.app.ivans.ghimli.R;
@@ -41,7 +50,15 @@ public class Extension {
     public static final String KEYWORD = "keyword";
     public static final String HISTORY_DATA = "history_data";
 
+    public static double TARGET_LAT = 1.10776;
+    public static double TARGET_LONG = 104.07167;
+    public static String ZOOM_LEVEL = "21";
+    public static boolean isWifiAlertEnabled = true;
+
     public static final String CUTTING_ORDER_RECORD = "cutting_order_record";
+    public static final String CO = "cutting_order";
+    public static final String CUTTING_QR = "cutting_ticket";
+    public static final String CUTTING_CODE = "cutting_code";
 
     public static void showLoading(final Activity context) {
         try {
@@ -432,5 +449,41 @@ public class Extension {
         } catch (Exception ex) {
             Log.e("ERROR", "LOAD IMAGE: " + ex);
         }
+    }
+
+    public static void vibrate(Context context) {
+        // Get instance of Vibrator from current Context and Vibrate for 400
+        // milliseconds
+        ((Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE))
+                .vibrate(100);
+    }
+
+    public static String getVersion(Context context) {
+        try {
+            PackageInfo pInfo = context.getPackageManager().getPackageInfo(
+                    context.getPackageName(), PackageManager.GET_META_DATA);
+            return String.valueOf(pInfo.versionCode) + "." + pInfo.versionName;
+
+        } catch (PackageManager.NameNotFoundException e) {
+            return "1.0.1";
+        }
+    }
+
+    public static void setCustomePositionView(@LayoutRes int resource, Activity context, ViewGroup root, int gravity) {
+        LayoutInflater inflater = context.getLayoutInflater();
+        View layout = inflater.inflate(resource, root);
+        final Toast toast = new Toast(context);
+        toast.setGravity(gravity, 0, 0);
+        toast.setView(layout);
+        toast.setDuration(Toast.LENGTH_LONG);
+        toast.show();
+
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                toast.cancel();
+            }
+        }, 5000);
     }
 }

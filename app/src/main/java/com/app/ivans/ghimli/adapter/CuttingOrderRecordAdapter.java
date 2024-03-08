@@ -79,7 +79,7 @@ public class CuttingOrderRecordAdapter extends RecyclerView.Adapter<CuttingOrder
             super(itemView);
             tvSerialNumber = itemView.findViewById(R.id.tvSerialNumber);
             viewContentSn = itemView.findViewById(R.id.viewContentSn);
-            viewProgress = itemView.findViewById(R.id.viewProgress);
+            viewProgress = itemView.findViewById(R.id.viewProgressLayer);
         }
     }
 }

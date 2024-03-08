@@ -7,6 +7,6 @@ dependencyResolutionManagement {
         jcenter() // Warning: this repository is going to shut down soon
     }
 }
-rootProject.name = "Ghim Li"
+rootProject.name = "Cutting GLA"
 include ':app'
 include ':complexPreferencesLib'

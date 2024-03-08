@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.fragment.BundleFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/ivLogo"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/page_default_height_img"
+            android:scaleType="centerCrop"
+            android:src="@drawable/icon_piece" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/page_default_height_img"
+            android:src="@drawable/grad" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_below="@+id/ivLogo"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/default_dp"
+                android:layout_marginVertical="@dimen/low_dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvTitleCutting"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/default_dp"
+                    android:layout_weight="1"
+                    android:text="@string/waiting_for_bundle"
+                    android:textAppearance="@style/TextAppearance.Bold18"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvViewAllCuttingOrder"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="View All"
+                    android:textAlignment="textEnd"
+                    android:textAppearance="@style/TextAppearance.Light14"
+                    android:textColor="@android:color/holo_blue_bright"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvCutPiece"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+    </RelativeLayout>
+</FrameLayout>

@@ -9,12 +9,9 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Build;
 
 import com.app.ivans.ghimli.BuildConfig;
-import com.app.ivans.ghimli.HomeActivity;
-import com.app.ivans.ghimli.LoginActivity;
-import com.app.ivans.ghimli.R;
+import com.app.ivans.ghimli.ui.activity.LoginActivity;
 import com.app.ivans.ghimli.model.User;
 import com.app.ivans.ghimli.utils.DateDeserializer;
 import com.app.ivans.ghimli.utils.Extension;
@@ -50,7 +47,7 @@ public class API {
 
         Retrofit retrofit = new Retrofit.Builder()
                 .client(okHttpClient)
-                .baseUrl(BuildConfig.ROOT_URL + "/api/")
+                .baseUrl(BuildConfig.ROOT_URL + "/cutting-app/public" + "/api/")
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
         return retrofit.create(APIService.class);
